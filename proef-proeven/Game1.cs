@@ -19,12 +19,25 @@ namespace proef_proeven
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private static Game1 instance;
+        public static Game1 Instance
+        {
+            get { return instance; }
+        }
+
+        public Rectangle ScreenRect
+        {
+            get { return new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);  }
+        }
+
         public Game1()
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
+            // pretty ugly.. 
+            instance = this;
             Window.Title = "Proef proeven";
         }
 

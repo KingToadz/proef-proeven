@@ -38,6 +38,11 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screens\BaseScreen.cs" />
+    <Compile Include="Screens\LoadingScreen.cs" />
+    <Compile Include="Screens\ScreenManager.cs" />
+    <Compile Include="Transitions\BaseTransition.cs" />
+    <Compile Include="Transitions\TransitionFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
