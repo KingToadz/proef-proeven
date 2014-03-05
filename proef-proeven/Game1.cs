@@ -24,6 +24,8 @@ namespace proef_proeven
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            Window.Title = "Proef proeven";
         }
 
         /// <summary>
