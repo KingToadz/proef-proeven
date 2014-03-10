@@ -123,8 +123,6 @@ namespace proef_proeven
 
             ScreenManager.Instance.Draw(spriteBatch);
 
-            fontRenderer.DrawText(spriteBatch, 50, 50, "Hello World!");
-
             spriteBatch.End();
 
             base.Draw(gameTime);

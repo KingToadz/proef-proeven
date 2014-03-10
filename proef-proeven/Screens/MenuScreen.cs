@@ -13,44 +13,55 @@ namespace proef_proeven.Screens
     {
         Texture2D bg;
 
-        Button test;
+        Button start;
+        Button help;
 
         public MenuScreen()
         {
-            test = new Button();
+            start = new Button();
+            help = new Button();
         }
 
         public override void LoadContent(ContentManager content)
         {
             bg = content.Load<Texture2D>("menu");
-            test.LoadImage("button");
-            test.OnClick += button_OnClick;
-            test.Position = new Vector2(100, 100);
+            start.LoadImage(@"buttons\start");
+            start.OnClick += button_OnClick;
+            start.Position = Game1.Instance.ScreenCenter;
+            start.Position -= new Vector2(start.Hitbox.Width / 2, 200);
 
-            System.Threading.Thread.Sleep(3000);
+            help.LoadImage(@"buttons\help");
+            help.OnClick += button_OnClick;
+            help.Position = start.Position + new Vector2(0, 100);
 
             base.LoadContent(content);
         }
 
         void button_OnClick(object sender)
         {
-            if(sender == test)
+            if (sender == start)
             {
                 // MSG
                 Console.WriteLine("Test clicked");
+            }
+            else if(sender == help)
+            {
+                Console.WriteLine("Help clicked");
             }
         }
 
         public override void Update(GameTime dt)
         {
-            test.Update(dt);
+            start.Update(dt);
+            help.Update(dt);
             base.Update(dt);
         }
 
         public override void Draw(SpriteBatch batch)
         {
-            batch.Draw(bg, Vector2.Zero, Color.White);
-            test.Draw(batch);
+            //batch.Draw(bg, Vector2.Zero, Color.White);
+            start.Draw(batch);
+            help.Draw(batch);
 
             base.Draw(batch);
         }
