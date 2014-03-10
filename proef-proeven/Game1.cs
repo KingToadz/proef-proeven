@@ -33,8 +33,12 @@ namespace proef_proeven
             get { return new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);  }
         }
 
+        public Vector2 ScreenCenter
+        {
+            get { return new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2); }
+        }
+
         public FontRenderer fontRenderer;
-        
 
         public Game1()
             : base()
@@ -69,13 +73,12 @@ namespace proef_proeven
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            /* from tutorial */
-            var fontFilePath = Path.Combine(Content.RootDirectory, @"fonts\test.fnt");
+            /* 1 game 1 font */
+            var fontFilePath = Path.Combine(Content.RootDirectory, @"fonts\segoe32.fnt");
             var fontFile = FontLoader.Load(fontFilePath);
-            var fontTexture = Content.Load<Texture2D>(@"fonts\test_0.png");
+            var fontTexture = Content.Load<Texture2D>(@"fonts\segoe32_0.png");
 
             fontRenderer = new FontRenderer(fontFile, fontTexture);
-            /* end tutorial */
 
             LoadingScreen loading = new LoadingScreen(Content);
             ScreenManager.Instance.SetLoadingScreen(loading);

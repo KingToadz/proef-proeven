@@ -27,6 +27,8 @@ namespace proef_proeven.Screens
             test.OnClick += button_OnClick;
             test.Position = new Vector2(100, 100);
 
+            System.Threading.Thread.Sleep(3000);
+
             base.LoadContent(content);
         }
 
