@@ -50,8 +50,9 @@ namespace proef_proeven
         /// </summary>
         protected override void Initialize()
         {
+#if !DEBUG
             IsMouseVisible = false;
-
+#endif
             base.Initialize();
         }
 
