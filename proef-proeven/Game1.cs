@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using proef_proeven.Screens;
+using proef_proeven.Components.Fonts;
+using System.IO;
 #endregion
 
 namespace proef_proeven
@@ -30,6 +32,9 @@ namespace proef_proeven
         {
             get { return new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);  }
         }
+
+        public FontRenderer fontRenderer;
+        
 
         public Game1()
             : base()
@@ -63,6 +68,14 @@ namespace proef_proeven
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            /* from tutorial */
+            var fontFilePath = Path.Combine(Content.RootDirectory, @"fonts\test.fnt");
+            var fontFile = FontLoader.Load(fontFilePath);
+            var fontTexture = Content.Load<Texture2D>(@"fonts\test_0.png");
+
+            fontRenderer = new FontRenderer(fontFile, fontTexture);
+            /* end tutorial */
 
             LoadingScreen loading = new LoadingScreen(Content);
             ScreenManager.Instance.SetLoadingScreen(loading);
@@ -106,6 +119,8 @@ namespace proef_proeven
             spriteBatch.Begin();
 
             ScreenManager.Instance.Draw(spriteBatch);
+
+            fontRenderer.DrawText(spriteBatch, 50, 50, "Hello World!");
 
             spriteBatch.End();
 
