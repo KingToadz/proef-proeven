@@ -50,7 +50,8 @@ namespace proef_proeven
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            IsMouseVisible = false;
+
             base.Initialize();
         }
 
@@ -60,12 +61,13 @@ namespace proef_proeven
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             LoadingScreen loading = new LoadingScreen(Content);
             ScreenManager.Instance.SetLoadingScreen(loading);
-            // TODO: use this.Content to load your game content here
+
+
+            ScreenManager.Instance.SetScreen(new MenuScreen());
         }
 
         /// <summary>

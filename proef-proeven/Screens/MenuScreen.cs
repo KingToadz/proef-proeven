@@ -10,6 +10,8 @@ namespace proef_proeven.Screens
 {
     class MenuScreen : BaseScreen
     {
+        Texture2D bg;
+
         public MenuScreen()
         {
 
@@ -17,6 +19,8 @@ namespace proef_proeven.Screens
 
         public override void LoadContent(ContentManager content)
         {
+            bg = content.Load<Texture2D>("menu");
+
             base.LoadContent(content);
         }
 
@@ -27,6 +31,8 @@ namespace proef_proeven.Screens
 
         public override void Draw(SpriteBatch batch)
         {
+            batch.Draw(bg, Vector2.Zero, Color.White);
+
             base.Draw(batch);
         }
     }

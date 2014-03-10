@@ -15,12 +15,15 @@ namespace proef_proeven.Screens
         public LoadingScreen(ContentManager content)
         {
             // Load some stuff
+            background = Game1.Instance.Content.Load<Texture2D>("mouse");
+
             isContentLoaded = true;
         }
 
         public override void Draw(SpriteBatch batch)
         {
-            batch.Draw(background, Game1.Instance.ScreenRect, Color.White);
+            if(background != null)
+                batch.Draw(background, Game1.Instance.ScreenRect, Color.White);
 
             base.Draw(batch);
         }

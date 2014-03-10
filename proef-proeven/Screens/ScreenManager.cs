@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,10 +32,12 @@ namespace proef_proeven.Screens
 
         List<BaseScreen> screenStack;
         LoadingScreen loadingScreen;
+        Texture2D mouseTex;
 
         private ScreenManager()
         {
             screenStack = new List<BaseScreen>();
+            mouseTex = Game1.Instance.Content.Load<Texture2D>("mouse");
         }
 
         public void SetLoadingScreen(LoadingScreen loadingScreen)
@@ -46,10 +49,13 @@ namespace proef_proeven.Screens
         {
             screenStack.Add(screen);
 
-            Task.Factory.StartNew(() =>
+            if (!screen.isContentLoaded)
             {
-                screen.LoadContent(Game1.Instance.Content);
-            });
+                Task.Factory.StartNew(() =>
+                {
+                    screen.LoadContent(Game1.Instance.Content);
+                });
+            }
         }
 
         public void PopScreen()
@@ -84,6 +90,8 @@ namespace proef_proeven.Screens
             if (screenStack[lastScreenIndex].isContentLoaded)
             {
                 screenStack[lastScreenIndex].Draw(batch);
+
+                batch.Draw(mouseTex, new Vector2(Mouse.GetState().X - mouseTex.Width / 2, Mouse.GetState().Y - mouseTex.Height / 2), Color.White);
             }
             else
             {
