@@ -55,9 +55,13 @@ namespace proef_proeven.Components.Animations
                 if (currentFrame >= frames.Count)
                 {
                     if (loop)
+                    {
                         currentFrame = 0;
+                    }
                     else
+                    {
                         isDone = true;
+                    }
                 }
             }
         }
