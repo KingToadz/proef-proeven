@@ -72,6 +72,9 @@
       <Link>SDL.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\animtest.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\buttons\button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -48,7 +48,6 @@ namespace proef_proeven
 
             // pretty ugly.. 
             instance = this;
-            Window.Title = "Guardian of the Casuals";
         }
 
         /// <summary>
@@ -66,6 +65,8 @@ namespace proef_proeven
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
             graphics.ApplyChanges();
+
+            Window.Title = "Guardian of the Casuals";
 
             base.Initialize();
         }
