@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using proef_proeven.Components;
 using proef_proeven.Transitions;
 using System;
 using System.Collections.Generic;
@@ -119,7 +120,9 @@ namespace proef_proeven.Screens
 
                 screenStack[lastScreenIndex].Draw(batch);
 
-                batch.Draw(mouseTex, new Vector2(Mouse.GetState().X - mouseTex.Width / 2, Mouse.GetState().Y - mouseTex.Height / 2), Color.White);
+                Vector2 mousePos = InputHelper.Instance.MousePos();
+
+                batch.Draw(mouseTex, new Vector2(mousePos.X - mouseTex.Width / 2, mousePos.Y - mouseTex.Height / 2), Color.White);
 
                 if(state == State.Transitioning)
                 {
