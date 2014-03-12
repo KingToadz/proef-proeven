@@ -39,6 +39,7 @@
     <Compile Include="Components\Button.cs" />
     <Compile Include="Components\Fonts\FontProcessor.cs" />
     <Compile Include="Components\Fonts\FontRenderer.cs" />
+    <Compile Include="Components\Game\ClickAbleObject.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
