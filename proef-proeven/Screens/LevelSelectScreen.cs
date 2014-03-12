@@ -21,6 +21,23 @@ namespace proef_proeven.Screens
         public override void LoadContent(ContentManager content)
         {
             // load preview buttons
+            int id = 1;
+            for (int row = 0; row < 2; row++ )
+            {
+                for (int col = 0; col < 4; col++)
+                {
+                    Button btn = new Button();
+                    btn.LoadImage(@"quickview\level-tile");
+                    btn.OnClick += onClick;
+                    btn.Position = new Vector2(col * (btn.Hitbox.Width + 25), row * (btn.Hitbox.Height + 25));
+
+                    // Should first assign Tag to id and then add one to it
+                    btn.Tag = id++;
+
+                    lvlButtons.Add(btn);
+                }
+            }
+
             base.LoadContent(content);
         }
 
@@ -30,7 +47,8 @@ namespace proef_proeven.Screens
             {
                 Button btn = sender as Button;
 
-                // goto gamescreen with the level id
+                if(btn.Tag is int)
+                    ScreenManager.Instance.SetScreen(new GameScreen((int)btn.Tag));
             }
         }
 
@@ -49,6 +67,7 @@ namespace proef_proeven.Screens
             foreach (Button b in lvlButtons)
             {
                 b.Draw(batch);
+                Game1.Instance.fontRenderer.DrawText(batch, b.Position, b.Tag.ToString());
             }
 
             base.Draw(batch);

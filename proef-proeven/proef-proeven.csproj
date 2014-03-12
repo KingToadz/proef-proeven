@@ -49,6 +49,8 @@
     <Compile Include="Screens\MenuScreen.cs" />
     <Compile Include="Screens\ScreenManager.cs" />
     <Compile Include="Transitions\BaseTransition.cs" />
+    <Compile Include="Transitions\FadeInTransition.cs" />
+    <Compile Include="Transitions\FadeOutTransition.cs" />
     <Compile Include="Transitions\TransitionFactory.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -93,13 +95,18 @@
     <Content Include="Content\buttons\start.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\quickview\level-tile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Content\fonts\segoe32.fnt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

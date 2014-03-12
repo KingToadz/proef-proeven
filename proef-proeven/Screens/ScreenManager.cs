@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using proef_proeven.Transitions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,15 @@ namespace proef_proeven.Screens
 {
     class ScreenManager
     {
+        enum State
+        {
+            Running,
+            Loading,
+            Transitioning
+        }
+
+        private State state;
+
         private static ScreenManager instance;
         public static ScreenManager Instance
         {
@@ -34,10 +44,14 @@ namespace proef_proeven.Screens
         LoadingScreen loadingScreen;
         Texture2D mouseTex;
 
+        BaseTransition transition;
+
         private ScreenManager()
         {
             screenStack = new List<BaseScreen>();
             mouseTex = Game1.Instance.Content.Load<Texture2D>("mouse");
+
+            transition = new FadeInTransition();
         }
 
         public void SetLoadingScreen(LoadingScreen loadingScreen)
@@ -53,7 +67,11 @@ namespace proef_proeven.Screens
             {
                 Task.Factory.StartNew(() =>
                 {
+                    this.state = State.Loading;
                     screen.LoadContent(Game1.Instance.Content);
+                    this.transition.Reset();
+                    this.transition.Start();
+                    this.state = State.Transitioning;
                 });
             }
         }
@@ -71,9 +89,18 @@ namespace proef_proeven.Screens
                 return; 
             }
 
-            if(screenStack[lastScreenIndex].isContentLoaded)
+            if(screenStack[lastScreenIndex].isContentLoaded && state == State.Running)
             {
                 screenStack[lastScreenIndex].Update(dt);
+            }
+            else if(state == State.Transitioning)
+            {
+                transition.Update(dt);
+
+                if (transition.Done)
+                {
+                    state = State.Running;
+                }
             }
         }
 
@@ -89,9 +116,15 @@ namespace proef_proeven.Screens
             // TODO: Add popup screen support
             if (screenStack[lastScreenIndex].isContentLoaded)
             {
+
                 screenStack[lastScreenIndex].Draw(batch);
 
                 batch.Draw(mouseTex, new Vector2(Mouse.GetState().X - mouseTex.Width / 2, Mouse.GetState().Y - mouseTex.Height / 2), Color.White);
+
+                if(state == State.Transitioning)
+                {
+                    transition.Draw(batch);
+                }
             }
             else
             {

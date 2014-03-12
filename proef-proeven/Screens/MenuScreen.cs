@@ -17,8 +17,6 @@ namespace proef_proeven.Screens
         Button start;
         Button help;
 
-        Animation testAnim;
-
         public MenuScreen()
         {
             start = new Button();
@@ -37,9 +35,6 @@ namespace proef_proeven.Screens
             help.OnClick += button_OnClick;
             help.Position = start.Position + new Vector2(0, 100);
 
-            Texture2D sheet = content.Load<Texture2D>("animtest");
-            testAnim = new Animation(sheet, 32, 32, 3, 4);
-
             base.LoadContent(content);
         }
 
@@ -49,6 +44,8 @@ namespace proef_proeven.Screens
             {
                 // MSG
                 Console.WriteLine("Test clicked");
+
+                ScreenManager.Instance.SetScreen(new LevelSelectScreen());
             }
             else if(sender == help)
             {
@@ -61,17 +58,13 @@ namespace proef_proeven.Screens
             start.Update(dt);
             help.Update(dt);
 
-            testAnim.Update(dt);
             base.Update(dt);
         }
 
         public override void Draw(SpriteBatch batch)
         {
-            //batch.Draw(bg, Vector2.Zero, Color.White);
             start.Draw(batch);
             help.Draw(batch);
-
-            testAnim.Draw(batch, new Vector2(100, 100));
 
             base.Draw(batch);
         }

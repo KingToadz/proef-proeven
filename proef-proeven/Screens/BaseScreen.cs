@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using proef_proeven.Transitions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace proef_proeven.Screens
 {
     class BaseScreen
     {
+
+
         /// <summary>
         /// bool to check if the content was loaded
         /// if isConentLoaded is true the Update and Draw will be called
