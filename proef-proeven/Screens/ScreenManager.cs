@@ -69,7 +69,7 @@ namespace proef_proeven.Screens
                 {
                     this.state = State.Loading;
                     screen.LoadContent(Game1.Instance.Content);
-                    this.transition.Reset();
+                    this.transition = TransitionFactory.GetTransition(screen.transitionKind);
                     this.transition.Start();
                     this.state = State.Transitioning;
                 });

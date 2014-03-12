@@ -29,16 +29,23 @@ namespace proef_proeven.Screens
         /// </summary>
         public bool isFullscreen { get; protected set; }
 
-        public BaseScreen()
+        /// <summary>
+        /// The kind of transition this screen will have
+        /// </summary>
+        public TransitionKind transitionKind { get; protected set; }
+
+        public BaseScreen(TransitionKind transitionKind = TransitionKind.FadeOut)
         {
             this.position = Vector2.Zero;
-            isFullscreen = true;
+            this.isFullscreen = true;
+            this.transitionKind = transitionKind;
         }
 
-        public BaseScreen(Vector2 position)
+        public BaseScreen(Vector2 position, TransitionKind transitionKind)
         {
             this.position = position;
-            isFullscreen = false;
+            this.isFullscreen = false;
+            this.transitionKind = transitionKind;
         }
 
         /// <summary>
