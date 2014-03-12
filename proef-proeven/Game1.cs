@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using proef_proeven.Screens;
 using proef_proeven.Components.Fonts;
 using System.IO;
+using proef_proeven.Components;
 #endregion
 
 namespace proef_proeven
@@ -111,7 +112,8 @@ namespace proef_proeven
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            // Always update the mouse before the screen
+            InputHelper.Instance.Update();
             ScreenManager.Instance.Update(gameTime);
 
             base.Update(gameTime);
