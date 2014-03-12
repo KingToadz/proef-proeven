@@ -34,7 +34,7 @@ namespace proef_proeven.Screens
         /// </summary>
         public TransitionKind transitionKind { get; protected set; }
 
-        public BaseScreen(TransitionKind transitionKind = TransitionKind.FadeOut)
+        public BaseScreen(TransitionKind transitionKind = TransitionKind.FadeIn)
         {
             this.position = Vector2.Zero;
             this.isFullscreen = true;
