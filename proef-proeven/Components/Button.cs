@@ -43,7 +43,6 @@ namespace proef_proeven.Components
         public object Tag;
         
         protected Texture2D image;
-        protected MouseState ms, lms;
 
         /// <summary>
         /// Load an new image 
@@ -63,18 +62,14 @@ namespace proef_proeven.Components
         /// <param name="dt"></param>
         public void Update(GameTime dt)
         {
-            ms = Mouse.GetState();
-
-            Vector2 mousePos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+            Vector2 mousePos = InputHelper.Instance.MousePos();
 
             // Mouse last frame pressed this frame released
-            if(hitbox.Contains((int)mousePos.X, (int)mousePos.Y) && ms.LeftButton == ButtonState.Released && lms.LeftButton == ButtonState.Pressed)
+            if(hitbox.Contains((int)mousePos.X, (int)mousePos.Y) && InputHelper.Instance.IsLeftMouseReleased())
             {
                 if (OnClick != null)
                     OnClick(this);
             }
-
-            lms = ms;
         }
 
         /// <summary>
