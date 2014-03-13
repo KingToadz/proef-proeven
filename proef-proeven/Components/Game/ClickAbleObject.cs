@@ -64,22 +64,11 @@ namespace proef_proeven.Components.Game
         }
 
         public delegate void OnClick(object sender);
-        private OnClick onClickCall;
+        public event OnClick onClick;
 
         public ClickAbleObject()
         {
             hitbox = new Rectangle();
-        }
-
-        /// <summary>
-        /// Set the function to call if the button is pressed.
-        /// Using a delegate instead of an event because an event can have some delay.
-        /// TODO: test if this hasn't any delay
-        /// </summary>
-        /// <param name="clickFunc"></param>
-        public void setOnClickDelegate(OnClick clickFunc)
-        {
-            onClickCall = clickFunc;
         }
 
         /// <summary>
@@ -93,8 +82,8 @@ namespace proef_proeven.Components.Game
 
             if(hitbox.Contains((int)mousePos.X, (int)mousePos.Y) && InputHelper.Instance.IsLeftMouseReleased())
             {
-                if (onClickCall != null)
-                    onClickCall(this);
+                if (onClick != null)
+                    onClick(this);
             }
         }
 
