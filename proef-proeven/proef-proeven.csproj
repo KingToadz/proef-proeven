@@ -40,6 +40,8 @@
     <Compile Include="Components\Fonts\FontProcessor.cs" />
     <Compile Include="Components\Fonts\FontRenderer.cs" />
     <Compile Include="Components\Game\ClickAbleObject.cs" />
+    <Compile Include="Components\Game\Grid.cs" />
+    <Compile Include="Components\Game\Tile.cs" />
     <Compile Include="Components\InputHelper.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
@@ -99,6 +101,9 @@
     </Content>
     <Content Include="Content\quickview\level-tile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\tiles.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>

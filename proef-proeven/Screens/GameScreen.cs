@@ -11,7 +11,7 @@ namespace proef_proeven.Screens
 {
     class GameScreen : BaseScreen
     {
-        ClickAbleObject test;
+        Grid grid;
 
         /// <summary>
         /// ctor
@@ -24,13 +24,24 @@ namespace proef_proeven.Screens
 
         public override void LoadContent(ContentManager content)
         {
-            Texture2D img = content.Load<Texture2D>("animtest");
-            test = new ClickAbleObject();
-            test.Image = img;
-            test.Position = new Vector2(100, 100);
-            test.setOnClickDelegate(new ClickAbleObject.OnClick(OnClickHandler));
+            Texture2D tileSheet = content.Load<Texture2D>("tiles");
+            grid = new Grid();
 
-            base.LoadContent(content);
+            int tileWidth = 16;
+            int tileHeight = 16;
+            int cols = 30;
+            int rows = 16;
+
+            for (int row = 0; row < rows; row++)
+            {
+                for (int col = 0; col < cols; col++)
+                {
+                    grid.AddTile(new Tile(tileSheet, new Vector2(col * 32, row * 32), new Rectangle(col * 16, row * 16, 16, 16)), row, col);
+                }
+            }
+
+
+           base.LoadContent(content);
         }
 
         public void OnClickHandler(object sender)
@@ -40,16 +51,14 @@ namespace proef_proeven.Screens
 
         public override void Update(GameTime dt)
         {
-            test.Update(dt);
-
             base.Update(dt);
         }
 
         public override void Draw(SpriteBatch batch)
         {
-            Game1.Instance.fontRenderer.DrawText(batch, new Vector2(300, 200), "Game Screen!", Color.ForestGreen);
+            grid.Draw(batch);
 
-            test.Draw(batch);
+            Game1.Instance.fontRenderer.DrawText(batch, new Vector2(300, 200), "Game Screen!", Color.ForestGreen);
 
             base.Draw(batch);
         }
