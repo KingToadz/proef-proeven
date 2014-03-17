@@ -10,7 +10,7 @@ using System.Text;
 
 namespace proef_proeven.Components.Game
 {
-    class Player : IUpdateAble, IDrawAble
+    class Player : IUpdateAble, IDrawAble, ICollidable
     {
         public enum Movement {Left, Right, Up, Down, Idle, Dead }
 
@@ -61,6 +61,38 @@ namespace proef_proeven.Components.Game
         public void Draw(SpriteBatch batch)
         {
             animations[currentMovement].Draw(batch, position);
+        }
+
+
+        public void Collide(ICollidable collider)
+        {
+            
+        }
+
+        private Rectangle boundingbox;
+        public Rectangle Boundingbox
+        {
+            get
+            {
+                return boundingbox;
+            }
+            private set
+            {
+                boundingbox = value;
+            }
+        }
+
+        private Vector2 delta;
+        public Vector2 Delta
+        {
+            get
+            {
+                return delta;
+            }
+            private set
+            {
+                delta = value;
+            }
         }
     }
 }

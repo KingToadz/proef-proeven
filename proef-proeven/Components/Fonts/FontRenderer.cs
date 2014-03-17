@@ -88,7 +88,7 @@ namespace proef_proeven.Components.Fonts
         }
 
         /// <summary>
-        /// Only returns the width for now
+        /// Only returns the width and height of the first line
         /// Still need to implement new lines
         /// </summary>
         /// <param name="text">The text to messure</param>

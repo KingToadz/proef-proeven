@@ -37,6 +37,10 @@ namespace proef_proeven.Screens
 
         public override void LoadContent(ContentManager content)
         {
+            objectives.Add("Objective 1", false);
+            objectives.Add("Objective 2", false);
+            objectives.Add("Test Objective", true);
+
             Texture2D tileSheet = content.Load<Texture2D>("tiles");
             grid = new Grid();
 
@@ -67,28 +71,30 @@ namespace proef_proeven.Screens
 
         public override void Update(GameTime dt)
         {
-            if(InputHelper.Instance.IsKeyDown(Keys.Left))
-            {
-                player.ChangeMovement(Player.Movement.Left);
-            }
-            else if (InputHelper.Instance.IsKeyDown(Keys.Right))
-            {
-                player.ChangeMovement(Player.Movement.Right);
-            }
-            else if (InputHelper.Instance.IsKeyDown(Keys.Up))
-            {
-                player.ChangeMovement(Player.Movement.Up);
-            }
-            else if (InputHelper.Instance.IsKeyDown(Keys.Down))
-            {
-                player.ChangeMovement(Player.Movement.Down);
-            }
-
             foreach(object o in GameObjects)
             {
                 if(o is IUpdateAble)
                 {
                     (o as IUpdateAble).Update(dt);
+                }
+            }
+
+            foreach (object o in GameObjects)
+            {
+                if (o is ICollidable)
+                {
+                    ICollidable collideable = o as ICollidable;
+
+                    if(collideable.Delta != Vector2.Zero)
+                    {
+                        foreach (object o2 in GameObjects)
+                        {
+                            if (o2 is ICollidable && o != o2)
+                            {
+                                collideable.Collide(o2 as ICollidable);
+                            }
+                        }
+                    }
                 }
             }
 
@@ -104,6 +110,15 @@ namespace proef_proeven.Screens
                 {
                     (o as IDrawAble).Draw(batch);
                 }
+            }
+
+            float yMargin = 0;
+            // Just use one letter to find the height and add some extra margin
+            float deltaMargin = Game1.Instance.fontRenderer.StringSize("H").Height + 5;
+            foreach (KeyValuePair<string, bool> objective in objectives)
+            {
+                Game1.Instance.fontRenderer.DrawText(batch, new Vector2(10, 10 + yMargin), objective.Key + ": " + objective.Value, Color.Black);
+                yMargin += deltaMargin;
             }
 
             Game1.Instance.fontRenderer.DrawText(batch, new Vector2(300, 200), "Game Screen!", Color.ForestGreen);
