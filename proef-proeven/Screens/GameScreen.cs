@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using proef_proeven.Components;
 using proef_proeven.Components.Game;
 using proef_proeven.Components.Game.Interfaces;
 using System;
@@ -13,8 +15,14 @@ namespace proef_proeven.Screens
     class GameScreen : BaseScreen
     {
         Grid grid;
+        Player player;
 
         List<object> GameObjects;
+
+        /// <summary>
+        /// Clickable objects will set an objective to true if it's clicked
+        /// </summary>
+        Dictionary<string, bool> objectives;
 
         /// <summary>
         /// ctor
@@ -23,6 +31,8 @@ namespace proef_proeven.Screens
         public GameScreen(int level)
         {
             GameObjects = new List<object>();
+            player = new Player();
+            objectives = new Dictionary<string, bool>();
         }
 
         public override void LoadContent(ContentManager content)
@@ -44,6 +54,9 @@ namespace proef_proeven.Screens
             }
             GameObjects.Add(grid);
 
+            player.LoadContent(content);
+            GameObjects.Add(player);
+
            base.LoadContent(content);
         }
 
@@ -54,6 +67,23 @@ namespace proef_proeven.Screens
 
         public override void Update(GameTime dt)
         {
+            if(InputHelper.Instance.IsKeyDown(Keys.Left))
+            {
+                player.ChangeMovement(Player.Movement.Left);
+            }
+            else if (InputHelper.Instance.IsKeyDown(Keys.Right))
+            {
+                player.ChangeMovement(Player.Movement.Right);
+            }
+            else if (InputHelper.Instance.IsKeyDown(Keys.Up))
+            {
+                player.ChangeMovement(Player.Movement.Up);
+            }
+            else if (InputHelper.Instance.IsKeyDown(Keys.Down))
+            {
+                player.ChangeMovement(Player.Movement.Down);
+            }
+
             foreach(object o in GameObjects)
             {
                 if(o is IUpdateAble)

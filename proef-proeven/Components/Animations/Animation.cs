@@ -100,5 +100,11 @@ namespace proef_proeven.Components.Animations
         {
             batch.Draw(spritesheet, position, frames[currentFrame], Color.White);
         }
+
+        public void Reset()
+        {
+            currentFrame = 0;
+            isDone = false;
+        }
     }
 }

@@ -63,6 +63,11 @@ namespace proef_proeven.Components.Game
             }
         }
 
+        /// <summary>
+        /// The objective of this clickable object
+        /// </summary>
+        public string Objective = "";
+
         public delegate void OnClick(object sender);
         public event OnClick onClick;
 
