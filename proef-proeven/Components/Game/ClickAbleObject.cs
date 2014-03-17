@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using proef_proeven.Components.Game.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace proef_proeven.Components.Game
 {
-    class ClickAbleObject
+    class ClickAbleObject : IUpdateAble, IDrawAble
     {
         private Rectangle hitbox;
         /// <summary>
@@ -64,9 +65,9 @@ namespace proef_proeven.Components.Game
         }
 
         /// <summary>
-        /// The objective of this clickable object
+        /// The objective id of this clickable object
         /// </summary>
-        public string Objective = "";
+        public int ObjectiveID = -1;
 
         public delegate void OnClick(object sender);
         public event OnClick onClick;

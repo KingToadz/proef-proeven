@@ -43,6 +43,7 @@
     <Compile Include="Components\Game\Interfaces\IDrawAble.cs" />
     <Compile Include="Components\Game\ClickAbleObject.cs" />
     <Compile Include="Components\Game\Grid.cs" />
+    <Compile Include="Components\Game\Objective.cs" />
     <Compile Include="Components\Game\Player.cs" />
     <Compile Include="Components\Game\Tile.cs" />
     <Compile Include="Components\Game\Interfaces\IUpdateAble.cs" />

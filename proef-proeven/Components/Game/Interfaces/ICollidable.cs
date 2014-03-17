@@ -11,13 +11,11 @@ namespace proef_proeven.Components.Game.Interfaces
         Rectangle Boundingbox
         {
             get;
-            set;
         }
 
         Vector2 Delta
         {
             get;
-            set;
         }
 
         /// <summary>

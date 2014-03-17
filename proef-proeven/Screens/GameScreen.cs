@@ -19,10 +19,12 @@ namespace proef_proeven.Screens
 
         List<object> GameObjects;
 
+        ClickAbleObject objective1;
+
         /// <summary>
         /// Clickable objects will set an objective to true if it's clicked
         /// </summary>
-        Dictionary<string, bool> objectives;
+        List<Objective> objectives;
 
         /// <summary>
         /// ctor
@@ -32,14 +34,14 @@ namespace proef_proeven.Screens
         {
             GameObjects = new List<object>();
             player = new Player();
-            objectives = new Dictionary<string, bool>();
+            objectives = new List<Objective>();
         }
 
         public override void LoadContent(ContentManager content)
         {
-            objectives.Add("Objective 1", false);
-            objectives.Add("Objective 2", false);
-            objectives.Add("Test Objective", true);
+            objectives.Add(new Objective("objective 1"));
+            objectives.Add(new Objective("Objective 2"));
+            objectives.Add(new Objective("Objective 3"));
 
             Texture2D tileSheet = content.Load<Texture2D>("tiles");
             grid = new Grid();
@@ -61,12 +63,31 @@ namespace proef_proeven.Screens
             player.LoadContent(content);
             GameObjects.Add(player);
 
+            objective1 = new ClickAbleObject();
+            objective1.Image = content.Load<Texture2D>(@"buttons\button");
+            objective1.onClick += OnClickHandler;
+            objective1.ObjectiveID = 1;
+            objective1.Position = new Vector2(500, 500);
+
+            GameObjects.Add(objective1);
+
            base.LoadContent(content);
         }
 
         public void OnClickHandler(object sender)
         {
-            Console.WriteLine("Fuck yeah iet works");
+            if(sender is ClickAbleObject)
+            {
+                ClickAbleObject s = sender as ClickAbleObject;
+
+                if(s.ObjectiveID >= 0 && s.ObjectiveID < objectives.Count)
+                    SetObjective(s.ObjectiveID, true);
+            }
+        }
+
+        public void SetObjective(int id, bool newState)
+        {
+            objectives[id].Done = newState;
         }
 
         public override void Update(GameTime dt)
@@ -112,16 +133,16 @@ namespace proef_proeven.Screens
                 }
             }
 
+#if DEBUG
             float yMargin = 0;
             // Just use one letter to find the height and add some extra margin
             float deltaMargin = Game1.Instance.fontRenderer.StringSize("H").Height + 5;
-            foreach (KeyValuePair<string, bool> objective in objectives)
+            foreach (Objective objective in objectives)
             {
-                Game1.Instance.fontRenderer.DrawText(batch, new Vector2(10, 10 + yMargin), objective.Key + ": " + objective.Value, Color.Black);
+                Game1.Instance.fontRenderer.DrawText(batch, new Vector2(10, 10 + yMargin), objective.Name + ": " + objective.Done, Color.Black);
                 yMargin += deltaMargin;
             }
-
-            Game1.Instance.fontRenderer.DrawText(batch, new Vector2(300, 200), "Game Screen!", Color.ForestGreen);
+#endif
 
             base.Draw(batch);
         }

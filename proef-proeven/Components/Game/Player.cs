@@ -29,6 +29,30 @@ namespace proef_proeven.Components.Game
             }
         }
 
+        /// <summary>
+        /// boundingbox for the ICollidable interface
+        /// </summary>
+        private Rectangle boundingbox;
+        public Rectangle Boundingbox
+        {
+            get
+            {
+                return boundingbox;
+            }
+        }
+
+        /// <summary>
+        /// Delta vector for the ICollidable interface
+        /// </summary>
+        private Vector2 delta;
+        public Vector2 Delta
+        {
+            get
+            {
+                return delta;
+            }
+        }
+
         public void LoadContent(ContentManager content)
         {
             currentMovement = Movement.Idle;
@@ -67,32 +91,6 @@ namespace proef_proeven.Components.Game
         public void Collide(ICollidable collider)
         {
             
-        }
-
-        private Rectangle boundingbox;
-        public Rectangle Boundingbox
-        {
-            get
-            {
-                return boundingbox;
-            }
-            private set
-            {
-                boundingbox = value;
-            }
-        }
-
-        private Vector2 delta;
-        public Vector2 Delta
-        {
-            get
-            {
-                return delta;
-            }
-            private set
-            {
-                delta = value;
-            }
         }
     }
 }
