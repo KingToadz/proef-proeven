@@ -39,9 +39,12 @@
     <Compile Include="Components\Button.cs" />
     <Compile Include="Components\Fonts\FontProcessor.cs" />
     <Compile Include="Components\Fonts\FontRenderer.cs" />
+    <Compile Include="Components\Game\Interfaces\IDrawAble.cs" />
     <Compile Include="Components\Game\ClickAbleObject.cs" />
     <Compile Include="Components\Game\Grid.cs" />
+    <Compile Include="Components\Game\Player.cs" />
     <Compile Include="Components\Game\Tile.cs" />
+    <Compile Include="Components\Game\Interfaces\IUpdateAble.cs" />
     <Compile Include="Components\InputHelper.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
@@ -112,7 +115,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Components\Game\Util\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

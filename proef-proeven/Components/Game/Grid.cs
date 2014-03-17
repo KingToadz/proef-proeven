@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using proef_proeven.Components.Game.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace proef_proeven.Components.Game
 {
-    class Grid
+    class Grid : IDrawAble
     {
         readonly int width = 30;
         readonly int height = 16;
@@ -24,8 +25,11 @@ namespace proef_proeven.Components.Game
 
         public void AddTile(Tile tile, int row, int col)
         {
-            if (Math.Abs(col) < grid.GetLength(0) && Math.Abs(row) < grid.GetLength(1))
+            if (Math.Abs(col) >= grid.GetLength(0) || Math.Abs(row) >= grid.GetLength(1))
+            {
                 Console.WriteLine("GRID ERRROR: col or row is to big");
+                return;
+            }
 
             grid[Math.Abs(col), Math.Abs(row)] = tile;
         }
