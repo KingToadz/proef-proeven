@@ -93,7 +93,7 @@ namespace proef_proeven.Components.Util
         {
             string data = "";
 
-            if (DoesFileExist(System.Environment.CurrentDirectory + path))
+            if (DoesFileExist(path))
             {
                 using (StreamReader sr = new StreamReader(System.Environment.CurrentDirectory + path))
                 {

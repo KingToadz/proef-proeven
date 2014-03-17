@@ -12,6 +12,7 @@ namespace proef_proeven.Screens
     class LevelSelectScreen : BaseScreen
     {
         List<Button> lvlButtons;
+        List<LevelPreview> previews;
 
         public LevelSelectScreen()
         {
@@ -20,48 +21,36 @@ namespace proef_proeven.Screens
 
         public override void LoadContent(ContentManager content)
         {
+            LevelManager.Instance.LoadData();
+            LevelManager.Instance.UnlockLevel(0);
+
             // load preview buttons
-            int id = 1;
+            previews = new List<LevelPreview>();
+
+            int id = 0;
             for (int row = 0; row < 2; row++ )
             {
                 for (int col = 0; col < 4; col++)
                 {
+                    // TEMP NEEDED FOR SIZE
                     Button btn = new Button();
                     btn.LoadImage(@"quickview\level-tile");
-                    btn.OnClick += onClick;
-                    btn.Position = new Vector2(col * (btn.Hitbox.Width + 25), row * (btn.Hitbox.Height + 25));
 
-                    // Should first assign Tag to id and then add one to it
-                    btn.Tag = id++;
-
-                    lvlButtons.Add(btn);
+                    LevelPreview preview = new LevelPreview(LevelManager.Instance.GetLevel(id++));
+                    preview.LoadContent(content);
+                    preview.Position = new Vector2(col * (btn.Hitbox.Width + 25), row * (btn.Hitbox.Height + 25));
+                    previews.Add(preview);
                 }
             }
 
             base.LoadContent(content);
         }
 
-        public void onClick(object sender)
-        {
-            if(sender is Button)
-            {
-                Button btn = sender as Button;
-
-                if (btn.Tag is int)
-                {
-                    int id = (int)btn.Tag;
-
-                    if(LevelManager.Instance.IsUnlocked(id))
-                        ScreenManager.Instance.SetScreen(new GameScreen(id));
-                }
-            }
-        }
-
         public override void Update(GameTime dt)
         {
-            foreach(Button b in lvlButtons)
+            foreach (LevelPreview p in previews)
             {
-                b.Update(dt);
+                p.Update(dt);
             }
 
             base.Update(dt);
@@ -69,10 +58,9 @@ namespace proef_proeven.Screens
 
         public override void Draw(SpriteBatch batch)
         {
-            foreach (Button b in lvlButtons)
+            foreach (LevelPreview p in previews)
             {
-                b.Draw(batch);
-                Game1.Instance.fontRenderer.DrawText(batch, b.Position, b.Tag.ToString());
+                p.Draw(batch);
             }
 
             base.Draw(batch);

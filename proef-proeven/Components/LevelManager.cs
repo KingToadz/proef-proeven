@@ -26,19 +26,43 @@ namespace proef_proeven.Components
 
         List<LevelData> levelData;
 
-        string dataDir = "/Data/";
+        string dataDir = @"\Data\";
 
         /// <summary>
         /// Create directory and files if needed otherwise loads them
         /// </summary>
         private void FirstRun()
         {
-            IOHelper.Instance.CreateDirectory("/Data/");
+            IOHelper.Instance.CreateDirectory(dataDir);
 
             if (!IOHelper.Instance.DoesFileExist(dataDir + "levels.json"))
                 CreateAndSaveLevels();
             else
+            {
                 LoadData();
+
+                if (levelData == null)
+                    CreateAndSaveLevels();
+            }
+        }
+
+        public int LevelCount
+        {
+            get { return levelData.Count; }
+        }
+
+        /// <summary>
+        /// Get an level by its ID
+        /// </summary>
+        /// <param name="id">The ID of the level</param>
+        /// <returns>The level or an error level</returns>
+        public LevelData GetLevel(int id)
+        {
+            if(CheckID(id))
+            {
+                return levelData[id];
+            }
+            return new LevelData(-1, "ERROR level " + id + " does not exist");
         }
 
         /// <summary>
@@ -48,8 +72,12 @@ namespace proef_proeven.Components
         {
             levelData = new List<LevelData>();
 
-            for(int i = 0; i < 8; i++)
+            for (int i = 0; i < 8; i++)
+            {
                 levelData.Add(new LevelData(i));
+                if (i == 0)
+                    levelData[i].Unlocked = true;
+            }
 
             IOHelper.Instance.WriteFile(dataDir + "levels.json", JsonConvert.SerializeObject(levelData));
         }
@@ -65,7 +93,7 @@ namespace proef_proeven.Components
         /// <summary>
         /// This will load the level progress
         /// </summary>
-        private void LoadData()
+        public void LoadData()
         {
             levelData = JsonConvert.DeserializeObject<List<LevelData>>(IOHelper.Instance.ReadFile(dataDir + "levels.json"));
         }

@@ -15,7 +15,7 @@ namespace proef_proeven.Components
         {
             get { return hitbox; }
 
-            protected set
+            set
             {
                 hitbox = value;
                 position.X = hitbox.X;
@@ -78,7 +78,8 @@ namespace proef_proeven.Components
         /// <param name="batch">Batch to draw to</param>
         public virtual void Draw(SpriteBatch batch)
         {
-            batch.Draw(image, hitbox, Color.White);
+            if(image != null)
+                batch.Draw(image, hitbox, Color.White);
         }
     }
 }
