@@ -47,8 +47,13 @@ namespace proef_proeven.Screens
             {
                 Button btn = sender as Button;
 
-                if(btn.Tag is int)
-                    ScreenManager.Instance.SetScreen(new GameScreen((int)btn.Tag));
+                if (btn.Tag is int)
+                {
+                    int id = (int)btn.Tag;
+
+                    if(LevelManager.Instance.IsUnlocked(id))
+                        ScreenManager.Instance.SetScreen(new GameScreen(id));
+                }
             }
         }
 

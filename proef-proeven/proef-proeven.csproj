@@ -48,6 +48,10 @@
     <Compile Include="Components\Game\Tile.cs" />
     <Compile Include="Components\Game\Interfaces\IUpdateAble.cs" />
     <Compile Include="Components\InputHelper.cs" />
+    <Compile Include="Components\LevelData.cs" />
+    <Compile Include="Components\LevelManager.cs" />
+    <Compile Include="Components\LevelPreview.cs" />
+    <Compile Include="Components\Util\IOHelper.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,6 +67,9 @@
     <Compile Include="Transitions\TransitionFactory.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="OpenTK">
       <HintPath>$(MSBuildExtensionsPath)\..\MonoGame\v3.0\Assemblies\WindowsGL\OpenTK.dll</HintPath>
     </Reference>
@@ -128,6 +135,7 @@
     <None Include="Content\fonts\segoe32.fnt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Components\Game\Util\" />

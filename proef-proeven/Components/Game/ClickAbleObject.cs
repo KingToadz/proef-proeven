@@ -8,7 +8,7 @@ using System.Text;
 
 namespace proef_proeven.Components.Game
 {
-    class ClickAbleObject : IUpdateAble, IDrawAble
+    class ClickAbleObject : IUpdateAble, IDrawAble, ICollidable
     {
         private Rectangle hitbox;
         /// <summary>
@@ -103,6 +103,21 @@ namespace proef_proeven.Components.Game
                 return;
 
             batch.Draw(image, hitbox, Color.White);
+        }
+
+        public Rectangle Boundingbox
+        {
+            get { return hitbox; }
+        }
+
+        public Vector2 Delta
+        {
+            get { return Vector2.Zero; }
+        }
+
+        public void Collide(ICollidable collider)
+        {
+            // Shouldn't be called because delta is zero
         }
     }
 }
