@@ -19,6 +19,7 @@ namespace proef_proeven.Components.LoadData
         {
             ClickAbleObject info = new ClickAbleObject();
             info.Position = position;
+            info.StartPosition = position;
             info.moveToPosition = moveToPosition;
             info.ObjectiveID = objectiveID;
             info.Image = Content.load<Texture2D>(texturePath);

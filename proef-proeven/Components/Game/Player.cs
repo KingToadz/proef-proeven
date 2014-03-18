@@ -11,7 +11,7 @@ using System.Text;
 
 namespace proef_proeven.Components.Game
 {
-    class Player : IUpdateAble, IDrawAble, ICollidable
+    class Player : IUpdateAble, IDrawAble, ICollidable, IResetAble
     {
         public enum Movement {Left, Right, Up, Down, Idle, Dead }
 
@@ -25,6 +25,11 @@ namespace proef_proeven.Components.Game
         private const float ySpeed = 4;
 
         private Dictionary<Movement, Vector2> movementList;
+
+        /// <summary>
+        /// Start movement of the player object. Used for the Reset
+        /// </summary>
+        public Movement StartMovement = Movement.Idle;
 
         /// <summary>
         /// The current position
@@ -181,6 +186,12 @@ namespace proef_proeven.Components.Game
                     Tries++;
                 }
             }
+        }
+
+        public void Reset()
+        {
+            position = StartPosition;
+            ChangeMovement(StartMovement);
         }
     }
 }

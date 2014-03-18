@@ -57,6 +57,7 @@ namespace proef_proeven.Components.Util
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -80,6 +81,7 @@ namespace proef_proeven.Components.Util
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }

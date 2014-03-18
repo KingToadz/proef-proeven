@@ -12,16 +12,16 @@ namespace proef_proeven.Components.LoadData
         /// <summary>
         /// The background path from the content dir. 
         /// </summary>
-        public string backgroundPath;
+        public string backgroundPath { get; private set; }
 
         /// <summary>
         /// The player info for the human
         /// </summary>
-        public PlayerInfo playerInfo;
+        public PlayerInfo playerInfo { get; private set; }
 
         /// <summary>
         /// All the objects that can be clicked
         /// </summary>
-        public List<ClickAbleInfo> clickObjectsInfo;
+        public List<ClickAbleInfo> clickObjectsInfo { get; private set; }
     }
 }

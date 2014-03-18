@@ -8,7 +8,7 @@ using System.Text;
 
 namespace proef_proeven.Components.Game
 {
-    class ClickAbleObject : IUpdateAble, IDrawAble, ICollidable
+    class ClickAbleObject : IUpdateAble, IDrawAble, ICollidable, IResetAble
     {
         private Rectangle hitbox;
         /// <summary>
@@ -46,6 +46,11 @@ namespace proef_proeven.Components.Game
                 hitbox.Height = value.Height;
             }
         }
+
+        /// <summary>
+        /// The start position of the object
+        /// </summary>
+        public Vector2 StartPosition = Vector2.Zero;
 
         private Vector2 position;
         /// <summary>
@@ -95,6 +100,15 @@ namespace proef_proeven.Components.Game
         public ClickAbleObject()
         {
             hitbox = new Rectangle();
+        }
+
+        /// <summary>
+        /// Reset the object to the state of the beginning of the level
+        /// </summary>
+        public void Reset()
+        {
+            // use the public one to set the boundingbox
+            Position = StartPosition;
         }
 
         /// <summary>
