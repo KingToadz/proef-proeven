@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using proef_proeven.Components;
 using proef_proeven.Components.Game;
 using proef_proeven.Components.Game.Interfaces;
+using proef_proeven.Components.Level;
 using System;
 using System.Collections.Generic;
 using System.Linq;

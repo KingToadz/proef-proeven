@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace proef_proeven.Components
+namespace proef_proeven.Components.Level
 {
     class LevelPreview
     {

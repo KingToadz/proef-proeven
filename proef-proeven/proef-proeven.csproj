@@ -48,10 +48,16 @@
     <Compile Include="Components\Game\Tile.cs" />
     <Compile Include="Components\Game\Interfaces\IUpdateAble.cs" />
     <Compile Include="Components\InputHelper.cs" />
-    <Compile Include="Components\LevelData.cs" />
-    <Compile Include="Components\LevelManager.cs" />
-    <Compile Include="Components\LevelPreview.cs" />
+    <Compile Include="Components\Level\LevelData.cs" />
+    <Compile Include="Components\LoadData\ClickAbleInfo.cs" />
+    <Compile Include="Components\LoadData\LevelFormat.cs" />
+    <Compile Include="Components\Level\LevelLoader.cs" />
+    <Compile Include="Components\Level\LevelManager.cs" />
+    <Compile Include="Components\Level\LevelPreview.cs" />
+    <Compile Include="Components\LoadData\PlayerInfo.cs" />
+    <Compile Include="Components\MovementTile.cs" />
     <Compile Include="Components\Util\IOHelper.cs" />
+    <Compile Include="Components\WinTile.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,6 +99,7 @@
     <Content Include="Content\animtest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\arrow.png" />
     <Content Include="Content\buttons\button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

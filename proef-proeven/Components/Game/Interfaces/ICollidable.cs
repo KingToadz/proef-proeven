@@ -18,6 +18,11 @@ namespace proef_proeven.Components.Game.Interfaces
             get;
         }
 
+        Player.Movement CurMovement
+        {
+            get;
+        }
+
         /// <summary>
         /// Called when an ICollidable collides with an other ICollidable
         /// </summary>

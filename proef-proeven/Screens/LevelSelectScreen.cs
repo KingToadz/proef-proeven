@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using proef_proeven.Components;
+using proef_proeven.Components.Level;
 using System;
 using System.Collections.Generic;
 using System.Linq;

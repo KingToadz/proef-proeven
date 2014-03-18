@@ -6,7 +6,7 @@ using System.Text;
 using Newtonsoft.Json;
 using proef_proeven.Components.Util;
 
-namespace proef_proeven.Components
+namespace proef_proeven.Components.Level
 {
     class LevelManager
     {

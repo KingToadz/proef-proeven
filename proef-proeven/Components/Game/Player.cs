@@ -16,7 +16,6 @@ namespace proef_proeven.Components.Game
         public enum Movement {Left, Right, Up, Down, Idle, Dead }
 
         Movement currentMovement;
-        Vector2 position;
         Dictionary<Movement, Animation> animations;
 
         private const int frameWidth  = 32;
@@ -26,6 +25,16 @@ namespace proef_proeven.Components.Game
         private const float ySpeed = 4;
 
         private Dictionary<Movement, Vector2> movementList;
+
+        /// <summary>
+        /// The current position
+        /// </summary>
+        Vector2 position = Vector2.Zero;
+
+        /// <summary>
+        /// The start position. This is public because of the JSON converter
+        /// </summary>
+        public Vector2 StartPosition = Vector2.Zero;
 
         /// <summary>
         /// Is the player dead
@@ -50,6 +59,14 @@ namespace proef_proeven.Components.Game
         }
 
         /// <summary>
+        /// The current movement of the player
+        /// </summary>
+        public Movement CurMovement
+        {
+            get { return currentMovement; }
+        }
+
+        /// <summary>
         /// Delta vector for the ICollidable interface
         /// </summary>
         private Vector2 delta;
@@ -61,8 +78,14 @@ namespace proef_proeven.Components.Game
             }
         }
 
+        /// <summary>
+        /// Check if the player has won
+        /// </summary>
         public bool Won;
 
+        /// <summary>
+        /// the amount of tries this level
+        /// </summary>
         public int Tries { get; set; }
 
         public void LoadContent(ContentManager content)
@@ -87,8 +110,7 @@ namespace proef_proeven.Components.Game
             animations.Add(Movement.Idle,   new Animation(content.Load<Texture2D>(@"player\player-down"),   frameWidth, frameHeight, 1, 1, 1, 6));
 
             Won = false;
-
-            Tries = 0;
+            Tries = 1;
         }
 
         public void ChangeMovement(Movement newMove)
@@ -127,12 +149,6 @@ namespace proef_proeven.Components.Game
             }
 #endif
 
-            if (position.Y > Game1.Instance.ScreenRect.Height)
-            {
-                position.Y = 100;
-                Won = true;
-            }
-
             if(Won)
             { 
                 ChangeMovement(Movement.Idle); 
@@ -150,8 +166,21 @@ namespace proef_proeven.Components.Game
 
         public void Collide(ICollidable collider)
         {
-            position = new Vector2(100, 100);
-            Tries++;
+            if(collider is WinTile)
+            {
+                Won = true;
+                ChangeMovement(Movement.Idle);
+            }
+            else
+            {
+                ChangeMovement(collider.CurMovement);
+
+                if(currentMovement == Movement.Dead)
+                {
+                    position = StartPosition;
+                    Tries++;
+                }
+            }
         }
     }
 }

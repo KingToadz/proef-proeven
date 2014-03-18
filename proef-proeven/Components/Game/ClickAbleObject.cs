@@ -65,6 +65,26 @@ namespace proef_proeven.Components.Game
         }
 
         /// <summary>
+        /// The position the object needs to move to when clicked
+        /// </summary>
+        public Vector2 moveToPosition = Vector2.Zero;
+
+        public Rectangle Boundingbox
+        {
+            get { return hitbox; }
+        }
+
+        public Vector2 Delta
+        {
+            get { return Vector2.Zero; }
+        }
+
+        public Player.Movement CurMovement
+        {
+            get { return Player.Movement.Dead; }
+        }
+
+        /// <summary>
         /// The objective id of this clickable object
         /// </summary>
         public int ObjectiveID = -1;
@@ -103,16 +123,6 @@ namespace proef_proeven.Components.Game
                 return;
 
             batch.Draw(image, hitbox, Color.White);
-        }
-
-        public Rectangle Boundingbox
-        {
-            get { return hitbox; }
-        }
-
-        public Vector2 Delta
-        {
-            get { return Vector2.Zero; }
         }
 
         public void Collide(ICollidable collider)

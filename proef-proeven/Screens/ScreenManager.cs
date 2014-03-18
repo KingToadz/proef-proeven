@@ -119,11 +119,11 @@ namespace proef_proeven.Screens
             {
 
                 screenStack[lastScreenIndex].Draw(batch);
-
+#if !DEBUG
                 Vector2 mousePos = InputHelper.Instance.MousePos();
 
                 batch.Draw(mouseTex, new Vector2(mousePos.X - mouseTex.Width / 2, mousePos.Y - mouseTex.Height / 2), Color.White);
-
+#endif
                 if(state == State.Transitioning)
                 {
                     transition.Draw(batch);
