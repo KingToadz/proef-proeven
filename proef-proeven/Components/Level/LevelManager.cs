@@ -5,6 +5,7 @@ using System.Text;
 
 using Newtonsoft.Json;
 using proef_proeven.Components.Util;
+using proef_proeven.Components.LoadData;
 
 namespace proef_proeven.Components.Level
 {
@@ -176,6 +177,11 @@ namespace proef_proeven.Components.Level
         private bool CheckID(int id)
         {
             return id >= 0 && id < levelData.Count;
+        }
+
+        public void SaveLevel(LevelFormat lvl, int levelID)
+        {
+            IOHelper.Instance.WriteFile(@"\levels\" + "level"+levelID+".json", JsonConvert.SerializeObject(lvl));
         }
     }
 }

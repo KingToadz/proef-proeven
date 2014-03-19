@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using proef_proeven.Components.Animations;
 using proef_proeven.Components.Game.Interfaces;
+using proef_proeven.Components.LoadData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,6 +93,21 @@ namespace proef_proeven.Components.Game
         /// the amount of tries this level
         /// </summary>
         public int Tries { get; set; }
+
+        /// <summary>
+        /// Start information of the player.
+        /// Used for level saving
+        /// </summary>
+        public PlayerInfo Info
+        {
+            get
+            {
+                PlayerInfo info = new PlayerInfo();
+                info.position = StartPosition;
+                info.startMovement = StartMovement;
+                return info;
+            }
+        }
 
         public void LoadContent(ContentManager content)
         {

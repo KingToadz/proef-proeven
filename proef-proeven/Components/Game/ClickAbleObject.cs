@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using proef_proeven.Components.Game.Interfaces;
+using proef_proeven.Components.LoadData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +53,11 @@ namespace proef_proeven.Components.Game
         /// </summary>
         public Vector2 StartPosition = Vector2.Zero;
 
+        /// <summary>
+        /// The path form where the texture was loaded
+        /// </summary>
+        public string TexturePath = "";
+
         private Vector2 position;
         /// <summary>
         /// The position of the clickable object
@@ -96,6 +102,23 @@ namespace proef_proeven.Components.Game
 
         public delegate void OnClick(object sender);
         public event OnClick onClick;
+
+        /// <summary>
+        /// Start information of the player.
+        /// Used for level saving
+        /// </summary>
+        public ClickAbleInfo Info
+        {
+            get
+            {
+                ClickAbleInfo info = new ClickAbleInfo();
+                info.position = StartPosition;
+                info.moveToPosition = moveToPosition;
+                info.objectiveID = ObjectiveID;
+                info.texturePath = TexturePath;
+                return info;
+            }
+        }
 
         public ClickAbleObject()
         {
