@@ -162,6 +162,11 @@ namespace proef_proeven.Components.Game
             animations[currentMovement].Draw(batch, position);
         }
 
+        public void ChangePosition(Vector2 pos)
+        {
+            position = pos;
+        }
+
         public void Collide(ICollidAble collider)
         {
             if(collider is WinTile)

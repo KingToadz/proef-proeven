@@ -38,6 +38,16 @@ namespace proef_proeven.Screens
         List<Objective> objectives;
 
         /// <summary>
+        /// The loader to load the levels
+        /// </summary>
+        LevelLoader loader;
+
+        /// <summary>
+        /// Bool to check if this is an test called from the levelcreator
+        /// </summary>
+        bool testing;
+
+        /// <summary>
         /// ctor
         /// </summary>
         /// <param name="level">The level number that should be loaded</param>
@@ -47,11 +57,20 @@ namespace proef_proeven.Screens
             GameObjects = new List<object>();
             player = new Player();
             objectives = new List<Objective>();
+
+            loader = new LevelLoader(levelID);
+            testing = false;
+        }
+
+        public GameScreen(LevelFormat level)
+        {
+            loader = new LevelLoader(level);
+            testing = true;
         }
 
         public override void LoadContent(ContentManager content)
         {
-            LevelLoader loader = new LevelLoader(levelID);
+            loader.Load();   
 
             Texture2D tileSheet = content.Load<Texture2D>("tiles");
 
@@ -114,7 +133,7 @@ namespace proef_proeven.Screens
                     if(info.WinningTile)
                         GameObjects.Add(new WinTile(new Rectangle(info.X, info.Y, info.Width, info.Height)));
                     else
-                        GameObjects.Add(new MovementTile(new Rectangle(info.X, info.Y, info.Width, info.Height), info.movement));
+                        GameObjects.Add(new MovementTile(new Rectangle(info.X, info.Y, info.Width, info.Height), info.movement, testing));
                 }
                 
             }

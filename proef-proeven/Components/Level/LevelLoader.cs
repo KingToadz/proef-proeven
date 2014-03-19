@@ -17,31 +17,47 @@ namespace proef_proeven.Components.Level
 
         const string levelDir = @"\Levels\";
 
+        int levelID;
+        private LevelFormat level1;
+
         public LevelLoader(int levelID)
         {
+            this.levelID = levelID;
+        }
 
-            try
+        public LevelLoader(LevelFormat level)
+        {
+            this.level = level;
+            LevelLoaded = true;
+        }
+
+        public void Load()
+        {
+            if (!LevelLoaded)
             {
-                if (IOHelper.Instance.CreateDirectory(levelDir))
+                try
                 {
-                    if (IOHelper.Instance.DoesFileExist(levelDir + "level" + levelID + ".json"))
+                    if (IOHelper.Instance.CreateDirectory(levelDir))
                     {
-                        level = JsonConvert.DeserializeObject<LevelFormat>(IOHelper.Instance.ReadFile(levelDir + "level" + levelID + ".json"));
-                        LevelLoaded = true;
+                        if (IOHelper.Instance.DoesFileExist(levelDir + "level" + levelID + ".json"))
+                        {
+                            level = JsonConvert.DeserializeObject<LevelFormat>(IOHelper.Instance.ReadFile(levelDir + "level" + levelID + ".json"));
+                            LevelLoaded = true;
+                        }
+                        else
+                        {
+                            throw new FileNotFoundException(levelDir + "level" + levelID + ".json doesn't exsist");
+                        }
                     }
                     else
                     {
-                        throw new FileNotFoundException(levelDir + "level" + levelID + ".json doesn't exsist");
+                        throw new Exception("Couldn't create dir");
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    throw new Exception("Couldn't create dir");
+                    Console.WriteLine(ex.Message);
                 }
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
             }
         }
     }

@@ -65,12 +65,39 @@ namespace proef_proeven.Components
         }
 
         /// <summary>
-        /// Check if the Left mouse button is released
+        /// Check if the right mouse button is released
         /// </summary>
         /// <returns>True if curState = released</returns>
-        public bool LeftMouseUp()
+        public bool RightMouseUp()
         {
-            return curMouseState.LeftButton == ButtonState.Released;
+            return curMouseState.RightButton == ButtonState.Released;
+        }
+
+        /// <summary>
+        /// Check if the right mouse buttons is released this frame
+        /// </summary>
+        /// <returns>True if lastState pressed and this state released</returns>
+        public bool IsRightMouseReleased()
+        {
+            return (lastMouseState.RightButton == ButtonState.Pressed && curMouseState.RightButton == ButtonState.Released);
+        }
+
+        /// <summary>
+        /// Check if the right mouse buttons is pressed this frame
+        /// </summary>
+        /// <returns>True if lastState released and this state pressed</returns>
+        public bool IsRightMousePressed()
+        {
+            return (lastMouseState.RightButton == ButtonState.Released && curMouseState.RightButton == ButtonState.Pressed);
+        }
+
+        /// <summary>
+        /// Check if the right mouse button is pressed
+        /// </summary>
+        /// <returns>True if curState = pressed</returns>
+        public bool RightMouseDown()
+        {
+            return curMouseState.RightButton == ButtonState.Pressed;
         }
 
         /// <summary>

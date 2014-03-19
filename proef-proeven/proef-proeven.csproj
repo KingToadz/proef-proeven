@@ -59,6 +59,7 @@
     <Compile Include="Components\LoadData\MovementTileInfo.cs" />
     <Compile Include="Components\LoadData\PlayerInfo.cs" />
     <Compile Include="Components\Game\MovementTile.cs" />
+    <Compile Include="Components\Util\ExtensionMethods.cs" />
     <Compile Include="Components\Util\IOHelper.cs" />
     <Compile Include="Components\Game\WinTile.cs" />
     <Compile Include="Game1.cs" />
@@ -121,7 +122,13 @@
     <Content Include="Content\level-editor\animtest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\level-editor\arrow.png">
+    <Content Include="Content\level-editor\moveable\button.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\level-editor\moveable\start.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\level-editor\required\arrow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\level-editor\backgrounds\menu.png">
@@ -215,6 +222,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Components\Game\Util\" />
+    <Folder Include="Components\LevelCreator\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

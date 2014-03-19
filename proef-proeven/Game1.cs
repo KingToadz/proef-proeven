@@ -125,7 +125,7 @@ namespace proef_proeven
             ScreenManager.Instance.SetLoadingScreen(loading);
 
 
-            ScreenManager.Instance.SetScreen(new LevelCreator());
+            ScreenManager.Instance.SetScreen(new MenuScreen());
         }
 
         /// <summary>
