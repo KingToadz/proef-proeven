@@ -104,15 +104,17 @@ namespace proef_proeven.Screens
 
                 player = new Player();
                 player.StartPosition = loader.level.playerInfo.position;
+                player.StartMovement = loader.level.playerInfo.startMovement;
                 player.LoadContent(content);
                 player.ChangeMovement(loader.level.playerInfo.startMovement);
                 GameObjects.Add(player);
 
-                GameObjects.Add(loader.level.winTile);
-
                 foreach(MovementTileInfo info in loader.level.moveTiles)
                 {
-                    GameObjects.Add(new MovementTile(info.Size, info.movement));
+                    if(info.WinningTile)
+                        GameObjects.Add(new WinTile(new Rectangle(info.X, info.Y, info.Width, info.Height)));
+                    else
+                        GameObjects.Add(new MovementTile(new Rectangle(info.X, info.Y, info.Width, info.Height), info.movement));
                 }
                 
             }
@@ -193,17 +195,17 @@ namespace proef_proeven.Screens
             
             foreach(object o in GameObjects)
             {
-                if(o is ClickAbleObject)
+                if (o is ClickAbleObject)
                 {
                     lvl.clickObjectsInfo.Add((o as ClickAbleObject).Info);
                 }
-                else if(o is WinTile)
-                {
-                    lvl.winTile = (o as WinTile);
-                }
-                else if(o is MovementTile)
+                else if (o is MovementTile)
                 {
                     lvl.moveTiles.Add((o as MovementTile).Info);
+                }
+                else if(o is WinTile)
+                {
+                    lvl.moveTiles.Add((o as WinTile).Info);
                 }
             }
 
@@ -268,9 +270,9 @@ namespace proef_proeven.Screens
 
                 foreach (object o in GameObjects)
                 {
-                    if (o is ICollidable)
+                    if (o is ICollidAble)
                     {
-                        ICollidable collideable = o as ICollidable;
+                        ICollidAble collideable = o as ICollidAble;
 
                         // Only check collision if the object is moving
                         if (collideable.Delta != Vector2.Zero)
@@ -278,11 +280,11 @@ namespace proef_proeven.Screens
                             foreach (object o2 in GameObjects)
                             {
                                 // Check if it is not itself and the other one is an ICollidable
-                                if (o2 is ICollidable && o != o2)
+                                if (o2 is ICollidAble && o != o2)
                                 {
                                     // Only the moving object should collide for now. like the player or an car
-                                    if (collideable.Boundingbox.Intersects((o2 as ICollidable).Boundingbox))
-                                        collideable.Collide(o2 as ICollidable);
+                                    if (collideable.Boundingbox.Intersects((o2 as ICollidAble).Boundingbox))
+                                        collideable.Collide(o2 as ICollidAble);
                                 }
                             }
                         }

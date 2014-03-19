@@ -10,14 +10,29 @@ namespace proef_proeven.Components.LoadData
     class MovementTileInfo
     {
         /// <summary>
-        /// Size of the direction tile
+        /// X position of the tile
         /// </summary>
-        public Vector2 Position;
+        public int X;
 
         /// <summary>
-        /// Size in an vector2 for cleaner json. x = width, y = height
+        /// Y position of the tile
         /// </summary>
-        public Vector2 Size;
+        public int Y;
+
+        /// <summary>
+        /// The width of the tile
+        /// </summary>
+        public int Width;
+
+        /// <summary>
+        /// The height of the tile
+        /// </summary>
+        public int Height;
+
+        /// <summary>
+        /// Is this the winning tile
+        /// </summary>
+        public bool WinningTile;
 
         /// <summary>
         /// The movement of the tile

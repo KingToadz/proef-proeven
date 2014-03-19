@@ -25,14 +25,9 @@ namespace proef_proeven.Components.LoadData
         public List<ClickAbleInfo> clickObjectsInfo { get; set; }
 
         /// <summary>
-        /// All the tiles that can control the players movement
+        /// All the tiles that can control the players movement. WinTiles included
         /// </summary>
         public List<MovementTileInfo> moveTiles { get; set; }
-
-        /// <summary>
-        /// The place the player needs to stand to win
-        /// </summary>
-        public WinTile winTile { get; set;}
 
         /// <summary>
         /// Constructor news the 2 lists

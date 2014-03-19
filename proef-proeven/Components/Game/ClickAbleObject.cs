@@ -9,7 +9,7 @@ using System.Text;
 
 namespace proef_proeven.Components.Game
 {
-    class ClickAbleObject : IUpdateAble, IDrawAble, ICollidable, IResetAble
+    class ClickAbleObject : IUpdateAble, IDrawAble, ICollidAble, IResetAble
     {
         private Rectangle hitbox;
         /// <summary>
@@ -162,7 +162,7 @@ namespace proef_proeven.Components.Game
             batch.Draw(image, hitbox, Color.White);
         }
 
-        public void Collide(ICollidable collider)
+        public void Collide(ICollidAble collider)
         {
             // Shouldn't be called because delta is zero
         }

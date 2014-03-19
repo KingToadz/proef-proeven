@@ -12,7 +12,7 @@ using System.Text;
 
 namespace proef_proeven.Components.Game
 {
-    class Player : IUpdateAble, IDrawAble, ICollidable, IResetAble
+    class Player : IUpdateAble, IDrawAble, ICollidAble, IResetAble
     {
         public enum Movement {Left, Right, Up, Down, Idle, Dead }
 
@@ -162,7 +162,7 @@ namespace proef_proeven.Components.Game
             animations[currentMovement].Draw(batch, position);
         }
 
-        public void Collide(ICollidable collider)
+        public void Collide(ICollidAble collider)
         {
             if(collider is WinTile)
             {

@@ -9,7 +9,7 @@ using System.Text;
 
 namespace proef_proeven.Components.Game
 {
-    class MovementTile : BaseTile, IDrawAble, ICollidable
+    class MovementTile : BaseTile, IDrawAble, ICollidAble
     {
         Player.Movement movedrirection;
 
@@ -27,8 +27,12 @@ namespace proef_proeven.Components.Game
             get
             {
                 MovementTileInfo info = new MovementTileInfo();
-                info.Size = Bounds;
+                info.X = Bounds.X;
+                info.Y = Bounds.Y;
+                info.Width = Bounds.Width;
+                info.Height = Bounds.Height;
                 info.movement = movedrirection;
+                info.WinningTile = false;
                 return info;
             }
         }
@@ -77,7 +81,7 @@ namespace proef_proeven.Components.Game
             get { return movedrirection; }
         }
 
-        public void Collide(ICollidable collider)
+        public void Collide(ICollidAble collider)
         {
             // shouldn't be called. This won't move
         }
