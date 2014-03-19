@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using proef_proeven.Components.Game.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,22 +8,27 @@ using System.Text;
 
 namespace proef_proeven.Components.Game
 {
-    class Tile
+    class Tile : BaseTile, IDrawAble
     {
-        public Vector2 position;
         Texture2D img;
         Rectangle cliprec;
 
-        public Tile(Texture2D sheet, Vector2 position, Rectangle cliprect)
+        /// <summary>
+        /// Tile constructor
+        /// </summary>
+        /// <param name="sheet">The texture for the tile</param>
+        /// <param name="bounds">bounds where it needs to be shown and size</param>
+        /// <param name="cliprect">The cliprect for the tile</param>
+        public Tile(Texture2D sheet, Rectangle bounds, Rectangle cliprect)
+            : base(bounds)
         {
             img = sheet;
             this.cliprec = cliprect;
-            this.position = position;
         }
 
         public void Draw(SpriteBatch batch)
         {
-            batch.Draw(img, new Rectangle((int)position.X, (int)position.Y, cliprec.Width, cliprec.Height), cliprec, Color.White);
+            batch.Draw(img, Bounds, cliprec, Color.White);
         }
     }
 }

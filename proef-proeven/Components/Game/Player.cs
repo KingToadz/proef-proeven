@@ -96,7 +96,7 @@ namespace proef_proeven.Components.Game
         public void LoadContent(ContentManager content)
         {
             currentMovement = Movement.Idle;
-            position = new Vector2(100, 100);
+            position = StartPosition;
 
             movementList = new Dictionary<Movement, Vector2>();
             movementList.Add(Movement.Dead, Vector2.Zero);

@@ -1,19 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
-using proef_proeven.Components.Game;
 using proef_proeven.Components.Game.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace proef_proeven.Components
+namespace proef_proeven.Components.Game
 {
-    class WinTile : ICollidable
+    class WinTile : BaseTile, ICollidable
     {
-        private Rectangle boundingbox;
         public Rectangle Boundingbox
         {
-            get { return boundingbox; }
+            get { return Bounds; }
         }
 
         public Vector2 Delta
@@ -25,6 +23,10 @@ namespace proef_proeven.Components
         {
             get { return Player.Movement.Idle; }
         }
+
+        public WinTile(Rectangle size)
+            :base(size)
+        {}
 
         public void Collide(ICollidable collider)
         {

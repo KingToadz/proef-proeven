@@ -6,6 +6,7 @@ using proef_proeven.Components;
 using proef_proeven.Components.Game;
 using proef_proeven.Components.Game.Interfaces;
 using proef_proeven.Components.Level;
+using proef_proeven.Components.LoadData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace proef_proeven.Screens
     {
         int levelID;
 
-        Grid grid;
+        Grid backgroundGrid;
         Player player;
 
         List<object> GameObjects;
@@ -27,6 +28,7 @@ namespace proef_proeven.Screens
         ClickAbleObject objective3;
 
         ClickAbleObject backButton;
+
 
         /// <summary>
         /// Clickable objects will set an objective to true if it's clicked
@@ -51,7 +53,25 @@ namespace proef_proeven.Screens
 
             if (loader.LevelLoaded)
             {
+                List<ClickAbleInfo> click = loader.level.clickObjectsInfo;
 
+                foreach(ClickAbleInfo info in click)
+                {
+                    ClickAbleObject clickObj = new ClickAbleObject();
+                    clickObj.StartPosition  = info.position;
+                    clickObj.Position       = info.position;
+                    clickObj.moveToPosition = info.moveToPosition;
+                    clickObj.Image          = content.Load<Texture2D>(info.texturePath);
+                    clickObj.ObjectiveID    = info.objectiveID;
+                    GameObjects.Add(clickObj);
+                }
+
+                player = new Player();
+                player.StartPosition = loader.level.playerInfo.position;
+                player.LoadContent(content);
+                player.ChangeMovement(loader.level.playerInfo.startMovement);
+
+                
             }
             else
             {
@@ -61,22 +81,25 @@ namespace proef_proeven.Screens
                 objectives.Add(new Objective("Objective 3"));
 
                 Texture2D tileSheet = content.Load<Texture2D>("tiles");
-                grid = new Grid();
+                
 
-                int tileWidth = 16;
-                int tileHeight = 16;
-                int cols = 30;
-                int rows = 16;
+                int tileWidth = 64;
+                int tileHeight = 64;
+                int cols = (Game1.Instance.ScreenRect.Width / tileWidth) + 1;
+                int rows = (Game1.Instance.ScreenRect.Height / tileHeight) + 1;
+
+                backgroundGrid = new Grid(cols, rows);
 
                 for (int row = 0; row < rows; row++)
                 {
                     for (int col = 0; col < cols; col++)
                     {
-                        grid.AddTile(new Tile(tileSheet, new Vector2(col * tileWidth, row * tileHeight), new Rectangle(col * tileWidth, row * tileHeight, tileWidth, tileHeight)), row, col);
+                        backgroundGrid.AddTile(new Tile(tileSheet, new Rectangle(col * tileWidth, row * tileHeight, tileWidth, tileHeight), new Rectangle(0 * 16, 9 * 16, 16, 16)), row, col);
                     }
                 }
-                //GameObjects.Add(grid);
+                GameObjects.Add(backgroundGrid);
 
+                player.StartPosition = new Vector2(100, 100);
                 player.LoadContent(content);
                 GameObjects.Add(player);
 
@@ -84,19 +107,25 @@ namespace proef_proeven.Screens
                 objective1.Image = content.Load<Texture2D>(@"buttons\button");
                 objective1.onClick += OnClickHandler;
                 objective1.ObjectiveID = 0;
-                objective1.Position = new Vector2(50, 200);
+                objective1.Position = objective1.StartPosition = new Vector2(50, 200);
+                objective1.moveToPosition = objective1.Position + new Vector2(300, 0);
 
                 objective2 = new ClickAbleObject();
                 objective2.Image = content.Load<Texture2D>(@"buttons\button");
                 objective2.onClick += OnClickHandler;
                 objective2.ObjectiveID = 1;
-                objective2.Position = new Vector2(50, 400);
+                objective2.Position = objective2.StartPosition = new Vector2(50, 400);
+                objective2.moveToPosition = objective2.Position + new Vector2(300, 0);
 
                 objective3 = new ClickAbleObject();
                 objective3.Image = content.Load<Texture2D>(@"buttons\button");
                 objective3.onClick += OnClickHandler;
                 objective3.ObjectiveID = 2;
-                objective3.Position = new Vector2(50, 600);
+                objective3.Position = objective3.StartPosition = new Vector2(50, 600);
+                objective3.moveToPosition = objective3.Position + new Vector2(300, 0);
+
+                WinTile win = new WinTile(new Rectangle(0, Game1.Instance.ScreenRect.Height - 20, 500, 20));
+                GameObjects.Add(win);
 
                 backButton = new ClickAbleObject();
                 backButton.Image = content.Load<Texture2D>(@"buttons\help");

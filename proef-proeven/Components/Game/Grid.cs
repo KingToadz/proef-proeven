@@ -9,14 +9,16 @@ namespace proef_proeven.Components.Game
 {
     class Grid : IDrawAble
     {
-        readonly int width = 30;
-        readonly int height = 16;
+        int width;
+        int height;
 
         Tile[,] grid;
 
         public Grid(int w, int h)
         {
             grid = new Tile[w, h];
+            width = w;
+            height = h;
         }
 
         public Grid()

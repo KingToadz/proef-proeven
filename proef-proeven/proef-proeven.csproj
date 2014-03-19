@@ -39,6 +39,7 @@
     <Compile Include="Components\Button.cs" />
     <Compile Include="Components\Fonts\FontProcessor.cs" />
     <Compile Include="Components\Fonts\FontRenderer.cs" />
+    <Compile Include="Components\Game\BaseTile.cs" />
     <Compile Include="Components\Game\Interfaces\ICollidable.cs" />
     <Compile Include="Components\Game\Interfaces\IDrawAble.cs" />
     <Compile Include="Components\Game\ClickAbleObject.cs" />
@@ -56,9 +57,9 @@
     <Compile Include="Components\Level\LevelManager.cs" />
     <Compile Include="Components\Level\LevelPreview.cs" />
     <Compile Include="Components\LoadData\PlayerInfo.cs" />
-    <Compile Include="Components\MovementTile.cs" />
+    <Compile Include="Components\Game\MovementTile.cs" />
     <Compile Include="Components\Util\IOHelper.cs" />
-    <Compile Include="Components\WinTile.cs" />
+    <Compile Include="Components\Game\WinTile.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

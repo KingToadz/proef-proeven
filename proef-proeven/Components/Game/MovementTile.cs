@@ -1,15 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using proef_proeven.Components.Game;
 using proef_proeven.Components.Game.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace proef_proeven.Components
+namespace proef_proeven.Components.Game
 {
-    class MovementTile : IDrawAble, ICollidable
+    class MovementTile : BaseTile, IDrawAble, ICollidable
     {
         Player.Movement movedrirection;
 
@@ -18,7 +17,8 @@ namespace proef_proeven.Components
         float rotation;
 #endif
 
-        public MovementTile(BoundingBox size, Player.Movement movement)
+        public MovementTile(Rectangle size, Player.Movement movement)
+            :base(size)
         {
             movedrirection = movement;
 #if DEBUG
@@ -46,10 +46,9 @@ namespace proef_proeven.Components
 #endif
         }
 
-        private Rectangle boundingbox;
         public Rectangle Boundingbox
         {
-            get { return boundingbox; }
+            get { return Bounds; }
         }
 
         public Vector2 Delta
@@ -70,7 +69,7 @@ namespace proef_proeven.Components
         public void Draw(SpriteBatch batch)
         {
 #if DEBUG
-            batch.Draw(arrow, boundingbox, new Rectangle(0, 0, arrow.Width, arrow.Height), Color.White, rotation, new Vector2(arrow.Width / 2, arrow.Height / 2), SpriteEffects.None, 0);
+            batch.Draw(arrow, Bounds, new Rectangle(0, 0, arrow.Width, arrow.Height), Color.White, rotation, new Vector2(arrow.Width / 2, arrow.Height / 2), SpriteEffects.None, 0);
 #endif
         }
     }
