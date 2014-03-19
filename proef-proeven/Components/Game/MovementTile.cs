@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using proef_proeven.Components.Game.Interfaces;
+using proef_proeven.Components.LoadData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,21 @@ namespace proef_proeven.Components.Game
         float rotation;
 #endif
 
+        /// <summary>
+        /// Start information of the player.
+        /// Used for level saving
+        /// </summary>
+        public MovementTileInfo Info
+        {
+            get
+            {
+                MovementTileInfo info = new MovementTileInfo();
+                info.Size = Bounds;
+                info.movement = movedrirection;
+                return info;
+            }
+        }
+
         public MovementTile(Rectangle size, Player.Movement movement)
             :base(size)
         {
@@ -26,17 +42,17 @@ namespace proef_proeven.Components.Game
 
             switch(movement)
             {
-                case Player.Movement.Left:
-                    rotation = 0.0f;
+                case Player.Movement.Right:
+                    rotation = MathHelper.ToRadians(0.0f);
                     break;
                 case Player.Movement.Down:
-                    rotation = 90.0f;
+                    rotation = MathHelper.ToRadians(90.0f);
                     break;
-                case Player.Movement.Right:
-                    rotation = 180.0f;
+                case Player.Movement.Left:
+                    rotation = MathHelper.ToRadians(180.0f);
                     break;
                 case Player.Movement.Up:
-                    rotation = 270.0f;
+                    rotation = MathHelper.ToRadians(270.0f);
                     break;
                 default:
                     rotation = 0;

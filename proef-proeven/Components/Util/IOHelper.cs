@@ -74,6 +74,9 @@ namespace proef_proeven.Components.Util
             {
                 using (StreamWriter sw = new StreamWriter(File.Create(System.Environment.CurrentDirectory + path)))
                 {
+                    //string[] lines = data.Split('\r');
+
+                    //for (int i = 0; i < lines.Length; i++ )
                     sw.Write(data);
                 }
 

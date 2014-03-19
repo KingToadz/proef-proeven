@@ -27,7 +27,7 @@ namespace proef_proeven.Components.LoadData
         /// <summary>
         /// All the tiles that can control the players movement
         /// </summary>
-        public List<MovementTile> moveTiles { get; set; }
+        public List<MovementTileInfo> moveTiles { get; set; }
 
         /// <summary>
         /// The place the player needs to stand to win
@@ -40,7 +40,7 @@ namespace proef_proeven.Components.LoadData
         public LevelFormat()
         {
             clickObjectsInfo = new List<ClickAbleInfo>();
-            moveTiles = new List<MovementTile>();
+            moveTiles = new List<MovementTileInfo>();
         }
 
     }

@@ -56,6 +56,7 @@
     <Compile Include="Components\Level\LevelLoader.cs" />
     <Compile Include="Components\Level\LevelManager.cs" />
     <Compile Include="Components\Level\LevelPreview.cs" />
+    <Compile Include="Components\LoadData\MovementTileInfo.cs" />
     <Compile Include="Components\LoadData\PlayerInfo.cs" />
     <Compile Include="Components\Game\MovementTile.cs" />
     <Compile Include="Components\Util\IOHelper.cs" />
@@ -101,7 +102,9 @@
     <Content Include="Content\animtest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\arrow.png" />
+    <Content Include="Content\arrow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\buttons\button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -109,6 +112,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\fonts\segoe32_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\grid-test.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\level-preview\0.png">

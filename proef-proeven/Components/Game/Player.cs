@@ -147,29 +147,6 @@ namespace proef_proeven.Components.Game
 
         public void Update(GameTime dt)
         {
-#if DEBUG
-            if(InputHelper.Instance.IsKeyDown(Keys.Left))
-            {
-                ChangeMovement(Movement.Left);
-            }
-            else if (InputHelper.Instance.IsKeyDown(Keys.Right))
-            {
-                ChangeMovement(Movement.Right);
-            }
-            else if (InputHelper.Instance.IsKeyDown(Keys.Up))
-            {
-                ChangeMovement(Movement.Up);
-            }
-            else if (InputHelper.Instance.IsKeyDown(Keys.Down))
-            {
-                ChangeMovement(Movement.Down);
-            }
-            else
-            {
-                ChangeMovement(Movement.Down);
-            }
-#endif
-
             if(Won)
             { 
                 ChangeMovement(Movement.Idle); 
@@ -198,7 +175,6 @@ namespace proef_proeven.Components.Game
 
                 if(currentMovement == Movement.Dead)
                 {
-                    position = StartPosition;
                     Tries++;
                 }
             }

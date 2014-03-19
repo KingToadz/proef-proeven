@@ -20,6 +20,7 @@ namespace proef_proeven.Screens
         int levelID;
 
         Grid backgroundGrid;
+        Texture2D background;
         Player player;
 
         List<object> GameObjects;
@@ -69,11 +70,22 @@ namespace proef_proeven.Screens
                     backgroundGrid.AddTile(new Tile(tileSheet, new Rectangle(col * tileWidth, row * tileHeight, tileWidth, tileHeight), new Rectangle(0 * 16, 9 * 16, 16, 16)), row, col);
                 }
             }
-            GameObjects.Add(backgroundGrid);
+            
 
             if (loader.LevelLoaded)
             {
                 List<ClickAbleInfo> click = loader.level.clickObjectsInfo;
+
+                try
+                {
+                    if (loader.level.backgroundPath != "")
+                        background = content.Load<Texture2D>(loader.level.backgroundPath);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    GameObjects.Add(backgroundGrid);
+                }
 
                 foreach(ClickAbleInfo info in click)
                 {
@@ -98,9 +110,9 @@ namespace proef_proeven.Screens
 
                 GameObjects.Add(loader.level.winTile);
 
-                foreach(MovementTile m in loader.level.moveTiles)
+                foreach(MovementTileInfo info in loader.level.moveTiles)
                 {
-                    GameObjects.Add(m);
+                    GameObjects.Add(new MovementTile(info.Size, info.movement));
                 }
                 
             }
@@ -112,9 +124,11 @@ namespace proef_proeven.Screens
                 objectives.Add(new Objective("Objective 3"));
 
 
-
+                GameObjects.Add(backgroundGrid);
                 player.StartPosition = new Vector2(100, 100);
                 player.LoadContent(content);
+                player.StartMovement = Player.Movement.Down;
+                player.ChangeMovement(player.StartMovement);
                 GameObjects.Add(player);
 
                 objective1 = new ClickAbleObject();
@@ -141,10 +155,17 @@ namespace proef_proeven.Screens
                 objective3.Position = objective3.StartPosition = new Vector2(50, 600);
                 objective3.moveToPosition = objective3.Position + new Vector2(300, 0);
 
-                WinTile win = new WinTile(new Rectangle(0, Game1.Instance.ScreenRect.Height - 20, 500, 20));
+                WinTile win = new WinTile(new Rectangle(100, 400, 64, 20));
                 GameObjects.Add(win);
 
-
+                MovementTile move = new MovementTile(new Rectangle(100, 300, 32, 32), Player.Movement.Right);
+                GameObjects.Add(move);
+                MovementTile move2 = new MovementTile(new Rectangle(300, 300, 32, 32), Player.Movement.Down);
+                GameObjects.Add(move2);
+                MovementTile move3 = new MovementTile(new Rectangle(300, 500, 32, 32), Player.Movement.Left);
+                GameObjects.Add(move3);
+                MovementTile move4 = new MovementTile(new Rectangle(100, 500, 32, 32), Player.Movement.Up);
+                GameObjects.Add(move4);
 
                 GameObjects.Add(objective1);
                 GameObjects.Add(objective2);
@@ -167,7 +188,7 @@ namespace proef_proeven.Screens
         {
             LevelFormat lvl = new LevelFormat();
             lvl.playerInfo = player.Info;
-            lvl.backgroundPath = "menu";
+            lvl.backgroundPath = "";
             lvl.clickObjectsInfo = new List<ClickAbleInfo>();
             
             foreach(object o in GameObjects)
@@ -182,7 +203,7 @@ namespace proef_proeven.Screens
                 }
                 else if(o is MovementTile)
                 {
-                    lvl.moveTiles.Add((o as MovementTile));
+                    lvl.moveTiles.Add((o as MovementTile).Info);
                 }
             }
 
@@ -267,6 +288,9 @@ namespace proef_proeven.Screens
                         }
                     }
                 }
+
+                if (player.CurMovement == Player.Movement.Dead)
+                    Reset();
             }
 
             base.Update(dt);
@@ -274,6 +298,9 @@ namespace proef_proeven.Screens
 
         public override void Draw(SpriteBatch batch)
         {
+            if (background != null)
+                batch.Draw(background, Vector2.Zero, Color.White);
+
 
             foreach (object o in GameObjects)
             {

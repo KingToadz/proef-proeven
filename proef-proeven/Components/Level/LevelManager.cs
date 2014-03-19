@@ -181,7 +181,7 @@ namespace proef_proeven.Components.Level
 
         public void SaveLevel(LevelFormat lvl, int levelID)
         {
-            IOHelper.Instance.WriteFile(@"\levels\" + "level"+levelID+".json", JsonConvert.SerializeObject(lvl));
+            IOHelper.Instance.WriteFile(@"\levels\" + "level"+levelID+".json", JsonConvert.SerializeObject(lvl,Formatting.Indented));
         }
     }
 }
