@@ -13,10 +13,8 @@ namespace proef_proeven.Components.Game
     {
         Player.Movement movedrirection;
 
-#if DEBUG
         Texture2D arrow;
         float rotation;
-#endif
 
         /// <summary>
         /// Start information of the player.
@@ -37,33 +35,35 @@ namespace proef_proeven.Components.Game
             }
         }
 
-        public MovementTile(Rectangle size, Player.Movement movement)
+        public MovementTile(Rectangle size, Player.Movement movement, bool levelCreator = false)
             :base(size)
         {
             movedrirection = movement;
-#if DEBUG
-            arrow = Game1.Instance.Content.Load<Texture2D>("arrow");
 
-            switch(movement)
+            if (levelCreator)
             {
-                case Player.Movement.Right:
-                    rotation = MathHelper.ToRadians(0.0f);
-                    break;
-                case Player.Movement.Down:
-                    rotation = MathHelper.ToRadians(90.0f);
-                    break;
-                case Player.Movement.Left:
-                    rotation = MathHelper.ToRadians(180.0f);
-                    break;
-                case Player.Movement.Up:
-                    rotation = MathHelper.ToRadians(270.0f);
-                    break;
-                default:
-                    rotation = 0;
-                    movement = Player.Movement.Idle;
-                    break;
+                arrow = Game1.Instance.Content.Load<Texture2D>("arrow");
+
+                switch (movement)
+                {
+                    case Player.Movement.Right:
+                        rotation = MathHelper.ToRadians(0.0f);
+                        break;
+                    case Player.Movement.Down:
+                        rotation = MathHelper.ToRadians(90.0f);
+                        break;
+                    case Player.Movement.Left:
+                        rotation = MathHelper.ToRadians(180.0f);
+                        break;
+                    case Player.Movement.Up:
+                        rotation = MathHelper.ToRadians(270.0f);
+                        break;
+                    default:
+                        rotation = 0;
+                        movement = Player.Movement.Idle;
+                        break;
+                }
             }
-#endif
         }
 
         public Rectangle Boundingbox
@@ -88,9 +88,8 @@ namespace proef_proeven.Components.Game
 
         public void Draw(SpriteBatch batch)
         {
-#if DEBUG
-            batch.Draw(arrow, Bounds, new Rectangle(0, 0, arrow.Width, arrow.Height), Color.White, rotation, new Vector2(arrow.Width / 2, arrow.Height / 2), SpriteEffects.None, 0);
-#endif
+            if(arrow != null)
+                batch.Draw(arrow, Bounds, new Rectangle(0, 0, arrow.Width, arrow.Height), Color.White, rotation, new Vector2(arrow.Width / 2, arrow.Height / 2), SpriteEffects.None, 0);
         }
     }
 }

@@ -42,6 +42,44 @@ namespace proef_proeven.Components.Util
             return Directory.Exists(System.Environment.CurrentDirectory + path);
         }
 
+        public List<string> FilesInDirectory(string path)
+        {
+            List<string> filePaths = new List<string>();
+
+            if (DoesDirectoryExists(path))
+            {
+                filePaths = Directory.GetFiles(System.Environment.CurrentDirectory + path).ToList();
+
+                for (int i = 0; i < filePaths.Count; i++)
+                {
+                    if (filePaths[i].Contains(System.Environment.CurrentDirectory))
+                    {
+                        filePaths[i] = filePaths[i].Remove(System.Environment.CurrentDirectory.Length - 1);
+                    }
+                }
+            }
+            return filePaths;
+        }
+
+        public List<string> FilesInDirectory(string path, string searchPattern)
+        {
+            List<string> filePaths = new List<string>();
+
+            if (DoesDirectoryExists(path))
+            {
+                filePaths = Directory.GetFiles(System.Environment.CurrentDirectory + path, searchPattern).ToList();
+
+                for(int i = 0 ; i < filePaths.Count; i++)
+                {
+                    if (filePaths[i].Contains(System.Environment.CurrentDirectory))
+                    {
+                        filePaths[i] = filePaths[i].Remove(0, System.Environment.CurrentDirectory.Length);
+                    }
+                }
+            }
+            return filePaths;
+        }
+
         /// <summary>
         /// This will create an directory if it doesn't exist
         /// </summary>
@@ -74,9 +112,6 @@ namespace proef_proeven.Components.Util
             {
                 using (StreamWriter sw = new StreamWriter(File.Create(System.Environment.CurrentDirectory + path)))
                 {
-                    //string[] lines = data.Split('\r');
-
-                    //for (int i = 0; i < lines.Length; i++ )
                     sw.Write(data);
                 }
 
