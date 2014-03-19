@@ -11,8 +11,6 @@ namespace proef_proeven.Screens
 {
     class BaseScreen
     {
-
-
         /// <summary>
         /// bool to check if the content was loaded
         /// if isConentLoaded is true the Update and Draw will be called
@@ -78,5 +76,14 @@ namespace proef_proeven.Screens
         /// </summary>
         /// <param name="batch">The started spritebatch</param>
         public virtual void Draw(SpriteBatch batch){ }
+
+        /// <summary>
+        /// This will be called when the back button is pressed
+        /// </summary>
+        /// <returns>Return wether or not this screen handled the backbutton</returns>
+        public virtual bool HandledBackbutton()
+        {
+            return false;
+        }
     }
 }

@@ -65,6 +65,10 @@ namespace proef_proeven.Screens
         public GameScreen(LevelFormat level)
         {
             loader = new LevelLoader(level);
+            GameObjects = new List<object>();
+            player = new Player();
+            objectives = new List<Objective>();
+            levelID = -1;
             testing = true;
         }
 
@@ -73,7 +77,6 @@ namespace proef_proeven.Screens
             loader.Load();   
 
             Texture2D tileSheet = content.Load<Texture2D>("tiles");
-
 
             int tileWidth = 64;
             int tileHeight = 64;
@@ -346,6 +349,11 @@ namespace proef_proeven.Screens
             {
                 Game1.Instance.fontRenderer.DrawText(batch, new Vector2(10, 10 + yMargin), "You win! It took you " + player.Tries + " Tries", Color.Black);
                 backButton.Draw(batch);
+            }
+
+            if(testing)
+            {
+                Game1.Instance.fontRenderer.DrawText(batch, new Vector2(5, 5), "TESTING... Press backspace to go back to editor");
             }
 
             base.Draw(batch);

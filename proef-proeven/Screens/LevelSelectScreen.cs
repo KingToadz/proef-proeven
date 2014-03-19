@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using proef_proeven.Components;
 using proef_proeven.Components.Level;
 using System;
@@ -15,9 +16,12 @@ namespace proef_proeven.Screens
         List<Button> lvlButtons;
         List<LevelPreview> previews;
 
+        bool startLevelCreator;
+
         public LevelSelectScreen()
         {
             lvlButtons = new List<Button>();
+            startLevelCreator = false;
         }
 
         public override void LoadContent(ContentManager content)
@@ -39,7 +43,9 @@ namespace proef_proeven.Screens
 
                     LevelPreview preview = new LevelPreview(LevelManager.Instance.GetLevel(id++));
                     preview.LoadContent(content);
+                    preview.button.OnClick += button_OnClick;
                     preview.Position = new Vector2(col * (btn.Hitbox.Width + 25), row * (btn.Hitbox.Height + 25));
+                    preview.button.Tag = preview.LevelID;
                     previews.Add(preview);
                 }
             }
@@ -47,11 +53,34 @@ namespace proef_proeven.Screens
             base.LoadContent(content);
         }
 
+        void button_OnClick(object sender)
+        {
+            if (sender is Button)
+            {
+                Button b = sender as Button;
+
+                if (startLevelCreator)
+                {
+                    ScreenManager.Instance.SetScreen(new LevelCreator((int)b.Tag));
+                }
+                else if (LevelManager.Instance.IsUnlocked((int)b.Tag))
+                {
+                    ScreenManager.Instance.SetScreen(new GameScreen((int)b.Tag));
+                }
+            }
+        }
+
+
         public override void Update(GameTime dt)
         {
             foreach (LevelPreview p in previews)
             {
                 p.Update(dt);
+            }
+
+            if(InputHelper.Instance.IsKeyReleased(Keys.C))
+            {
+                startLevelCreator = !startLevelCreator;
             }
 
             base.Update(dt);
@@ -62,6 +91,11 @@ namespace proef_proeven.Screens
             foreach (LevelPreview p in previews)
             {
                 p.Draw(batch);
+            }
+
+            if(startLevelCreator)
+            {
+                Game1.Instance.fontRenderer.DrawText(batch, new Vector2(5, 5), "Level creator Mode enabled");
             }
 
             base.Draw(batch);

@@ -109,6 +109,59 @@ namespace proef_proeven.Screens
             pixel = new Texture2D(Game1.Instance.GraphicsDevice, 1, 1);
             pixel.SetData<Color>(new Color[1]{ Color.Black });
 
+
+            LevelLoader loader = new LevelLoader(levelID);
+            loader.Load();
+            if (loader.LevelLoaded)
+            {
+                List<ClickAbleInfo> click = loader.level.clickObjectsInfo;
+
+                try
+                {
+                    curBackground = 0;
+                    for (int i = 0; i < backgrounds.Count; i++)
+                    {
+                        if (backgrounds[i].Item1 == loader.level.backgroundPath)
+                        {
+                            curBackground = i;
+                            break;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                foreach (ClickAbleInfo info in click)
+                {
+                    ClickAbleObject clickObj = new ClickAbleObject();
+                    clickObj.StartPosition = info.position;
+                    clickObj.Position = info.position;
+                    clickObj.moveToPosition = info.moveToPosition;
+                    clickObj.Image = content.Load<Texture2D>(info.texturePath);
+                    clickObj.TexturePath = info.texturePath;
+                    clickObj.ObjectiveID = info.objectiveID;
+
+                    GameObjects.Add(clickObj);
+                }
+
+                player = new Player();
+                player.StartPosition = loader.level.playerInfo.position;
+                player.StartMovement = loader.level.playerInfo.startMovement;
+                player.LoadContent(content);
+                player.ChangeMovement(loader.level.playerInfo.startMovement);
+                GameObjects.Add(player);
+
+                foreach (MovementTileInfo info in loader.level.moveTiles)
+                {
+                    if (info.WinningTile)
+                        GameObjects.Add(new WinTile(new Rectangle(info.X, info.Y, info.Width, info.Height)));
+                    else
+                        GameObjects.Add(new MovementTile(new Rectangle(info.X, info.Y, info.Width, info.Height), info.movement, true));
+                }
+            }
+
             base.LoadContent(content);
         }
 
@@ -221,7 +274,6 @@ namespace proef_proeven.Screens
                         }
                     }
                 }
-
 
                 if (placing)
                     blockChangeLayer = true;
@@ -362,12 +414,9 @@ namespace proef_proeven.Screens
                     }
                 }
 
-
                 if (dragging)
                     blockChangeLayer = true;
             }
-
-
 
             if(InputHelper.Instance.IsKeyPressed(Keys.Enter))
             {
@@ -378,6 +427,8 @@ namespace proef_proeven.Screens
                 }
             }
 
+            if (InputHelper.Instance.IsKeyPressed(Keys.Space) && !blockChangeLayer)
+                TestLevel();
 
             if (InputHelper.Instance.IsKeyPressed(Keys.Up) && curLayer > 0 && !blockChangeLayer)
                 curLayer--;

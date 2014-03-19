@@ -12,11 +12,19 @@ namespace proef_proeven.Components.Level
     class LevelPreview
     {
         LevelData level;
-        Button button;
+        public Button button;
 
         Vector2 position;
 
         Texture2D previewImg;
+
+        public int LevelID
+        {
+            get
+            {
+                return level.ID;
+            }
+        }
 
         public Vector2 Position
         {
@@ -40,7 +48,7 @@ namespace proef_proeven.Components.Level
         public void LoadContent(ContentManager content)
         {
             button = new Button();
-            button.OnClick += button_OnClick;
+            //button.OnClick += button_OnClick;
             button.Hitbox = new Rectangle((int)position.X, (int)position.Y, 256, 256);
 
             previewImg = content.Load<Texture2D>(@"level-preview\" + level.ID);

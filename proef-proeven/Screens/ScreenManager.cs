@@ -90,6 +90,12 @@ namespace proef_proeven.Screens
                 return; 
             }
 
+            if(InputHelper.Instance.IsKeyReleased(Keys.Back) && lastScreenIndex > 0)
+            {
+                if(!screenStack[lastScreenIndex].HandledBackbutton())
+                    PopScreen();
+            }
+
             if(screenStack[lastScreenIndex].isContentLoaded && state == State.Running)
             {
                 screenStack[lastScreenIndex].Update(dt);
