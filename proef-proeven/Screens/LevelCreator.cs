@@ -89,7 +89,6 @@ namespace proef_proeven.Screens
                 Console.WriteLine(files[i]);
             }
 
-
             List<string> backgroundPath = IOHelper.Instance.FilesInDirectory(@"\Content\level-editor\backgrounds", "*.png");
 
             backgrounds = new List<Tuple<string, Texture2D>>();
@@ -102,12 +101,10 @@ namespace proef_proeven.Screens
                     backgroundPath[i] = backgroundPath[i].Remove(0, @"\Content\".Length);
 
                 backgrounds.Add(new Tuple<string, Texture2D>(backgroundPath[i], content.Load<Texture2D>(backgroundPath[i])));
-
-                Console.WriteLine(files[i]);
             }
 
             pixel = new Texture2D(Game1.Instance.GraphicsDevice, 1, 1);
-            pixel.SetData<Color>(new Color[1]{ Color.Black });
+            pixel.SetData<Color>(new Color[1] { Color.Black });
 
 
             LevelLoader loader = new LevelLoader(levelID);
@@ -135,13 +132,14 @@ namespace proef_proeven.Screens
 
                 foreach (ClickAbleInfo info in click)
                 {
-                    ClickAbleObject clickObj = new ClickAbleObject();
+                    ClickableObject clickObj = new ClickableObject();
                     clickObj.StartPosition = info.position;
                     clickObj.Position = info.position;
                     clickObj.moveToPosition = info.moveToPosition;
                     clickObj.Image = content.Load<Texture2D>(info.texturePath);
                     clickObj.TexturePath = info.texturePath;
                     clickObj.ObjectiveID = info.objectiveID;
+                    clickAbleObjectCount++;
 
                     GameObjects.Add(clickObj);
                 }
@@ -174,9 +172,9 @@ namespace proef_proeven.Screens
 
             foreach (object o in GameObjects)
             {
-                if (o is ClickAbleObject)
+                if (o is ClickableObject)
                 {
-                    lvl.clickObjectsInfo.Add((o as ClickAbleObject).Info);
+                    lvl.clickObjectsInfo.Add((o as ClickableObject).Info);
                 }
                 else if (o is MovementTile)
                 {
@@ -200,9 +198,9 @@ namespace proef_proeven.Screens
 
             foreach (object o in GameObjects)
             {
-                if (o is ClickAbleObject)
+                if (o is ClickableObject)
                 {
-                    lvl.clickObjectsInfo.Add((o as ClickAbleObject).Info);
+                    lvl.clickObjectsInfo.Add((o as ClickableObject).Info);
                 }
                 else if (o is MovementTile)
                 {
@@ -240,7 +238,7 @@ namespace proef_proeven.Screens
                     if(placing)
                     {
                         toGo = InputHelper.Instance.MousePos();
-                        ClickAbleObject obj = new ClickAbleObject();
+                        ClickableObject obj = new ClickableObject();
                         obj.Image = textures[curObject].Item2;
                         obj.StartPosition = obj.Position = startPos;
                         obj.TexturePath = textures[curObject].Item1;
@@ -263,9 +261,9 @@ namespace proef_proeven.Screens
                     {
                         object o = GameObjects[i];
 
-                        if (o is ClickAbleObject)
+                        if (o is ClickableObject)
                         {
-                            if ((o as ClickAbleObject).Boundingbox.Contains(InputHelper.Instance.MousePos().toPoint()))
+                            if ((o as ClickableObject).Boundingbox.Contains(InputHelper.Instance.MousePos().toPoint()))
                             {
                                 GameObjects.Remove(o);
                                 clickAbleObjectCount--;
@@ -456,9 +454,9 @@ namespace proef_proeven.Screens
 
             foreach (object o in GameObjects)
             {
-                if(o is ClickAbleObject)
+                if(o is ClickableObject)
                 {
-                    ClickAbleObject click = o as ClickAbleObject;
+                    ClickableObject click = o as ClickableObject;
 
                     click.Draw(batch);
                     Game1.Instance.fontRenderer.DrawText(batch, click.StartPosition + new Vector2(5, 5), click.ObjectiveID.ToString());

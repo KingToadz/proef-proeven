@@ -9,7 +9,7 @@ using System.Text;
 
 namespace proef_proeven.Components.Game
 {
-    class ClickAbleObject : IUpdateAble, IDrawAble, ICollidAble, IResetAble
+    class ClickableObject : IUpdateAble, IDrawAble, ICollidAble, IResetAble
     {
         private Rectangle hitbox;
         /// <summary>
@@ -120,7 +120,7 @@ namespace proef_proeven.Components.Game
             }
         }
 
-        public ClickAbleObject()
+        public ClickableObject()
         {
             hitbox = new Rectangle();
         }

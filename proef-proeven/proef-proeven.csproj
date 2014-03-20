@@ -42,7 +42,7 @@
     <Compile Include="Components\Game\BaseTile.cs" />
     <Compile Include="Components\Game\Interfaces\ICollidAble.cs" />
     <Compile Include="Components\Game\Interfaces\IDrawAble.cs" />
-    <Compile Include="Components\Game\ClickAbleObject.cs" />
+    <Compile Include="Components\Game\ClickableObject.cs" />
     <Compile Include="Components\Game\Grid.cs" />
     <Compile Include="Components\Game\Interfaces\IResetAble.cs" />
     <Compile Include="Components\Game\Objective.cs" />
@@ -50,6 +50,12 @@
     <Compile Include="Components\Game\Tile.cs" />
     <Compile Include="Components\Game\Interfaces\IUpdateAble.cs" />
     <Compile Include="Components\InputHelper.cs" />
+    <Compile Include="Components\LevelCreator\BackgroundLayer.cs" />
+    <Compile Include="Components\LevelCreator\BaseLayer.cs" />
+    <Compile Include="Components\LevelCreator\ClickableObjectLayer.cs" />
+    <Compile Include="Components\LevelCreator\MovementLayer.cs" />
+    <Compile Include="Components\LevelCreator\PlayerLayer.cs" />
+    <Compile Include="Components\LevelCreator\WinTileLayer.cs" />
     <Compile Include="Components\Level\LevelData.cs" />
     <Compile Include="Components\LoadData\ClickAbleInfo.cs" />
     <Compile Include="Components\LoadData\LevelFormat.cs" />
@@ -122,7 +128,13 @@
     <Content Include="Content\level-editor\animtest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\level-editor\backgrounds\background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\level-editor\moveable\button.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\level-editor\moveable\pawn.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\level-editor\moveable\start.png">
@@ -222,7 +234,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Components\Game\Util\" />
-    <Folder Include="Components\LevelCreator\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

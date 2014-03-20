@@ -25,11 +25,11 @@ namespace proef_proeven.Screens
 
         List<object> GameObjects;
 
-        ClickAbleObject objective1;
-        ClickAbleObject objective2;
-        ClickAbleObject objective3;
+        ClickableObject objective1;
+        ClickableObject objective2;
+        ClickableObject objective3;
 
-        ClickAbleObject backButton;
+        ClickableObject backButton;
 
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace proef_proeven.Screens
 
                 foreach(ClickAbleInfo info in click)
                 {
-                    ClickAbleObject clickObj = new ClickAbleObject();
+                    ClickableObject clickObj = new ClickableObject();
                     clickObj.StartPosition   = info.position;
                     clickObj.Position        = info.position;
                     clickObj.moveToPosition  = info.moveToPosition;
@@ -155,7 +155,7 @@ namespace proef_proeven.Screens
                 player.ChangeMovement(player.StartMovement);
                 GameObjects.Add(player);
 
-                objective1 = new ClickAbleObject();
+                objective1 = new ClickableObject();
                 objective1.TexturePath = @"buttons\button";
                 objective1.Image = content.Load<Texture2D>(objective1.TexturePath);
                 objective1.onClick += OnClickHandler;
@@ -163,7 +163,7 @@ namespace proef_proeven.Screens
                 objective1.Position = objective1.StartPosition = new Vector2(50, 200);
                 objective1.moveToPosition = objective1.Position + new Vector2(300, 0);
 
-                objective2 = new ClickAbleObject();
+                objective2 = new ClickableObject();
                 objective2.TexturePath = @"buttons\button";
                 objective2.Image = content.Load<Texture2D>(objective2.TexturePath);
                 objective2.onClick += OnClickHandler;
@@ -171,7 +171,7 @@ namespace proef_proeven.Screens
                 objective2.Position = objective2.StartPosition = new Vector2(50, 400);
                 objective2.moveToPosition = objective2.Position + new Vector2(300, 0);
 
-                objective3 = new ClickAbleObject();
+                objective3 = new ClickableObject();
                 objective3.TexturePath = @"buttons\button";
                 objective3.Image = content.Load<Texture2D>(objective3.TexturePath);
                 objective3.onClick += OnClickHandler;
@@ -198,7 +198,7 @@ namespace proef_proeven.Screens
                 SaveLevel();
             }
 
-            backButton = new ClickAbleObject();
+            backButton = new ClickableObject();
             backButton.TexturePath = @"buttons\help";
             backButton.Image = content.Load<Texture2D>(backButton.TexturePath);
             backButton.onClick += OnClickHandler;
@@ -217,9 +217,9 @@ namespace proef_proeven.Screens
             
             foreach(object o in GameObjects)
             {
-                if (o is ClickAbleObject)
+                if (o is ClickableObject)
                 {
-                    lvl.clickObjectsInfo.Add((o as ClickAbleObject).Info);
+                    lvl.clickObjectsInfo.Add((o as ClickableObject).Info);
                 }
                 else if (o is MovementTile)
                 {
@@ -247,9 +247,9 @@ namespace proef_proeven.Screens
 
         public void OnClickHandler(object sender)
         {
-            if(sender is ClickAbleObject)
+            if(sender is ClickableObject)
             {
-                ClickAbleObject s = sender as ClickAbleObject;
+                ClickableObject s = sender as ClickableObject;
 
                 if(s == backButton)
                 {

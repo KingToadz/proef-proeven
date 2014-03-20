@@ -12,6 +12,15 @@ namespace proef_proeven.Components.Game.Interfaces
     interface IDrawAble
     {
         /// <summary>
+        /// The z index to sort objects
+        /// </summary>
+        /*
+        int zIndex
+        {
+            get;
+        }*/
+
+        /// <summary>
         /// Draw's the objects here
         /// </summary>
         /// <param name="batch">An active batch</param>
