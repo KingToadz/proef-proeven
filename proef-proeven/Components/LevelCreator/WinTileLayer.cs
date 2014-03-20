@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using proef_proeven.Components.Game;
+using proef_proeven.Components.LoadData;
 using proef_proeven.Components.Util;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,12 @@ namespace proef_proeven.Components.LevelCreator
 
         public override void LoadLevel(LoadData.LevelFormat level)
         {
+            foreach (MovementTileInfo info in level.moveTiles)
+            {
+                if (info.WinningTile)
+                    tiles.Add(new WinTile(new Rectangle(info.X, info.Y, info.Width, info.Height)));
+            }
+
             base.LoadLevel(level);
         }
 
@@ -80,9 +87,53 @@ namespace proef_proeven.Components.LevelCreator
                 }
             }
 
+            // check for left mouse up
+            if(!InputHelper.Instance.LeftMouseDown())
+            {
+                dragging = false;
+            }
+
+
             if (dragging)
+            {
                 blockLayerChange = true;
+                winTileSize = GetInvertedRectangle(winTileSize);
+            }
+            else
+            {
+                blockLayerChange = false;
+            }
             base.Update(time);
+        }
+
+        Rectangle GetInvertedRectangle(Rectangle checkRect)
+        {
+            Rectangle r = new Rectangle();
+
+            r.X = checkRect.X;
+            r.Y = checkRect.Y;
+
+            if (checkRect.Width < 0)
+            {
+                r.X += checkRect.Width;
+                r.Width = -checkRect.Width;
+            }
+            else
+            {
+                r.Width = checkRect.Width;
+            }
+
+            if (checkRect.Height < 0)
+            {
+                r.Y += checkRect.Height;
+                r.Height = -checkRect.Height;
+            }
+            else
+            {
+                r.Height = checkRect.Height;
+            }
+
+            return r;
         }
 
         public override void Draw(SpriteBatch batch)

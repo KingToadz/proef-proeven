@@ -65,9 +65,11 @@
     <Compile Include="Components\LoadData\MovementTileInfo.cs" />
     <Compile Include="Components\LoadData\PlayerInfo.cs" />
     <Compile Include="Components\Game\MovementTile.cs" />
+    <Compile Include="Components\LoadData\TileInfo.cs" />
     <Compile Include="Components\Util\ExtensionMethods.cs" />
     <Compile Include="Components\Util\IOHelper.cs" />
     <Compile Include="Components\Game\WinTile.cs" />
+    <Compile Include="Components\Util\RectangleRender.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -234,6 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Components\Game\Util\" />
+    <Folder Include="Content\level-editor\decoration\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

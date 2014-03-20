@@ -43,8 +43,11 @@ namespace proef_proeven.Components.Game
             set
             {
                 image = value;
-                hitbox.Width = value.Width;
-                hitbox.Height = value.Height;
+                if (!useCustomBounds)
+                {
+                    hitbox.Width = value.Width;
+                    hitbox.Height = value.Height;
+                }
             }
         }
 
@@ -103,6 +106,8 @@ namespace proef_proeven.Components.Game
         public delegate void OnClick(object sender);
         public event OnClick onClick;
 
+        private bool useCustomBounds;
+
         /// <summary>
         /// Start information of the player.
         /// Used for level saving
@@ -116,6 +121,11 @@ namespace proef_proeven.Components.Game
                 info.moveToPosition = moveToPosition;
                 info.objectiveID = ObjectiveID;
                 info.texturePath = TexturePath;
+                info.useCustomBounds = useCustomBounds;
+                info.X = hitbox.X;
+                info.Y = hitbox.Y;
+                info.Width = hitbox.Width;
+                info.Height = hitbox.Height;
                 return info;
             }
         }
@@ -123,6 +133,17 @@ namespace proef_proeven.Components.Game
         public ClickableObject()
         {
             hitbox = new Rectangle();
+        }
+
+        public ClickableObject(Rectangle bounds)
+        {
+            SetCustomBounds(bounds);
+        }
+
+        public void SetCustomBounds(Rectangle bounds)
+        {
+            this.Hitbox = bounds;
+            useCustomBounds = true;
         }
 
         /// <summary>
@@ -159,7 +180,16 @@ namespace proef_proeven.Components.Game
             if (image == null)
                 return;
 
-            batch.Draw(image, hitbox, Color.White);
+            if (useCustomBounds)
+            {
+                // Draw the whole image with custom bounds
+                batch.Draw(image, new Rectangle((int)position.X, (int)position.Y, image.Width, image.Height), Color.White);
+            }
+            else
+            {
+                // no custom bounds mean hitbox contains the position and the image size
+                batch.Draw(image, hitbox, Color.White);
+            }
         }
 
         public void Collide(ICollidAble collider)

@@ -13,6 +13,7 @@ namespace proef_proeven.Components.LoadData
         public Vector2 position;
         public int objectiveID;
         public string texturePath;
-        public Rectangle customBounds;
+        public bool useCustomBounds;
+        public int X, Y, Width, Height;
     }
 }

@@ -24,7 +24,6 @@ namespace proef_proeven.Components.LevelCreator
 
         public override void LoadLevel(LevelFormat level)
         {
-            player = new Player();
             player.StartPosition = level.playerInfo.position;
             player.StartMovement = level.playerInfo.startMovement;
             player.ChangePosition(level.playerInfo.position);

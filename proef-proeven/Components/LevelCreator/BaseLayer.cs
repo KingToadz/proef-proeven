@@ -26,7 +26,7 @@ namespace proef_proeven.Components.LevelCreator
             get { return activeLayer;  }
         }
 
-        protected string layerInfo;
+        protected string layerInfo = "Layer info needs to be updated!";
         public string LayerInfo
         {
             get { return layerInfo; }

@@ -6,6 +6,7 @@ using proef_proeven.Components;
 using proef_proeven.Components.Game;
 using proef_proeven.Components.Game.Interfaces;
 using proef_proeven.Components.Level;
+using proef_proeven.Components.LevelCreator;
 using proef_proeven.Components.LoadData;
 using proef_proeven.Components.Util;
 using System;
@@ -57,13 +58,39 @@ namespace proef_proeven.Screens
 
         int levelID;
 
+        List<BaseLayer> layers;
+
         public LevelCreator(int levelID)
         {
             this.levelID = levelID;
+
+            layers = new List<BaseLayer>();
+            layers.Add(new BackgroundLayer());
+            layers.Add(new ClickableObjectLayer());
+            layers.Add(new PlayerLayer());
+            layers.Add(new MovementLayer());
+            layers.Add(new WinTileLayer());
         }
 
         public override void LoadContent(ContentManager content)
         {
+            foreach(BaseLayer bl in layers)
+            {
+                bl.LoadContent(content);
+            }
+
+            LevelLoader loader = new LevelLoader(levelID);
+            loader.Load();
+
+            if(loader.LevelLoaded)
+            {
+                foreach (BaseLayer bl in layers)
+                {
+                    bl.LoadLevel(loader.level);
+                }
+            }
+
+            /*
             player = new Player();
             player.LoadContent(content);
 
@@ -159,20 +186,27 @@ namespace proef_proeven.Screens
                         GameObjects.Add(new MovementTile(new Rectangle(info.X, info.Y, info.Width, info.Height), info.movement, true));
                 }
             }
-
+            */
             base.LoadContent(content);
         }
 
         public void TestLevel()
         {
             LevelFormat lvl = new LevelFormat();
-            lvl.playerInfo = player.Info;
-            lvl.backgroundPath = backgrounds[curBackground].Item1;
-            lvl.clickObjectsInfo = new List<ClickAbleInfo>();
 
-            foreach (object o in GameObjects)
+            List<object> allLayerObjects = AllLayerObjects();
+
+            foreach (object o in allLayerObjects)
             {
-                if (o is ClickableObject)
+                if(o is Player)
+                {
+                    lvl.playerInfo = (o as Player).Info;
+                }
+                else if(o is Tuple<string, Texture2D>)
+                {
+                    lvl.backgroundPath = (o as Tuple<string, Texture2D>).Item1;
+                }
+                else if (o is ClickableObject)
                 {
                     lvl.clickObjectsInfo.Add((o as ClickableObject).Info);
                 }
@@ -189,16 +223,37 @@ namespace proef_proeven.Screens
             ScreenManager.Instance.SetScreen(new GameScreen(lvl));
         }
 
+        
+        public List<object> AllLayerObjects()
+        {
+            List<object> all = new List<object>();
+
+            foreach(BaseLayer bl in layers)
+            {
+                all.AddRange(bl.getObjects());
+            }
+
+
+            return all;
+        }
+
         public void SaveLevel()
         {
             LevelFormat lvl = new LevelFormat();
-            lvl.playerInfo = player.Info;
-            lvl.backgroundPath = backgrounds[curBackground].Item1;
-            lvl.clickObjectsInfo = new List<ClickAbleInfo>();
 
-            foreach (object o in GameObjects)
+            List<object> allLayerObjects = AllLayerObjects();
+
+            foreach (object o in allLayerObjects)
             {
-                if (o is ClickableObject)
+                if (o is Player)
+                {
+                    lvl.playerInfo = (o as Player).Info;
+                }
+                else if (o is Tuple<string, Texture2D>)
+                {
+                    lvl.backgroundPath = (o as Tuple<string, Texture2D>).Item1;
+                }
+                else if (o is ClickableObject)
                 {
                     lvl.clickObjectsInfo.Add((o as ClickableObject).Info);
                 }
@@ -217,8 +272,8 @@ namespace proef_proeven.Screens
 
         public override void Update(GameTime dt)
         {
-            bool blockChangeLayer = false;
-
+            layers[curLayer].Update(dt);
+            /*
             if(curLayer == 0)
             {
                 if (InputHelper.Instance.IsKeyPressed(Keys.A) && curBackground > 0)
@@ -423,15 +478,28 @@ namespace proef_proeven.Screens
                     SaveLevel();
                     Game1.Instance.Window.Title = Game1.Instance.Window.Title.Remove(Game1.Instance.Window.Title.IndexOf('*'));
                 }
+            }*/
+
+            if (InputHelper.Instance.IsKeyPressed(Keys.Enter))
+            {
+                SaveLevel();
             }
 
-            if (InputHelper.Instance.IsKeyPressed(Keys.Space) && !blockChangeLayer)
+            if (InputHelper.Instance.IsKeyPressed(Keys.Space) && !layers[curLayer].BlockLayerChange)
                 TestLevel();
 
-            if (InputHelper.Instance.IsKeyPressed(Keys.Up) && curLayer > 0 && !blockChangeLayer)
+            if (InputHelper.Instance.IsKeyPressed(Keys.Up) && curLayer > 0 && !layers[curLayer].BlockLayerChange)
+            {
+                layers[curLayer].ChangeActive(false);
                 curLayer--;
-            else if (InputHelper.Instance.IsKeyPressed(Keys.Down) && curLayer < layerInfo.Count - 1 && !blockChangeLayer)
+                layers[curLayer].ChangeActive(true);
+            }
+            else if (InputHelper.Instance.IsKeyPressed(Keys.Down) && curLayer < layerInfo.Count - 1 && !layers[curLayer].BlockLayerChange)
+            {
+                layers[curLayer].ChangeActive(false);
                 curLayer++;
+                layers[curLayer].ChangeActive(true);
+            }
 
             // left mouse place object
 
@@ -450,6 +518,11 @@ namespace proef_proeven.Screens
 
         public override void Draw(SpriteBatch batch)
         {
+            foreach(BaseLayer bl in layers)
+            {
+                bl.Draw(batch);
+            }
+            /*
             batch.Draw(backgrounds[curBackground].Item2, Vector2.Zero, Color.White);
 
             foreach (object o in GameObjects)
@@ -502,9 +575,9 @@ namespace proef_proeven.Screens
                     Game1.Instance.fontRenderer.DrawText(batch, new Vector2((winTileSize.X + winTileSize.Width / 2) - size.Width / 2, (winTileSize.Y + winTileSize.Height / 2) - size.Height), "W");
                 }
             }
-
+            */
             Game1.Instance.fontRenderer.DrawText(batch, new Vector2(5, 5), layerInfo[curLayer], Color.Black);
-            Game1.Instance.fontRenderer.DrawText(batch, new Vector2(5, 10 + Game1.Instance.fontRenderer.StringSize("H").Height), extraInfo, Color.Black);
+            Game1.Instance.fontRenderer.DrawText(batch, new Vector2(5, 10 + Game1.Instance.fontRenderer.StringSize("H").Height), layers[curLayer].LayerInfo, Color.Black);
 
             base.Draw(batch);
         }

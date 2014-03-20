@@ -174,6 +174,14 @@ namespace proef_proeven.Components.Game
                 Won = true;
                 ChangeMovement(Movement.Idle);
             }
+            else if(collider is MovementTile)
+            {
+                Point distance = new Point(collider.Boundingbox.Center.X - this.Boundingbox.Center.X, collider.Boundingbox.Center.Y - this.Boundingbox.Center.Y);
+                if (distance.X < collider.Boundingbox.Width / 2 && distance.Y < collider.Boundingbox.Height / 2)
+                {
+                    ChangeMovement(collider.CurMovement);
+                }
+            }
             else
             {
                 ChangeMovement(collider.CurMovement);

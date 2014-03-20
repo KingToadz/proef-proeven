@@ -112,6 +112,12 @@ namespace proef_proeven.Screens
                 foreach(ClickAbleInfo info in click)
                 {
                     ClickableObject clickObj = new ClickableObject();
+
+                    if(info.useCustomBounds)
+                    {
+                        clickObj.SetCustomBounds(new Rectangle(info.X, info.Y, info.Width, info.Height));
+                    }
+
                     clickObj.StartPosition   = info.position;
                     clickObj.Position        = info.position;
                     clickObj.moveToPosition  = info.moveToPosition;

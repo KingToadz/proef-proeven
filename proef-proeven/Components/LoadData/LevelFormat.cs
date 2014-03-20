@@ -30,12 +30,18 @@ namespace proef_proeven.Components.LoadData
         public List<MovementTileInfo> moveTiles { get; set; }
 
         /// <summary>
+        /// All the tiles that will be used as decoration
+        /// </summary>
+        public List<TileInfo> decoration { get; set; }
+
+        /// <summary>
         /// Constructor news the 2 lists
         /// </summary>
         public LevelFormat()
         {
             clickObjectsInfo = new List<ClickAbleInfo>();
             moveTiles = new List<MovementTileInfo>();
+            decoration = new List<TileInfo>();
         }
 
     }

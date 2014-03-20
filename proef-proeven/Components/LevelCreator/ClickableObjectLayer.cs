@@ -68,6 +68,7 @@ namespace proef_proeven.Components.LevelCreator
                     {
                         found = true;
                         clickObj.Image = tup.Item2;
+                        clickObj.TexturePath = tup.Item1;
                     }
                 }
 
@@ -75,12 +76,18 @@ namespace proef_proeven.Components.LevelCreator
                 if (!found)
                     continue;
 
+                if (info.useCustomBounds)
+                {
+                    clickObj.SetCustomBounds(new Rectangle(info.X, info.Y, info.Width, info.Height));
+                }
+
                 clickObj.StartPosition = info.position;
                 clickObj.Position = info.position;
                 clickObj.moveToPosition = info.moveToPosition;
                 clickObj.ObjectiveID = info.objectiveID;
-
+                
                 clickables.Add(clickObj);
+                clickablesCount++;
             }
 
             base.LoadLevel(level);
@@ -143,9 +150,11 @@ namespace proef_proeven.Components.LevelCreator
 
         private void ResetIDs()
         {
+            clickablesCount = 0;
             for (int i = 0; i < clickables.Count; i++)
             {
                 clickables[i].ObjectiveID = i;
+                clickablesCount++;
             }
         }
 
