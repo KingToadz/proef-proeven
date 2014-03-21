@@ -195,6 +195,7 @@ namespace proef_proeven.Components.Game
 
         public void Reset()
         {
+            Won = false;
             position = StartPosition;
             ChangeMovement(StartMovement);
         }

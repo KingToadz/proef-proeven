@@ -205,11 +205,19 @@ namespace proef_proeven.Screens
             }
 
             backButton = new ClickableObject();
-            backButton.TexturePath = @"buttons\help";
-            backButton.Image = content.Load<Texture2D>(backButton.TexturePath);
+            if(testing)
+            {
+                backButton.TexturePath = @"buttons\reset";
+                backButton.Image = content.Load<Texture2D>(backButton.TexturePath);
+            }
+            else
+            { 
+                backButton.TexturePath = @"buttons\back";
+                backButton.Image = content.Load<Texture2D>(backButton.TexturePath);
+            }
             backButton.onClick += OnClickHandler;
             backButton.ObjectiveID = -1;
-            backButton.Position = new Vector2(750, 600);
+            backButton.Position = new Vector2(Game1.Instance.ScreenRect.Width - backButton.Image.Width - 20, Game1.Instance.ScreenRect.Height - backButton.Image.Height - 20);
 
             base.LoadContent(content);
         }
@@ -259,9 +267,16 @@ namespace proef_proeven.Screens
 
                 if(s == backButton)
                 {
-                    LevelManager.Instance.WinLevel(levelID, player.Tries);
-                    LevelManager.Instance.UnlockLevel(levelID + 1);
-                    ScreenManager.Instance.PopScreen();
+                    if (!testing)
+                    {
+                        LevelManager.Instance.WinLevel(levelID, player.Tries);
+                        LevelManager.Instance.UnlockLevel(levelID + 1);
+                        ScreenManager.Instance.PopScreen();
+                    }
+                    else
+                    {
+                        Reset();
+                    }
                     return;
                 }
  
@@ -340,8 +355,9 @@ namespace proef_proeven.Screens
                 }
             }
 
-#if DEBUG
             float yMargin = 0;
+
+#if !DEBUG
             // Just use one letter to find the height and add some extra margin
             float deltaMargin = Game1.Instance.fontRenderer.StringSize("H").Height + 5;
             foreach (Objective objective in objectives)
@@ -359,7 +375,7 @@ namespace proef_proeven.Screens
 
             if(testing)
             {
-                Game1.Instance.fontRenderer.DrawText(batch, new Vector2(5, 5), "TESTING... Press backspace to go back to editor");
+                Game1.Instance.fontRenderer.DrawText(batch, new Vector2(5, Game1.Instance.ScreenRect.Height - 40), "Testing... Press backspace to go back to editor", Color.Black);
             }
 
             base.Draw(batch);
