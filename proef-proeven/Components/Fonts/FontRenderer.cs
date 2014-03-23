@@ -12,6 +12,12 @@ namespace proef_proeven.Components.Fonts
         private Dictionary<char, FontChar> _characterMap;
         private FontFile _fontFile;
         private Texture2D _texture;
+        private Rectangle charSize;
+
+        public Rectangle CharSize
+        {
+            get { return charSize; }
+        }
 
         public FontRenderer(FontFile fontFile, Texture2D fontTexture)
         {
@@ -24,6 +30,8 @@ namespace proef_proeven.Components.Fonts
                 char c = (char)fontCharacter.ID;
                 _characterMap.Add(c, fontCharacter);
             }
+
+            charSize = StringSize("W");
         }
 
         /// <summary>

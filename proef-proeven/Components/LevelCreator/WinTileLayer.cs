@@ -23,7 +23,7 @@ namespace proef_proeven.Components.LevelCreator
         public WinTileLayer()
         {
             tiles = new List<WinTile>();
-            wSize = Game1.Instance.fontRenderer.StringSize("W");
+            wSize = Game1.Instance.fontRenderer.CharSize;
             dragging = false;
         }
 

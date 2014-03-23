@@ -17,7 +17,6 @@ namespace proef_proeven.Components.LevelCreator
         List<MovementTile> movement;
 
         float rotation;
-        Texture2D arrow;
 
         Rectangle tileSize;
         bool dragging;
@@ -34,7 +33,6 @@ namespace proef_proeven.Components.LevelCreator
 
         public override void LoadContent(ContentManager content)
         {
-            arrow = content.Load<Texture2D>(@"level-editor\required\arrow");
             rotation = 0.0f;
 
             base.LoadContent(content);
@@ -70,61 +68,11 @@ namespace proef_proeven.Components.LevelCreator
                 rotation = MathHelper.ToRadians(270.0f);
             }
 
-            /*
-              if (InputHelper.Instance.IsLeftMousePressed())
-            {
-                if (!dragging)
-                {
-                    dragging = true;
-                    winTileSize.X = (int)InputHelper.Instance.MousePos().X;
-                    winTileSize.Y = (int)InputHelper.Instance.MousePos().Y;
-                    winTileSize.Width = (int)Math.Abs(InputHelper.Instance.MousePos().X - winTileSize.X);
-                    winTileSize.Height = (int)Math.Abs(InputHelper.Instance.MousePos().Y - winTileSize.Y);
-                }
-            }
-            else if (InputHelper.Instance.LeftMouseDown())
-            {
-                winTileSize.Width = (int)Math.Abs(InputHelper.Instance.MousePos().X - winTileSize.X);
-                winTileSize.Height = (int)Math.Abs(InputHelper.Instance.MousePos().Y - winTileSize.Y);
-            }
-            else if (InputHelper.Instance.IsLeftMouseReleased() && dragging)
-            {
-                WinTile win = new WinTile(winTileSize);
-                tiles.Add(win);
-                dragging = false;
-            }
-            else if (InputHelper.Instance.IsRightMousePressed() && !dragging)
-            {
-                for (int i = 0; i < tiles.Count; i++)
-                {
-                    WinTile o = tiles[i];
-
-                    if (o.Boundingbox.Contains(InputHelper.Instance.MousePos().toPoint()))
-                    {
-                        tiles.Remove(o);
-                    }
-                }
-            }
-
-            // check for left mouse up
-            if(!InputHelper.Instance.LeftMouseDown())
-            {
-                dragging = false;
-            }
-
-
-            if (dragging)
-            {
-                blockLayerChange = true;
-                winTileSize = GetInvertedRectangle(winTileSize);
-            }
-            else
-            {
-                blockLayerChange = false;
-            }
-            */
             if (InputHelper.Instance.IsLeftMousePressed())
             {
+                //MovementTile win = new MovementTile(new Rectangle((int)InputHelper.Instance.MousePos().X, (int)InputHelper.Instance.MousePos().X, 32, 32), GetMovement(), true);
+                //movement.Add(win);
+
                 Player.Movement move = GetMovement();
 
                 if (!dragging)
@@ -164,6 +112,11 @@ namespace proef_proeven.Components.LevelCreator
             if(!InputHelper.Instance.LeftMouseDown())
             {
                 dragging = false;
+                if (!dragging)
+                {
+                    tileSize.X = (int)InputHelper.Instance.MousePos().X;
+                    tileSize.Y = (int)InputHelper.Instance.MousePos().Y;
+                }
             }
 
 
@@ -233,6 +186,28 @@ namespace proef_proeven.Components.LevelCreator
                 return Player.Movement.Left;
         }
 
+        private string GetMovementChar()
+        {
+            if (rotation == MathHelper.ToRadians(0.0f))
+            {
+                return ">";
+            }
+            else if (rotation == MathHelper.ToRadians(90.0f))
+            {
+                return "v";
+            }
+            else if (rotation == MathHelper.ToRadians(180.0f))
+            {
+                return "<";
+            }
+            else if (rotation == MathHelper.ToRadians(270.0f))
+            {
+                return "^";
+            }
+            else
+                return "*";
+        }
+
         public override void Draw(SpriteBatch batch)
         {
             foreach (MovementTile t in movement)
@@ -240,13 +215,16 @@ namespace proef_proeven.Components.LevelCreator
 
             if (ActiveLayer)
             {
+                Rectangle wSize = Game1.Instance.fontRenderer.StringSize(GetMovementChar());
+
                 if (dragging)
                 {
-                    batch.Draw(arrow, tileSize, arrow.Bounds, Color.FromNonPremultiplied(255, 255, 255, 100), rotation, arrow.Bounds.Center.toVector2(), SpriteEffects.None, 0.0f);
+                    Game1.Instance.fontRenderer.DrawText(batch, new Vector2((tileSize.X + tileSize.Width / 2) - wSize.Width / 2, (tileSize.Y + tileSize.Height / 2) - wSize.Height), GetMovementChar());
                     RectangleRender.Draw(batch, tileSize);
                 }
                 else
-                    batch.Draw(arrow, InputHelper.Instance.MousePos(), arrow.Bounds, Color.FromNonPremultiplied(255, 255, 255, 100), rotation, arrow.Bounds.Center.toVector2(), 1f, SpriteEffects.None, 0.0f);
+                    Game1.Instance.fontRenderer.DrawText(batch, new Vector2(tileSize.X - wSize.Width / 2, tileSize.Y  - wSize.Height), GetMovementChar());
+
             }
 
 
