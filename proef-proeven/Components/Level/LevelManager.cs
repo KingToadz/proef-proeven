@@ -26,17 +26,16 @@ namespace proef_proeven.Components.Level
         }
 
         List<LevelData> levelData;
-
-        string dataDir = @"\Data\";
+      
 
         /// <summary>
         /// Create directory and files if needed otherwise loads them
         /// </summary>
         private void FirstRun()
         {
-            IOHelper.Instance.CreateDirectory(dataDir);
+            IOHelper.Instance.CreateDirectory(Constants.DATA_DIR);
 
-            if (!IOHelper.Instance.DoesFileExist(dataDir + "levels.json"))
+            if (!IOHelper.Instance.DoesFileExist(Constants.DATA_DIR + "levels.json"))
                 CreateAndSaveLevels();
             else
             {
@@ -80,7 +79,7 @@ namespace proef_proeven.Components.Level
                     levelData[i].Unlocked = true;
             }
 
-            IOHelper.Instance.WriteFile(dataDir + "levels.json", JsonConvert.SerializeObject(levelData));
+            IOHelper.Instance.WriteFile(Constants.DATA_DIR + "levels.json", JsonConvert.SerializeObject(levelData));
         }
 
         /// <summary>
@@ -88,7 +87,7 @@ namespace proef_proeven.Components.Level
         /// </summary>
         public void SaveData()
         {
-            IOHelper.Instance.WriteFile(dataDir + "levels.json", JsonConvert.SerializeObject(levelData));
+            IOHelper.Instance.WriteFile(Constants.DATA_DIR + "levels.json", JsonConvert.SerializeObject(levelData));
         }
 
         /// <summary>
@@ -96,7 +95,7 @@ namespace proef_proeven.Components.Level
         /// </summary>
         public void LoadData()
         {
-            levelData = JsonConvert.DeserializeObject<List<LevelData>>(IOHelper.Instance.ReadFile(dataDir + "levels.json"));
+            levelData = JsonConvert.DeserializeObject<List<LevelData>>(IOHelper.Instance.ReadFile(Constants.DATA_DIR + "levels.json"));
         }
 
         /// <summary>
@@ -179,6 +178,11 @@ namespace proef_proeven.Components.Level
             return id >= 0 && id < levelData.Count;
         }
 
+        /// <summary>
+        /// Save an level
+        /// </summary>
+        /// <param name="lvl">The level file</param>
+        /// <param name="levelID">The ID of the level</param>
         public void SaveLevel(LevelFormat lvl, int levelID)
         {
             IOHelper.Instance.WriteFile(@"\levels\" + "level"+levelID+".json", JsonConvert.SerializeObject(lvl,Formatting.Indented));
