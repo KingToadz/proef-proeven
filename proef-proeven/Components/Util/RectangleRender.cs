@@ -20,7 +20,7 @@ namespace proef_proeven.Components.Util
                 if(pixel == null)
                 {
                     pixel = new Texture2D(Game1.Instance.GraphicsDevice, 1, 1);
-                    pixel.SetData<Color>(new Color[1]{ Color.Black });
+                    pixel.SetData<Color>(new Color[1]{ Color.White });
                 }
                 return pixel;
             }
@@ -30,10 +30,18 @@ namespace proef_proeven.Components.Util
 
         public static void Draw(SpriteBatch batch, Rectangle rect)
         {
-            batch.Draw(Pixel, new Rectangle(rect.X, rect.Y, rect.Width, 1), Color.White);
-            batch.Draw(Pixel, new Rectangle(rect.X, rect.Y, 1, rect.Height), Color.White);
-            batch.Draw(Pixel, new Rectangle(rect.X + rect.Width, rect.Y, 1, rect.Height), Color.White);
-            batch.Draw(Pixel, new Rectangle(rect.X, rect.Y + rect.Height, rect.Width, 1), Color.White);
+            batch.Draw(Pixel, new Rectangle(rect.X, rect.Y, rect.Width, 1), Color.Black);
+            batch.Draw(Pixel, new Rectangle(rect.X, rect.Y, 1, rect.Height), Color.Black);
+            batch.Draw(Pixel, new Rectangle(rect.X + rect.Width, rect.Y, 1, rect.Height), Color.Black);
+            batch.Draw(Pixel, new Rectangle(rect.X, rect.Y + rect.Height, rect.Width, 1), Color.Black);
+        }
+
+        public static void Draw(SpriteBatch batch, Rectangle rect, Color lineColor)
+        {
+            batch.Draw(Pixel, new Rectangle(rect.X, rect.Y, rect.Width, 1), lineColor);
+            batch.Draw(Pixel, new Rectangle(rect.X, rect.Y, 1, rect.Height), lineColor);
+            batch.Draw(Pixel, new Rectangle(rect.X + rect.Width, rect.Y, 1, rect.Height), lineColor);
+            batch.Draw(Pixel, new Rectangle(rect.X, rect.Y + rect.Height, rect.Width, 1), lineColor);
         }
 
         public void Draw(SpriteBatch batch)

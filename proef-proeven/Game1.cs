@@ -84,6 +84,8 @@ namespace proef_proeven
 
         public FontRenderer fontRenderer;
 
+        public bool CreatorMode = false;
+
         public Game1()
             : base()
         {
@@ -158,6 +160,10 @@ namespace proef_proeven
                 Exit();
             // Always update the mouse before the screen
             InputHelper.Instance.Update();
+
+            if (InputHelper.Instance.IsKeyPressed(Keys.C))
+                CreatorMode = !CreatorMode;
+
             ScreenManager.Instance.Update(gameTime);
 
             base.Update(gameTime);

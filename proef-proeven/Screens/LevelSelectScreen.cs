@@ -16,12 +16,9 @@ namespace proef_proeven.Screens
         List<Button> lvlButtons;
         List<LevelPreview> previews;
 
-        bool startLevelCreator;
-
         public LevelSelectScreen()
         {
             lvlButtons = new List<Button>();
-            startLevelCreator = false;
         }
 
         public override void LoadContent(ContentManager content)
@@ -59,7 +56,7 @@ namespace proef_proeven.Screens
             {
                 Button b = sender as Button;
 
-                if (startLevelCreator)
+                if (Game1.Instance.CreatorMode)
                 {
                     ScreenManager.Instance.SetScreen(new LevelCreator((int)b.Tag));
                 }
@@ -78,11 +75,6 @@ namespace proef_proeven.Screens
                 p.Update(dt);
             }
 
-            if(InputHelper.Instance.IsKeyReleased(Keys.C))
-            {
-                startLevelCreator = !startLevelCreator;
-            }
-
             base.Update(dt);
         }
 
@@ -93,7 +85,7 @@ namespace proef_proeven.Screens
                 p.Draw(batch);
             }
 
-            if(startLevelCreator)
+            if(Game1.Instance.CreatorMode)
             {
                 Game1.Instance.fontRenderer.DrawText(batch, new Vector2(5, 5), "Level creator Mode enabled");
             }

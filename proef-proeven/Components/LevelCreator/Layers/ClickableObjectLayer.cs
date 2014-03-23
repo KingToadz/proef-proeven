@@ -23,6 +23,10 @@ namespace proef_proeven.Components.LevelCreator
         Vector2 startPos;
         bool placing;
 
+        bool bbEditorOpen = false;
+
+        BoundingboxEditorLayer bbEditor;
+
         public ClickableObjectLayer()
         {
             clickables = new List<ClickableObject>();
@@ -38,20 +42,13 @@ namespace proef_proeven.Components.LevelCreator
 
         public override void LoadContent(ContentManager content)
         {
-            List<string> files = IOHelper.Instance.FilesInDirectory(@"\Content\level-editor\moveable", "*.png");
             clickables = new List<ClickableObject>();
 
-            textures = new List<Tuple<string, Texture2D>>();
+            ClickableObjectManager.Instance.LoadTextures(content);
+            ClickableObjectManager.Instance.LoadBoxes();
 
-            for (int i = 0; i < files.Count; i++)
-            {
-                files[i] = files[i].Remove(files[i].LastIndexOf('.'), files[i].Length - files[i].LastIndexOf('.'));
+            textures = ClickableObjectManager.Instance.textures;
 
-                if (files[i].Contains(@"\Content\"))
-                    files[i] = files[i].Remove(0, @"\Content\".Length);
-
-                textures.Add(new Tuple<string, Texture2D>(files[i], content.Load<Texture2D>(files[i])));
-            }
             base.LoadContent(content);
         }
 
@@ -110,6 +107,8 @@ namespace proef_proeven.Components.LevelCreator
                     obj.TexturePath = textures[curObject].Item1;
                     obj.moveToPosition = InputHelper.Instance.MousePos();
                     obj.ObjectiveID = clickablesCount;
+                    if (!ClickableObjectManager.Instance.NoBoxesLoaded && !ClickableObjectManager.Instance.GetBoundingbox(textures[curObject].Item1).IsEmpty)
+                        obj.SetCustomBounds(ClickableObjectManager.Instance.GetBoundingbox(textures[curObject].Item1));
                     clickables.Add(obj);
                     clickablesCount++;
                     placing = false;

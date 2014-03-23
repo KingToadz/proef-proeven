@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using proef_proeven.Components.Util;
 using System;
@@ -29,7 +31,16 @@ namespace proef_proeven.Components.LevelCreator
             }
         }
 
+        public bool NoTexturesLoaded
+        {
+            get
+            {
+                return textures.Count == 0;
+            }
+        }
+
         Dictionary<string, Rectangle> customboxes;
+        public List<Tuple<string, Texture2D>> textures { get; private set; }
 
         ClickableObjectManager()
         {
@@ -51,7 +62,34 @@ namespace proef_proeven.Components.LevelCreator
             return new Rectangle();
         }
 
-        public bool Load()
+        public Dictionary<string, Rectangle> GetAllBoxes()
+        {
+            return customboxes;
+        }
+
+        public void LoadTextures(ContentManager content)
+        {
+            List<string> files = IOHelper.Instance.FilesInDirectory(@"\Content\level-editor\moveable", "*.png");
+            textures = new List<Tuple<string, Texture2D>>();
+
+            for (int i = 0; i < files.Count; i++)
+            {
+                files[i] = files[i].Remove(files[i].LastIndexOf('.'), files[i].Length - files[i].LastIndexOf('.'));
+
+                if (files[i].Contains(@"\Content\"))
+                    files[i] = files[i].Remove(0, @"\Content\".Length);
+
+                Tuple<string, Texture2D> tup = new Tuple<string, Texture2D>(files[i], content.Load<Texture2D>(files[i]));
+                textures.Add(tup);
+
+                if(GetBoundingbox(files[i]).IsEmpty)
+                {
+                    ChangeBox(files[i], tup.Item2.Bounds);
+                }
+            }
+        }
+
+        public bool LoadBoxes()
         {
             IOHelper.Instance.CreateDirectory(Constants.DATA_DIR);
 

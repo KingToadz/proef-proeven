@@ -7,8 +7,8 @@ namespace proef_proeven
 {
     class Constants
     {
-        public static const string DATA_DIR = @"\Data\";
-        public static const string LEVEL_DIR = @"\level\";
-        public static const string CONTENT_DIR = @"Content";
+        public static string DATA_DIR = @"\Data\";
+        public static string LEVEL_DIR = @"\level\";
+        public static string CONTENT_DIR = @"Content";
     }
 }

@@ -123,6 +123,10 @@ namespace proef_proeven.Screens
                     clickObj.moveToPosition  = info.moveToPosition;
                     clickObj.Image           = content.Load<Texture2D>(info.texturePath);
                     clickObj.ObjectiveID     = info.objectiveID;
+
+                    if (info.useCustomBounds)
+                        clickObj.SetCustomBounds(new Rectangle(info.X, info.Y, info.Width, info.Height));
+
                     clickObj.onClick        += OnClickHandler;
 
                     objectives.Add(new Objective("Objective " + info.objectiveID));
@@ -356,16 +360,6 @@ namespace proef_proeven.Screens
             }
 
             float yMargin = 0;
-
-#if !DEBUG
-            // Just use one letter to find the height and add some extra margin
-            float deltaMargin = Game1.Instance.fontRenderer.StringSize("H").Height + 5;
-            foreach (Objective objective in objectives)
-            {
-                Game1.Instance.fontRenderer.DrawText(batch, new Vector2(10, 10 + yMargin), objective.Name + ": " + objective.Done, Color.Black);
-                yMargin += deltaMargin;
-            }
-#endif
 
             if(player.Won)
             {

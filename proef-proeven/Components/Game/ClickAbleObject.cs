@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using proef_proeven.Components.Game.Interfaces;
 using proef_proeven.Components.LoadData;
+using proef_proeven.Components.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace proef_proeven.Components.Game
 {
     class ClickableObject : IUpdateAble, IDrawAble, ICollidAble, IResetAble
     {
+        private Rectangle startHitbox;
         private Rectangle hitbox;
         /// <summary>
         /// The Hitbox of the object. 
@@ -73,8 +75,16 @@ namespace proef_proeven.Components.Game
             {
                 position = value;
 
-                hitbox.X = (int)value.X;
-                hitbox.Y = (int)value.Y;
+                if (useCustomBounds)
+                {
+                    hitbox.X = (int)value.X + startHitbox.X;
+                    hitbox.Y = (int)value.Y + startHitbox.Y;
+                }
+                else
+                {
+                    hitbox.X = (int)value.X;
+                    hitbox.Y = (int)value.Y;
+                }
             }
         }
 
@@ -142,7 +152,10 @@ namespace proef_proeven.Components.Game
 
         public void SetCustomBounds(Rectangle bounds)
         {
-            this.Hitbox = bounds;
+            this.startHitbox = bounds;
+            this.hitbox = bounds;
+            this.hitbox.X = bounds.X + (int)position.X;
+            this.hitbox.Y = bounds.Y + (int)position.Y;
             useCustomBounds = true;
         }
 
@@ -190,6 +203,9 @@ namespace proef_proeven.Components.Game
                 // no custom bounds mean hitbox contains the position and the image size
                 batch.Draw(image, hitbox, Color.White);
             }
+
+            if (Game1.Instance.CreatorMode)
+                RectangleRender.Draw(batch, hitbox);
         }
 
         public void Collide(ICollidAble collider)
