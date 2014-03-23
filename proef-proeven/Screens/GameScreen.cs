@@ -152,60 +152,7 @@ namespace proef_proeven.Screens
             }
             else
             {
-                ///////////////////////////////////////////////////////////////// OLD still in use
-                objectives.Add(new Objective("objective 1"));
-                objectives.Add(new Objective("Objective 2"));
-                objectives.Add(new Objective("Objective 3"));
-
-
-                GameObjects.Add(backgroundGrid);
-                player.StartPosition = new Vector2(100, 100);
-                player.LoadContent(content);
-                player.StartMovement = Player.Movement.Down;
-                player.ChangeMovement(player.StartMovement);
-                GameObjects.Add(player);
-
-                objective1 = new ClickableObject();
-                objective1.TexturePath = @"buttons\button";
-                objective1.Image = content.Load<Texture2D>(objective1.TexturePath);
-                objective1.onClick += OnClickHandler;
-                objective1.ObjectiveID = 0;
-                objective1.Position = objective1.StartPosition = new Vector2(50, 200);
-                objective1.moveToPosition = objective1.Position + new Vector2(300, 0);
-
-                objective2 = new ClickableObject();
-                objective2.TexturePath = @"buttons\button";
-                objective2.Image = content.Load<Texture2D>(objective2.TexturePath);
-                objective2.onClick += OnClickHandler;
-                objective2.ObjectiveID = 1;
-                objective2.Position = objective2.StartPosition = new Vector2(50, 400);
-                objective2.moveToPosition = objective2.Position + new Vector2(300, 0);
-
-                objective3 = new ClickableObject();
-                objective3.TexturePath = @"buttons\button";
-                objective3.Image = content.Load<Texture2D>(objective3.TexturePath);
-                objective3.onClick += OnClickHandler;
-                objective3.ObjectiveID = 2;
-                objective3.Position = objective3.StartPosition = new Vector2(50, 600);
-                objective3.moveToPosition = objective3.Position + new Vector2(300, 0);
-
-                WinTile win = new WinTile(new Rectangle(100, 400, 64, 20));
-                GameObjects.Add(win);
-
-                MovementTile move = new MovementTile(new Rectangle(100, 300, 32, 32), Player.Movement.Right);
-                GameObjects.Add(move);
-                MovementTile move2 = new MovementTile(new Rectangle(300, 300, 32, 32), Player.Movement.Down);
-                GameObjects.Add(move2);
-                MovementTile move3 = new MovementTile(new Rectangle(300, 500, 32, 32), Player.Movement.Left);
-                GameObjects.Add(move3);
-                MovementTile move4 = new MovementTile(new Rectangle(100, 500, 32, 32), Player.Movement.Up);
-                GameObjects.Add(move4);
-
-                GameObjects.Add(objective1);
-                GameObjects.Add(objective2);
-                GameObjects.Add(objective3);
-
-                SaveLevel();
+                player.Won = true;
             }
 
             backButton = new ClickableObject();
@@ -286,10 +233,7 @@ namespace proef_proeven.Screens
  
                 if(!objectives[s.ObjectiveID].Done)
                 {
-                    if (s.moveToPosition == Vector2.Zero)
-                        s.Position = new Vector2(s.Position.X - 400, s.Position.Y);
-                    else
-                        s.Position = s.moveToPosition;
+                    s.NextPos();
                 }
             }
         }

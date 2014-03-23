@@ -91,7 +91,12 @@ namespace proef_proeven.Components.Game
         /// <summary>
         /// The position the object needs to move to when clicked
         /// </summary>
-        public Vector2 moveToPosition = Vector2.Zero;
+        public List<Vector2> moveToPosition;
+
+        /// <summary>
+        /// The current position in the list moveToPosition
+        /// </summary>
+        private int currentPosinList = -1;
 
         public Rectangle Boundingbox
         {
@@ -132,10 +137,10 @@ namespace proef_proeven.Components.Game
                 info.objectiveID = ObjectiveID;
                 info.texturePath = TexturePath;
                 info.useCustomBounds = useCustomBounds;
-                info.X = hitbox.X;
-                info.Y = hitbox.Y;
-                info.Width = hitbox.Width;
-                info.Height = hitbox.Height;
+                info.X = startHitbox.X;
+                info.Y = startHitbox.Y;
+                info.Width = startHitbox.Width;
+                info.Height = startHitbox.Height;
                 return info;
             }
         }
@@ -143,11 +148,13 @@ namespace proef_proeven.Components.Game
         public ClickableObject()
         {
             hitbox = new Rectangle();
+            moveToPosition = new List<Vector2>();
         }
 
         public ClickableObject(Rectangle bounds)
         {
             SetCustomBounds(bounds);
+            moveToPosition = new List<Vector2>();
         }
 
         public void SetCustomBounds(Rectangle bounds)
@@ -159,6 +166,15 @@ namespace proef_proeven.Components.Game
             useCustomBounds = true;
         }
 
+        public void NextPos()
+        {
+            if(currentPosinList + 1 < moveToPosition.Count)
+            {
+                currentPosinList++;
+                Position = moveToPosition[currentPosinList];
+            }
+        }
+
         /// <summary>
         /// Reset the object to the state of the beginning of the level
         /// </summary>
@@ -166,6 +182,7 @@ namespace proef_proeven.Components.Game
         {
             // use the public one to set the boundingbox
             Position = StartPosition;
+            currentPosinList = -1;
         }
 
         /// <summary>
@@ -177,10 +194,12 @@ namespace proef_proeven.Components.Game
         {
             Vector2 mousePos = InputHelper.Instance.MousePos();
 
-            if(hitbox.Contains((int)mousePos.X, (int)mousePos.Y) && InputHelper.Instance.IsLeftMouseReleased())
+            if(image != null  && InputHelper.Instance.IsLeftMouseReleased())
             {
-                if (onClick != null)
-                    onClick(this);
+                Rectangle b = new Rectangle((int)position.X, (int)position.Y, image.Width, image.Height);
+                if (b.Contains((int)mousePos.X, (int)mousePos.Y))
+                    if (onClick != null)
+                        onClick(this);
             }
         }
 

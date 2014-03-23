@@ -9,7 +9,7 @@ namespace proef_proeven.Components.LoadData
 {
     class ClickAbleInfo
     {
-        public Vector2 moveToPosition;
+        public List<Vector2> moveToPosition;
         public Vector2 position;
         public int objectiveID;
         public string texturePath;

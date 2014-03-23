@@ -14,17 +14,14 @@ namespace proef_proeven.Components.LevelCreator
 {
     class ClickableObjectLayer : BaseLayer 
     {
+        List<Vector2> moveToPositions;
         List<ClickableObject> clickables;
         List<Tuple<string, Texture2D>> textures;
         int clickablesCount;
-
         int curObject;
-
         Vector2 startPos;
         bool placing;
-
         bool bbEditorOpen = false;
-
         BoundingboxEditorLayer bbEditor;
 
         public ClickableObjectLayer()
@@ -33,6 +30,7 @@ namespace proef_proeven.Components.LevelCreator
             clickablesCount = 0;
             curObject = 0;
             placing = false;
+            moveToPositions = new List<Vector2>();
         }
 
         public override List<object> getObjects()
@@ -101,42 +99,51 @@ namespace proef_proeven.Components.LevelCreator
             {
                 if (placing)
                 {
+                    moveToPositions.Add(InputHelper.Instance.MousePos());
+                }
+                else
+                {
+                    startPos = InputHelper.Instance.MousePos();
+                    placing = true;
+                }
+            }
+            else if (InputHelper.Instance.IsRightMousePressed())
+            {
+                if (placing)
+                {
                     ClickableObject obj = new ClickableObject();
                     obj.Image = textures[curObject].Item2;
                     obj.StartPosition = obj.Position = startPos;
                     obj.TexturePath = textures[curObject].Item1;
-                    obj.moveToPosition = InputHelper.Instance.MousePos();
+                    obj.moveToPosition = moveToPositions;
                     obj.ObjectiveID = clickablesCount;
                     if (!ClickableObjectManager.Instance.NoBoxesLoaded && !ClickableObjectManager.Instance.GetBoundingbox(textures[curObject].Item1).IsEmpty)
                         obj.SetCustomBounds(ClickableObjectManager.Instance.GetBoundingbox(textures[curObject].Item1));
                     clickables.Add(obj);
                     clickablesCount++;
+                    moveToPositions = new List<Vector2>();
                     placing = false;
                 }
                 else
                 {
-                    placing = true;
-                    startPos = InputHelper.Instance.MousePos();
-                }
-            }
-            else if (InputHelper.Instance.IsRightMousePressed() && !placing)
-            {
-                bool reset = false;
 
-                for (int i = 0; i < clickables.Count; i++)
-                {
-                    ClickableObject o = clickables[i];
+                    bool reset = false;
 
-                    if (o.Boundingbox.Contains(InputHelper.Instance.MousePos().toPoint()))
+                    for (int i = 0; i < clickables.Count; i++)
                     {
-                        clickables.Remove(o);
-                        clickablesCount--;
-                        reset = true;
-                    }
-                }
+                        ClickableObject o = clickables[i];
 
-                if (reset)
-                    ResetIDs();
+                        if (o.Boundingbox.Contains(InputHelper.Instance.MousePos().toPoint()))
+                        {
+                            clickables.Remove(o);
+                            clickablesCount--;
+                            reset = true;
+                        }
+                    }
+
+                    if (reset)
+                        ResetIDs();
+                }
             }
 
             if (placing)
@@ -162,9 +169,14 @@ namespace proef_proeven.Components.LevelCreator
             foreach(ClickableObject click in clickables)
             {
                 click.Draw(batch);
-                Game1.Instance.fontRenderer.DrawText(batch, click.StartPosition + new Vector2(5, 5), click.ObjectiveID.ToString());
-                batch.Draw(click.Image, click.moveToPosition, Color.FromNonPremultiplied(255, 255, 255, 100));
-                Game1.Instance.fontRenderer.DrawText(batch, click.moveToPosition + new Vector2(5, 5), click.ObjectiveID.ToString());
+                Game1.Instance.fontRenderer.DrawText(batch, click.StartPosition + new Vector2(5, 5), click.ObjectiveID.ToString() + "-0");
+                int num = 0;
+                foreach (Vector2 pos in click.moveToPosition)
+                {
+                    num++;
+                    batch.Draw(click.Image, pos, Color.FromNonPremultiplied(255, 255, 255, 100));
+                    Game1.Instance.fontRenderer.DrawText(batch, pos + new Vector2(5, 5), click.ObjectiveID.ToString() + "-" + num);
+                }
             }
 
             if (ActiveLayer)
@@ -172,7 +184,14 @@ namespace proef_proeven.Components.LevelCreator
                 batch.Draw(textures[curObject].Item2, InputHelper.Instance.MousePos(), placing ? Color.FromNonPremultiplied(255, 255, 255, 100) : Color.White);
 
                 if (placing)
+                {
                     batch.Draw(textures[curObject].Item2, startPos, Color.White);
+
+                    foreach (Vector2 pos in moveToPositions)
+                    {
+                        batch.Draw(textures[curObject].Item2, pos, Color.White);
+                    }
+                }
             }
 
             base.Draw(batch);
