@@ -54,6 +54,8 @@ using proef_proeven.Screens;
 using proef_proeven.Components.Fonts;
 using System.IO;
 using proef_proeven.Components;
+using proef_proeven.Components.Animations;
+using proef_proeven.Components.Util;
 #endregion
 
 namespace proef_proeven

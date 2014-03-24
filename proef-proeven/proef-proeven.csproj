@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components\Animations\Animation.cs" />
+    <Compile Include="Components\Animations\AnimationInfo.cs" />
     <Compile Include="Components\Button.cs" />
     <Compile Include="Components\Fonts\FontProcessor.cs" />
     <Compile Include="Components\Fonts\FontRenderer.cs" />
@@ -147,6 +148,9 @@
     </Content>
     <Content Include="Content\level-editor\moveable\pawn.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\level-editor\moveable\player-down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\level-editor\moveable\start.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -13,13 +13,24 @@ namespace proef_proeven.Components.Animations
         List<Rectangle> frames;
 
         int currentFrame;
-
+        int cols;
+        int rows;
         int fps = 30;
         float timePerFrame = 1.0f / 30;
         TimeSpan timer;
 
         bool loop;
         public bool isDone { get; private set; }
+
+        public int FrameWidth
+        {
+            get { return frames[0].Width; }
+        }
+
+        public int FrameHeight
+        {
+            get { return frames[0].Height; }
+        }
 
         public Animation(Texture2D sheet, int frameWidth, int frameHeight, int cols, int rows)
             :this(sheet, frameWidth, frameHeight, cols, rows, cols*rows, 30)
@@ -30,6 +41,10 @@ namespace proef_proeven.Components.Animations
             spritesheet = sheet;
             currentFrame = 0;
             loop = true;
+            this.rows = rows;
+            this.cols = cols;
+
+
 
             this.fps = fps;
             this.timePerFrame = 1.0f / fps;
@@ -55,6 +70,22 @@ namespace proef_proeven.Components.Animations
 
                     curFrame++;
                 }
+            }
+        }
+
+        public AnimationInfo Info
+        {
+            get
+            {
+                AnimationInfo info = new AnimationInfo();
+                info.cols = cols;
+                info.rows = rows;
+                info.totalFrames = frames.Count;
+                info.width = FrameWidth;
+                info.height = FrameHeight;
+                info.fps = fps;
+                info.looping = loop;
+                return info;
             }
         }
 

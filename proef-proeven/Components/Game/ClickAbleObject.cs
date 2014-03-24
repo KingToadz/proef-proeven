@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using proef_proeven.Components.Animations;
 using proef_proeven.Components.Game.Interfaces;
 using proef_proeven.Components.LoadData;
 using proef_proeven.Components.Util;
@@ -51,6 +52,16 @@ namespace proef_proeven.Components.Game
                     hitbox.Height = value.Height;
                 }
             }
+        }
+
+        private Animation animation;
+        /// <summary>
+        /// The animation if it exists
+        /// </summary>
+        public Animation Animation
+        {
+            get { return animation; }
+            set { animation = value; }
         }
 
         /// <summary>
@@ -194,12 +205,25 @@ namespace proef_proeven.Components.Game
         {
             Vector2 mousePos = InputHelper.Instance.MousePos();
 
-            if(image != null  && InputHelper.Instance.IsLeftMouseReleased())
+            if (animation != null)
+                animation.Update(dt);
+
+            if(InputHelper.Instance.IsLeftMouseReleased())
             {
-                Rectangle b = new Rectangle((int)position.X, (int)position.Y, image.Width, image.Height);
-                if (b.Contains((int)mousePos.X, (int)mousePos.Y))
-                    if (onClick != null)
-                        onClick(this);
+                if (image != null)
+                {
+                    Rectangle b = new Rectangle((int)position.X, (int)position.Y, image.Width, image.Height);
+                    if (b.Contains((int)mousePos.X, (int)mousePos.Y))
+                        if (onClick != null)
+                            onClick(this);
+                }
+                else if(animation != null)
+                {
+                    Rectangle b = new Rectangle((int)position.X, (int)position.Y, animation.FrameWidth, animation.FrameHeight);
+                    if (b.Contains((int)mousePos.X, (int)mousePos.Y))
+                        if (onClick != null)
+                            onClick(this);
+                }
             }
         }
 
@@ -209,18 +233,22 @@ namespace proef_proeven.Components.Game
         /// <param name="batch">The active spritebatch</param>
         public virtual void Draw(SpriteBatch batch)
         {
-            if (image == null)
-                return;
-
-            if (useCustomBounds)
+            if (image != null)
             {
-                // Draw the whole image with custom bounds
-                batch.Draw(image, new Rectangle((int)position.X, (int)position.Y, image.Width, image.Height), Color.White);
+                if (useCustomBounds)
+                {
+                    // Draw the whole image with custom bounds
+                    batch.Draw(image, new Rectangle((int)position.X, (int)position.Y, image.Width, image.Height), Color.White);
+                }
+                else
+                {
+                    // no custom bounds mean hitbox contains the position and the image size
+                    batch.Draw(image, hitbox, Color.White);
+                }
             }
-            else
+            else if(animation != null)
             {
-                // no custom bounds mean hitbox contains the position and the image size
-                batch.Draw(image, hitbox, Color.White);
+                animation.Draw(batch, position);
             }
 
             if (Game1.Instance.CreatorMode)

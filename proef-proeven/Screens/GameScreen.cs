@@ -2,7 +2,9 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Newtonsoft.Json;
 using proef_proeven.Components;
+using proef_proeven.Components.Animations;
 using proef_proeven.Components.Game;
 using proef_proeven.Components.Game.Interfaces;
 using proef_proeven.Components.Level;
@@ -24,10 +26,6 @@ namespace proef_proeven.Screens
         Player player;
 
         List<object> GameObjects;
-
-        ClickableObject objective1;
-        ClickableObject objective2;
-        ClickableObject objective3;
 
         ClickableObject backButton;
 
@@ -121,7 +119,16 @@ namespace proef_proeven.Screens
                     clickObj.StartPosition   = info.position;
                     clickObj.Position        = info.position;
                     clickObj.moveToPosition  = info.moveToPosition;
-                    clickObj.Image           = content.Load<Texture2D>(info.texturePath);
+
+                    if (IOHelper.Instance.DoesFileExist(Constants.CONTENT_DIR + info.texturePath + ".ani"))
+                    {
+                        AnimationInfo aInfo = JsonConvert.DeserializeObject<AnimationInfo>(IOHelper.Instance.ReadFile(Constants.CONTENT_DIR + info.texturePath + ".ani"));
+                        clickObj.Animation = new Animation(content.Load<Texture2D>(info.texturePath), aInfo.width, aInfo.height, aInfo.cols, aInfo.rows, aInfo.totalFrames, aInfo.fps);
+                    }
+                    else
+                    {
+                        clickObj.Image = content.Load<Texture2D>(info.texturePath);
+                    }
                     clickObj.ObjectiveID     = info.objectiveID;
 
                     if (info.useCustomBounds)
