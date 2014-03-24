@@ -11,5 +11,11 @@ namespace proef_proeven.Components.LoadData
     {
         public Player.Movement startMovement;
         public Vector2 position;
+
+        public bool useCustomBoundingbox;
+        public int x;
+        public int y;
+        public int width;
+        public int height;
     }
 }

@@ -101,24 +101,24 @@ namespace proef_proeven.Screens
                     if (loader.level.backgroundPath != "")
                         background = content.Load<Texture2D>(loader.level.backgroundPath);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                     GameObjects.Add(backgroundGrid);
                 }
 
-                foreach(ClickAbleInfo info in click)
+                foreach (ClickAbleInfo info in click)
                 {
                     ClickableObject clickObj = new ClickableObject();
 
-                    if(info.useCustomBounds)
+                    if (info.useCustomBounds)
                     {
                         clickObj.SetCustomBounds(new Rectangle(info.X, info.Y, info.Width, info.Height));
                     }
 
-                    clickObj.StartPosition   = info.position;
-                    clickObj.Position        = info.position;
-                    clickObj.moveToPosition  = info.moveToPosition;
+                    clickObj.StartPosition = info.position;
+                    clickObj.Position = info.position;
+                    clickObj.moveToPosition = info.moveToPosition;
 
                     if (IOHelper.Instance.DoesFileExist(Constants.CONTENT_DIR + info.texturePath + ".ani"))
                     {
@@ -129,33 +129,42 @@ namespace proef_proeven.Screens
                     {
                         clickObj.Image = content.Load<Texture2D>(info.texturePath);
                     }
-                    clickObj.ObjectiveID     = info.objectiveID;
+                    clickObj.ObjectiveID = info.objectiveID;
 
                     if (info.useCustomBounds)
                         clickObj.SetCustomBounds(new Rectangle(info.X, info.Y, info.Width, info.Height));
 
-                    clickObj.onClick        += OnClickHandler;
+                    clickObj.onClick += OnClickHandler;
 
                     objectives.Add(new Objective("Objective " + info.objectiveID));
 
                     GameObjects.Add(clickObj);
                 }
 
-                player = new Player();
-                player.StartPosition = loader.level.playerInfo.position;
-                player.StartMovement = loader.level.playerInfo.startMovement;
-                player.LoadContent(content);
-                player.ChangeMovement(loader.level.playerInfo.startMovement);
+                {// create scope for info
+                    PlayerInfo info = loader.level.playerInfo;
+                    player = new Player();
+                    player.StartPosition = loader.level.playerInfo.position;
+                    player.StartMovement = loader.level.playerInfo.startMovement;
+                    player.LoadContent(content);
+                    player.ChangeMovement(loader.level.playerInfo.startMovement);
+
+                    if (loader.level.playerInfo.useCustomBoundingbox)
+                    {
+                        player.SetCustomBoundingbox(new Rectangle(info.x, info.y, info.width, info.height));
+                    }
+                }
+
                 GameObjects.Add(player);
 
-                foreach(MovementTileInfo info in loader.level.moveTiles)
+                foreach (MovementTileInfo info in loader.level.moveTiles)
                 {
-                    if(info.WinningTile)
+                    if (info.WinningTile)
                         GameObjects.Add(new WinTile(new Rectangle(info.X, info.Y, info.Width, info.Height)));
                     else
                         GameObjects.Add(new MovementTile(new Rectangle(info.X, info.Y, info.Width, info.Height), info.movement, testing));
                 }
-                
+
             }
             else
             {

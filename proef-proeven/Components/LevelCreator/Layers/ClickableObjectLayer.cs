@@ -22,7 +22,7 @@ namespace proef_proeven.Components.LevelCreator
         Vector2 startPos;
         bool placing;
         bool bbEditorOpen = false;
-        BoundingboxEditorLayer bbEditor;
+        PlayerBoundingboxEditor bbEditor;
 
         public ClickableObjectLayer()
         {

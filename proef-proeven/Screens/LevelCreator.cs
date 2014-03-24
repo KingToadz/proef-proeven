@@ -44,7 +44,7 @@ namespace proef_proeven.Screens
             layers.Add(new PlayerLayer());
             layers.Add(new MovementLayer());
             layers.Add(new WinTileLayer());
-            layers.Add(new BoundingboxEditorLayer());
+            layers.Add(new BoundingboxEditor());
         }
 
         public override void LoadContent(ContentManager content)

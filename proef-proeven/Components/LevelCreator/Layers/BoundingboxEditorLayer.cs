@@ -9,10 +9,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
+using proef_proeven.Components.Game;
 
 namespace proef_proeven.Components.LevelCreator
 {
-    class BoundingboxEditorLayer : BaseLayer
+    class BoundingboxEditor : BaseLayer
     {
         Texture2D overlay;
         List<Tuple<string, Texture2D>> textures;
@@ -27,8 +28,9 @@ namespace proef_proeven.Components.LevelCreator
         Vector2 center;// = Game1.Instance.ScreenCenter;
         Vector2 leftTopImg;// = new Vector2(center.X - t.Width / 2, center.Y - t.Height / 2);
 
-        public BoundingboxEditorLayer()
+        public BoundingboxEditor()
         {
+            this.layerInfo = "Edit the bounding box of ClickableObjects";
         }
 
         public override void LoadContent(ContentManager content)
@@ -112,6 +114,10 @@ namespace proef_proeven.Components.LevelCreator
                 boundingboxDraw = ClickableObjectManager.Instance.GetBoundingbox(textures[current].Item1);
                 boundingboxDraw.X += (int)leftTopImg.X;
                 boundingboxDraw.Y += (int)leftTopImg.Y;
+            }
+            else if (InputHelper.Instance.IsKeyPressed(Keys.D) && !dragging)
+            {
+
             }
 
             leftTopImg = new Vector2(center.X - textures[current].Item2.Width / 2, center.Y - textures[current].Item2.Height / 2);

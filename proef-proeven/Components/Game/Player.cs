@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using proef_proeven.Components.Animations;
 using proef_proeven.Components.Game.Interfaces;
 using proef_proeven.Components.LoadData;
+using proef_proeven.Components.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,13 +55,26 @@ namespace proef_proeven.Components.Game
         }
 
         /// <summary>
+        /// Use the custom boundingbox
+        /// </summary>
+        private bool useCustomboundingbox;
+
+        /// <summary>
+        /// A custom boundingbox for this object
+        /// </summary>
+        private Rectangle customBoundingbox;
+
+        /// <summary>
         /// Boundingbox for the ICollidable interface
         /// </summary>
         public Rectangle Boundingbox
         {
             get
             {
-                return new Rectangle((int)position.X, (int)position.Y, frameWidth, frameHeight);
+                if(!useCustomboundingbox)
+                    return new Rectangle((int)position.X, (int)position.Y, frameWidth, frameHeight);
+                else
+                    return new Rectangle((int)position.X + customBoundingbox.X, (int)position.Y + customBoundingbox.Y, customBoundingbox.Width, customBoundingbox.Height);
             }
         }
 
@@ -105,6 +119,14 @@ namespace proef_proeven.Components.Game
                 PlayerInfo info = new PlayerInfo();
                 info.position = StartPosition;
                 info.startMovement = StartMovement;
+                info.useCustomBoundingbox = useCustomboundingbox;
+                if(useCustomboundingbox)
+                {
+                    info.x = customBoundingbox.X;
+                    info.y = customBoundingbox.Y;
+                    info.width = customBoundingbox.Width;
+                    info.height = customBoundingbox.Height;
+                }
                 return info;
             }
         }
@@ -134,6 +156,18 @@ namespace proef_proeven.Components.Game
             Tries = 1;
         }
 
+        public void SetCustomBoundingbox(Rectangle bounds)
+        {
+            useCustomboundingbox = true;
+            customBoundingbox = bounds;
+        }
+
+        public void RemoveCustomBoundingBox()
+        {
+            useCustomboundingbox = false;
+            customBoundingbox = new Rectangle();
+        }
+
         public void ChangeMovement(Movement newMove)
         {
             if(newMove != currentMovement)
@@ -160,6 +194,11 @@ namespace proef_proeven.Components.Game
         public void Draw(SpriteBatch batch)
         {
             animations[currentMovement].Draw(batch, position);
+
+            if(Game1.Instance.CreatorMode)
+            {
+                RectangleRender.Draw(batch, Boundingbox);
+            }
         }
 
         public void ChangePosition(Vector2 pos)
