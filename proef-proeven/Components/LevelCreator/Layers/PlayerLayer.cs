@@ -92,6 +92,11 @@ namespace proef_proeven.Components.LevelCreator
                 }
             }
 
+            if (boundingboxEditor.Showing)
+                blockLayerChange = true;
+            else
+                blockLayerChange = false;
+
             base.Update(time);
         }
 

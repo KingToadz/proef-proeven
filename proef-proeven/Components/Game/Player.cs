@@ -38,6 +38,11 @@ namespace proef_proeven.Components.Game
         /// </summary>
         Vector2 position = Vector2.Zero;
 
+        public Vector2 Postion
+        {
+            get { return position; }
+        }
+
         /// <summary>
         /// The start position. This is public because of the JSON converter
         /// </summary>

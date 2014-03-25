@@ -56,8 +56,8 @@ namespace proef_proeven.Components.LevelCreator
             {
                 // new box
                 boundingboxInfo = new Rectangle();
-                boundingboxInfo.X = boundingboxDraw.X - player.Boundingbox.X;
-                boundingboxInfo.Y = boundingboxDraw.Y - player.Boundingbox.Y;
+                boundingboxInfo.X = boundingboxDraw.X - (int)player.Postion.X;
+                boundingboxInfo.Y = boundingboxDraw.Y - (int)player.Postion.Y;
                 boundingboxInfo.Width = boundingboxDraw.Width;
                 boundingboxInfo.Height = boundingboxDraw.Height;
 

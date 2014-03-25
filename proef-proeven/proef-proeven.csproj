@@ -54,7 +54,7 @@
     <Compile Include="Components\LevelCreator\ClickableObjectManager.cs" />
     <Compile Include="Components\LevelCreator\Layers\BackgroundLayer.cs" />
     <Compile Include="Components\LevelCreator\Layers\BaseLayer.cs" />
-    <Compile Include="Components\LevelCreator\Layers\PlayerBoundingboxEditor.cs" />
+    <Compile Include="Components\LevelCreator\PlayerBoundingboxEditor.cs" />
     <Compile Include="Components\LevelCreator\Layers\BoundingboxEditorLayer.cs" />
     <Compile Include="Components\LevelCreator\Layers\ClickableObjectLayer.cs" />
     <Compile Include="Components\LevelCreator\Layers\MovementLayer.cs" />
