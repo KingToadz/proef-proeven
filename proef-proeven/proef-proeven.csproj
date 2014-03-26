@@ -149,6 +149,9 @@
     <Content Include="Content\level-editor\decoration\animtest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\level-editor\grid\tiles.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\level-editor\moveable\button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -251,6 +254,7 @@
     <None Include="Content\fonts\segoe32.fnt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\level-editor\grid\tiles.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
