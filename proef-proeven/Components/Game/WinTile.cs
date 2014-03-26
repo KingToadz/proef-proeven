@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using proef_proeven.Components.Game.Interfaces;
 using proef_proeven.Components.LoadData;
+using proef_proeven.Components.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Text;
 
 namespace proef_proeven.Components.Game
 {
-    class WinTile : BaseTile, ICollidAble
+    class WinTile : BaseTile, ICollidAble, IDrawAble
     {
         public Rectangle Boundingbox
         {
@@ -51,6 +53,14 @@ namespace proef_proeven.Components.Game
         public void Collide(ICollidAble collider)
         {
             // shouldn't be called
+        }
+
+        public void Draw(SpriteBatch batch)
+        {
+            if(Game1.Instance.CreatorMode)
+            {
+                RectangleRender.Draw(batch, Bounds);
+            }
         }
     }
 }

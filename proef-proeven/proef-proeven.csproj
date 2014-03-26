@@ -41,6 +41,7 @@
     <Compile Include="Components\Fonts\FontProcessor.cs" />
     <Compile Include="Components\Fonts\FontRenderer.cs" />
     <Compile Include="Components\Game\BaseTile.cs" />
+    <Compile Include="Components\Game\Decoration.cs" />
     <Compile Include="Components\Game\Interfaces\ICollidAble.cs" />
     <Compile Include="Components\Game\Interfaces\IDrawAble.cs" />
     <Compile Include="Components\Game\ClickableObject.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Components\LevelCreator\ClickableObjectManager.cs" />
     <Compile Include="Components\LevelCreator\Layers\BackgroundLayer.cs" />
     <Compile Include="Components\LevelCreator\Layers\BaseLayer.cs" />
+    <Compile Include="Components\LevelCreator\Layers\DecorationLayer.cs" />
     <Compile Include="Components\LevelCreator\PlayerBoundingboxEditor.cs" />
     <Compile Include="Components\LevelCreator\Layers\BoundingboxEditorLayer.cs" />
     <Compile Include="Components\LevelCreator\Layers\ClickableObjectLayer.cs" />
@@ -69,7 +71,7 @@
     <Compile Include="Components\LoadData\MovementTileInfo.cs" />
     <Compile Include="Components\LoadData\PlayerInfo.cs" />
     <Compile Include="Components\Game\MovementTile.cs" />
-    <Compile Include="Components\LoadData\TileInfo.cs" />
+    <Compile Include="Components\LoadData\DecorationInfo.cs" />
     <Compile Include="Components\Util\ExtensionMethods.cs" />
     <Compile Include="Components\Util\IOHelper.cs" />
     <Compile Include="Components\Game\WinTile.cs" />
@@ -142,6 +144,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\level-editor\backgrounds\background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\level-editor\decoration\animtest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\level-editor\moveable\button.png">
@@ -250,7 +255,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Components\Game\Util\" />
-    <Folder Include="Content\level-editor\decoration\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

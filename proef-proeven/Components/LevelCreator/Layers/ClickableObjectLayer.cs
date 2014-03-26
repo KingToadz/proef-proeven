@@ -21,8 +21,6 @@ namespace proef_proeven.Components.LevelCreator
         int curObject;
         Vector2 startPos;
         bool placing;
-        bool bbEditorOpen = false;
-        PlayerBoundingboxEditor bbEditor;
 
         public ClickableObjectLayer()
         {

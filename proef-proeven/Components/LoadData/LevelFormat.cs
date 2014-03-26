@@ -32,7 +32,7 @@ namespace proef_proeven.Components.LoadData
         /// <summary>
         /// All the tiles that will be used as decoration
         /// </summary>
-        public List<TileInfo> decoration { get; set; }
+        public List<DecorationInfo> decoration { get; set; }
 
         /// <summary>
         /// Constructor news the 2 lists
@@ -41,7 +41,7 @@ namespace proef_proeven.Components.LoadData
         {
             clickObjectsInfo = new List<ClickAbleInfo>();
             moveTiles = new List<MovementTileInfo>();
-            decoration = new List<TileInfo>();
+            decoration = new List<DecorationInfo>();
         }
 
     }

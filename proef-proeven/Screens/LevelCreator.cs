@@ -7,6 +7,7 @@ using proef_proeven.Components.Game;
 using proef_proeven.Components.Game.Interfaces;
 using proef_proeven.Components.Level;
 using proef_proeven.Components.LevelCreator;
+using proef_proeven.Components.LevelCreator.Layers;
 using proef_proeven.Components.LoadData;
 using proef_proeven.Components.Util;
 using System;
@@ -25,7 +26,8 @@ namespace proef_proeven.Screens
             "Player layer. Use W A S D to change the start direction.",
             "Movement Tiles layer Use W A S D to change the direction",
             "Win tile layer create win tiles",
-            "Create new boundingboxes for items"
+            "Create new boundingboxes for items",
+            "new layer"
         };
 
         int curLayer = 0;
@@ -45,6 +47,7 @@ namespace proef_proeven.Screens
             layers.Add(new MovementLayer());
             layers.Add(new WinTileLayer());
             layers.Add(new BoundingboxEditor());
+            layers.Add(new DecorationLayer());
         }
 
         public override void LoadContent(ContentManager content)
@@ -97,6 +100,10 @@ namespace proef_proeven.Screens
                 {
                     lvl.moveTiles.Add((o as WinTile).Info);
                 }
+                else if(o is Decoration)
+                {
+                    lvl.decoration.Add((o as Decoration).Info);
+                }
             }
 
             return lvl;
@@ -106,7 +113,6 @@ namespace proef_proeven.Screens
         {
             ScreenManager.Instance.SetScreen(new GameScreen(GetLevelFormat()));
         }
-
         
         public List<object> AllLayerObjects()
         {

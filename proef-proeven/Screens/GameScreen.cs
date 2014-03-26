@@ -165,6 +165,15 @@ namespace proef_proeven.Screens
                         GameObjects.Add(new MovementTile(new Rectangle(info.X, info.Y, info.Width, info.Height), info.movement, testing));
                 }
 
+                foreach (DecorationInfo info in loader.level.decoration)
+                {
+                    Decoration decoration = new Decoration();
+                    decoration.Position = info.position;
+                    decoration.Image = content.Load<Texture2D>(info.ImagePath);
+
+                    GameObjects.Add(decoration);
+                }
+
             }
             else
             {

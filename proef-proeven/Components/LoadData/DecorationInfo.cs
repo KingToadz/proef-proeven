@@ -6,7 +6,7 @@ using System.Text;
 
 namespace proef_proeven.Components.LoadData
 {
-    class TileInfo
+    class DecorationInfo
     {
         /// <summary>
         /// The path to the image
