@@ -93,7 +93,6 @@ namespace proef_proeven.Components.LevelCreator.Layers
                     }
                 }
             }
-            
 
             base.Update(time);
         }

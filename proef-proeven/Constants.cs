@@ -10,5 +10,6 @@ namespace proef_proeven
         public static string DATA_DIR = @"\Data\";
         public static string LEVEL_DIR = @"\level\";
         public static string CONTENT_DIR = @"\Content\";
+        public static string LEVEL_CREATOR_DIR = @"\Content\level-editor\";
     }
 }

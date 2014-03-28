@@ -35,6 +35,11 @@ namespace proef_proeven.Components.LoadData
         public List<DecorationInfo> decoration { get; set; }
 
         /// <summary>
+        /// The list with all the tiles. The int represents the number of the clip rectangle
+        /// </summary>
+        public List<int> Grid { get; set; }
+
+        /// <summary>
         /// Constructor news the 2 lists
         /// </summary>
         public LevelFormat()
