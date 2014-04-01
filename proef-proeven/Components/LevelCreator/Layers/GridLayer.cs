@@ -9,17 +9,20 @@ using Microsoft.Xna.Framework;
 
 namespace proef_proeven.Components.LevelCreator.Layers
 {
+    class GridSize
+    {
+        public int Width;
+        public int Height;
+        public int Columns;
+        public int Rows;
+    }
+
     class GridLayer : BaseLayer
     {
-        struct GridSize
-        {
-            public int Width = 32;
-            public int Height = 32;
-        }
-
         GridSize gridSize;
         Texture2D tiles;
         List<Rectangle> clipRects;
+        int[,] grid;
 
         public override void LoadContent(ContentManager content)
         {
@@ -27,6 +30,18 @@ namespace proef_proeven.Components.LevelCreator.Layers
             {
                 gridSize = Newtonsoft.Json.JsonConvert.DeserializeObject<GridSize>(Constants.LEVEL_CREATOR_DIR + @"gird\tiles.json");
                 tiles = content.Load<Texture2D>(@"gird\tiles");
+
+                clipRects = new List<Rectangle>();
+                grid = new int[gridSize.Columns, gridSize.Rows];
+
+                for(int row = 0; row < gridSize.Rows; row++)
+                {
+                    for (int col = 0; col < gridSize.Columns; col++)
+                    {
+                        clipRects.Add(new Rectangle(col * gridSize.Width, row * gridSize.Height, gridSize.Width, gridSize.Height));
+                        grid[col, row] = -1;
+                    }
+                }
             }
 
             base.LoadContent(content);
@@ -46,6 +61,22 @@ namespace proef_proeven.Components.LevelCreator.Layers
         public override void Update(GameTime time)
         {
             base.Update(time);
+        }
+
+        public override void Draw(SpriteBatch batch)
+        {
+            for (int row = 0; row < gridSize.Rows; row++)
+            {
+                for (int col = 0; col < gridSize.Columns; col++)
+                {
+                    if(grid[col, row] > -1)
+                    {
+                        batch.Draw(tiles, new Vector2(col * gridSize.Width, row * gridSize.Height), clipRects[grid[col, row]], Color.White);
+                    }
+                }
+            }
+
+            base.Draw(batch);
         }
 
         public override List<object> getObjects()
