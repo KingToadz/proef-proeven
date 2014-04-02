@@ -1,0 +1,473 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="proef_proeven.Components.Animations.Animation" Collapsed="true">
+    <Position X="28.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAAAAAgABBDiAAAABAAABAACCAAAAAQBAAAUAAAAA=</HashCode>
+      <FileName>Components\Animations\Animation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Animations.AnimationInfo" Collapsed="true">
+    <Position X="30" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAQAQAhAAAAAAACAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Components\Animations\AnimationInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Button" Collapsed="true">
+    <Position X="31.75" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="proef_proeven.Components.Button.onClick" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Components\Button.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAAQAAAAkAgAgAAAAIAACEAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Components\Button.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.InputHelper" Collapsed="true">
+    <Position X="30" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAgAAAAAIEAgAABAAAAAIDQAAAAQSIASAABAAE=</HashCode>
+      <FileName>Components\InputHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Fonts.FontFile" Collapsed="true">
+    <Position X="37" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAEAwAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Components\Fonts\FontProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Fonts.FontInfo" Collapsed="true">
+    <Position X="28.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAQAAAgAEBgCAAAAQABAAAQAAAAAAAAAIAAACAAEE=</HashCode>
+      <FileName>Components\Fonts\FontProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Fonts.FontCommon" Collapsed="true">
+    <Position X="35.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAIAAABAAABAAAAAAAAAAAFAUCA=</HashCode>
+      <FileName>Components\Fonts\FontProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Fonts.FontPage" Collapsed="true">
+    <Position X="33.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Components\Fonts\FontProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Fonts.FontChar" Collapsed="true">
+    <Position X="33.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgBAAQgAAAAAAAAEAAAAAAADAAAAAAAAABYAA=</HashCode>
+      <FileName>Components\Fonts\FontProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Fonts.FontKerning" Collapsed="true">
+    <Position X="30" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAKAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Components\Fonts\FontProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Fonts.FontLoader" Collapsed="true">
+    <Position X="31.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Components\Fonts\FontProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Fonts.FontRenderer" Collapsed="true">
+    <Position X="35.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIQAAAiAQAAAAAAAAAAAAAAAAAAAAAAAAAIg=</HashCode>
+      <FileName>Components\Fonts\FontRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Game.BaseTile">
+    <Position X="19.25" Y="17.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAIAAAAAAAAAAAAAACAAAAAgA=</HashCode>
+      <FileName>Components\Game\BaseTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Game.ClickableObject" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="35.25" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="proef_proeven.Components.Game.ClickableObject.OnClick" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Components\Game\ClickableObject.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>QEQAQAQAEAAEBgQgiAAAIIQAECAQAhJAEAAAAEAAIAA=</HashCode>
+      <FileName>Components\Game\ClickableObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="proef_proeven.Components.Game.Decoration">
+    <Position X="23.25" Y="21" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAIAAEAAAABAAAAAAAEAAAAA=</HashCode>
+      <FileName>Components\Game\Decoration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="proef_proeven.Components.Game.Grid" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAIAAgQAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Components\Game\Grid.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="proef_proeven.Components.Game.MovementTile">
+    <Position X="14.75" Y="21" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>QAAARAIAAAAAAgACAACBAAQAACAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Components\Game\MovementTile.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="proef_proeven.Components.Game.Objective" Collapsed="true">
+    <Position X="33.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Components\Game\Objective.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Game.Player" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="35.25" Y="4.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="proef_proeven.Components.Game.Player.Movement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Components\Game\Player.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>QAQAQIAAEAEBBgBAAAAAIAQBADAQVgQkAEAAAEAAAAQ=</HashCode>
+      <FileName>Components\Game\Player.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="proef_proeven.Components.Game.Tile">
+    <Position X="17.75" Y="21" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEgAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Components\Game\Tile.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="proef_proeven.Components.Game.WinTile">
+    <Position X="20.25" Y="21" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>QAAAQAAAAAAAAgAAAAAAAAQAACAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Components\Game\WinTile.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="proef_proeven.Components.Level.LevelData" Collapsed="true">
+    <Position X="33.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAgAAAAABAAAQAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Components\Level\LevelData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Level.LevelLoader">
+    <Position X="37.75" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAACAAACAEAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Components\Level\LevelLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Level.LevelManager" Collapsed="true">
+    <Position X="28.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIACAgBAAQEAAAAAAAiAARAABAAAAEQCAAAEgAEAA=</HashCode>
+      <FileName>Components\Level\LevelManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Level.LevelPreview" Collapsed="true">
+    <Position X="30" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAABAAIAAAgAgAAAAMAAAAAEAAAAAQAAAAAAAAAQ=</HashCode>
+      <FileName>Components\Level\LevelPreview.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.LevelCreator.ClickableObjectManager" Collapsed="true">
+    <Position X="37" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAIgQAEAAAAAAAAAgAAAgAABAAAAAQAQAABAAEAA=</HashCode>
+      <FileName>Components\LevelCreator\ClickableObjectManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.LevelCreator.BackgroundLayer">
+    <Position X="19.75" Y="5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAEAAAAAAgAAAQAAAAAEAAAAAAAAAAAAAAAgAAQ=</HashCode>
+      <FileName>Components\LevelCreator\Layers\BackgroundLayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.LevelCreator.BaseLayer">
+    <Position X="13.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AgQAAAEABAAAAgwAAAAAAAAEAAgAAAgAAAAAgAAAAAQ=</HashCode>
+      <FileName>Components\LevelCreator\Layers\BaseLayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.LevelCreator.BoundingboxEditor">
+    <Position X="1.5" Y="5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>CAwAAAEAAEiAAgAIAQAAABAEgAACAAAAAABAAAAAAAQ=</HashCode>
+      <FileName>Components\LevelCreator\Layers\BoundingboxEditorLayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.LevelCreator.ClickableObjectLayer">
+    <Position X="5.5" Y="5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AEQAAAEAAsAAAgAEAAAAAAAEAQAAAAACAAAAAAAAAAY=</HashCode>
+      <FileName>Components\LevelCreator\Layers\ClickableObjectLayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.LevelCreator.MovementLayer">
+    <Position X="9.25" Y="5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAMAAQAEAgAIAACAAAAkAAAAAAAAAAAAAAAABAQ=</HashCode>
+      <FileName>Components\LevelCreator\Layers\MovementLayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.LevelCreator.PlayerLayer">
+    <Position X="12.5" Y="5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAEIAAAAAgAAAAAAAAAEAAAAAAABAAAAAAAIAAQ=</HashCode>
+      <FileName>Components\LevelCreator\Layers\PlayerLayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.LevelCreator.WinTileLayer">
+    <Position X="16.5" Y="5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAEAAAAAAgEKAAAAAAAkAgAAAAAAAAAAAQAAAAQ=</HashCode>
+      <FileName>Components\LevelCreator\Layers\WinTileLayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.LevelCreator.PlayerBoundingboxEditor" Collapsed="true">
+    <Position X="37" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAQABAAAAACAAhBIAAAAABAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Components\LevelCreator\PlayerBoundingboxEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.LevelCreator.Layers.DecorationLayer">
+    <Position X="23.75" Y="5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAEAAAAAAgAAAAAAAAAEAgAAgAAAAQAAAAAAAAQ=</HashCode>
+      <FileName>Components\LevelCreator\Layers\DecorationLayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.LoadData.ClickAbleInfo">
+    <Position X="2.25" Y="21.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CEAgAAAABAAAAAQAAAAAIEAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Components\LoadData\ClickAbleInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.LoadData.DecorationInfo">
+    <Position X="5" Y="21.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Components\LoadData\DecorationInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.LoadData.LevelFormat">
+    <Position X="3" Y="19.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAARAAIAAAAAAAAAI=</HashCode>
+      <FileName>Components\LoadData\LevelFormat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.LoadData.MovementTileInfo">
+    <Position X="7" Y="21.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAABAAEAAAAAAAAAEAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Components\LoadData\MovementTileInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.LoadData.PlayerInfo">
+    <Position X="6" Y="19.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAQAQAAAYAAAAAAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>Components\LoadData\PlayerInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Util.ExtensionMethods" Collapsed="true">
+    <Position X="31.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Components\Util\ExtensionMethods.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Util.IOHelper" Collapsed="true">
+    <Position X="31.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAQAABAAAAAQAAACAAABwA=</HashCode>
+      <FileName>Components\Util\IOHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Components.Util.RectangleRender" Collapsed="true">
+    <Position X="31.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgEAAAABACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Components\Util\RectangleRender.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Constants" Collapsed="true">
+    <Position X="28.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAgAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Game1" Collapsed="true">
+    <Position X="37" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEEAAAAAAIwAAAAAAAAAAAABAAQgAQAAAAAAACAQ=</HashCode>
+      <FileName>Game1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Program" Collapsed="true">
+    <Position X="30" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Screens.BaseScreen">
+    <Position X="13" Y="9.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>QAQACAAAIAAgAgAAAAAAIAAAAAEEAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Screens\BaseScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Screens.GameScreen">
+    <Position X="7" Y="13.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AEQCAAAEAAAAhgABAAEAAAAAAQAAAAAFAACAEAAAIAQ=</HashCode>
+      <FileName>Screens\GameScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Screens.LevelCreator">
+    <Position X="10" Y="13.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAEABAAAAgAAAAABAAAAAAAAAABEAQAAFAAAIAQ=</HashCode>
+      <FileName>Screens\LevelCreator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Screens.LevelSelectScreen">
+    <Position X="13.25" Y="13.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAIAAAgAAAAgAAAAAAAIAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Screens\LevelSelectScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Screens.LoadingScreen">
+    <Position X="16.25" Y="13.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAgAABAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Screens\LoadingScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Screens.MenuScreen">
+    <Position X="19" Y="13.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAgAAIAAAgIgAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Screens\MenuScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Screens.ScreenManager" Collapsed="true">
+    <Position X="33.5" Y="5.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="proef_proeven.Screens.ScreenManager.State" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Screens\ScreenManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AgQAAAAAAoAAggAAAAAAAAAAAABgAAAEQAAgAAQAAAA=</HashCode>
+      <FileName>Screens\ScreenManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Transitions.BaseTransition">
+    <Position X="1.75" Y="10.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AARAAAAAACAABgAAAAAgAAAAAAIAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Transitions\BaseTransition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Transitions.FadeInTransition">
+    <Position X="0.5" Y="14.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAABgEAAAAAAAAAAAAAAAAAAAAQAAAgAAA=</HashCode>
+      <FileName>Transitions\FadeInTransition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Transitions.FadeOutTransition">
+    <Position X="3" Y="14.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAABgEAAAAAAAAAAAAAAAAAAAAQAAAgAAA=</HashCode>
+      <FileName>Transitions\FadeOutTransition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="proef_proeven.Transitions.TransitionFactory" Collapsed="true">
+    <Position X="35.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Transitions\TransitionFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="proef_proeven.Components.Game.Interfaces.ICollidAble" Collapsed="true">
+    <Position X="28.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAQAAAAAAAAAAAAAAAAAQAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Components\Game\Interfaces\ICollidAble.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="proef_proeven.Components.Game.Interfaces.IDrawAble" Collapsed="true">
+    <Position X="30" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Components\Game\Interfaces\IDrawAble.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="proef_proeven.Components.Game.Interfaces.IResetAble" Collapsed="true">
+    <Position X="31.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Components\Game\Interfaces\IResetAble.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="proef_proeven.Components.Game.Interfaces.IUpdateAble" Collapsed="true">
+    <Position X="33.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Components\Game\Interfaces\IUpdateAble.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="proef_proeven.Transitions.TransitionKind" Collapsed="true">
+    <Position X="28.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Transitions\TransitionFactory.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

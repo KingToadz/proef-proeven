@@ -248,6 +248,7 @@
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="allClassDiagrams.cd" />
     <None Include="Content\fonts\segoe32.fnt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
