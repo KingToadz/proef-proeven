@@ -47,7 +47,7 @@ namespace proef_proeven.Components.LevelCreator.Layers
 
                 clipRects = new List<Rectangle>();
                 currentClipRect = 0;
-                grid = new int[Game1.Instance.ScreenRect.Width / gridSize.Width, Game1.Instance.ScreenRect.Height / gridSize.Rows];
+                grid = new int[Game1.Instance.ScreenRect.Width / gridSize.Width, Game1.Instance.ScreenRect.Height / gridSize.Height];
 
                 for (int row = 0; row < grid.GetLength(1); row++)
                 {
@@ -75,7 +75,8 @@ namespace proef_proeven.Components.LevelCreator.Layers
             {
                 foreach(GridTileInfo info in level.Grid)
                 {
-                    grid[info.column, info.row] = info.cliprect;
+                    if (info.column >= 0 && info.row >= 0 && info.column < grid.GetLength(0) && info.row < grid.GetLength(1))
+                        grid[info.column, info.row] = info.cliprect;
                 }
             }
 
@@ -93,54 +94,30 @@ namespace proef_proeven.Components.LevelCreator.Layers
                 currentClipRect++;
             }
 
+            Vector2 mpos = InputHelper.Instance.MousePos();
+            // the while loops will place the tile at the right position
+            while ((int)mpos.X % 80 != 0)
+            {
+                mpos.X--;
+            }
+
+            while ((int)mpos.Y % 80 != 0)
+            {
+                mpos.Y--;
+            }
+
+            snapcol = (int)mpos.X / 80;
+            snaprow = (int)mpos.Y / 80;
+
             if(InputHelper.Instance.LeftMouseDown())
             {
-                Vector2 mpos = InputHelper.Instance.MousePos();
-
-                int col = 0;
-                int row = 0;
-
-                // the while loops will place the tile at the right position
-                while((int)mpos.X % gridSize.Width != 0)
-                {
-                    mpos.X--;
-                }                
-
-                while ((int)mpos.Y % gridSize.Height != 0)
-                {
-                    mpos.Y--;
-                }
-
-                col = (int)mpos.X / gridSize.Width;
-                row = (int)mpos.Y / gridSize.Height;
-
-
-                if(col >= 0 && row >= 0 && col < grid.GetLength(0) && row < grid.GetLength(1))
-                    grid[col, row] = currentClipRect;
+                if (snapcol >= 0 && snaprow >= 0 && snapcol < grid.GetLength(0) && snaprow < grid.GetLength(1))
+                    grid[snapcol, snaprow] = currentClipRect;
             }
             else if(InputHelper.Instance.IsRightMousePressed())
             {
-                Vector2 mpos = InputHelper.Instance.MousePos();
-
-                int col = 0;
-                int row = 0;
-
-                // the while loops will place the tile at the right position
-                while ((int)mpos.X % gridSize.Width != 0)
-                {
-                    mpos.X--;
-                }
-
-                while ((int)mpos.Y % gridSize.Height != 0)
-                {
-                    mpos.Y--;
-                }
-
-                col = (int)mpos.X / gridSize.Width;
-                row = (int)mpos.Y / gridSize.Height;
-
-                if (col >= 0 && row >= 0 && col < grid.GetLength(0) && row < grid.GetLength(1))
-                    grid[col, row] = -1;
+                if (snapcol >= 0 && snaprow >= 0 && snapcol < grid.GetLength(0) && snaprow < grid.GetLength(1))
+                    grid[snapcol, snaprow] = -1;
             }
 
             base.Update(time);
@@ -155,14 +132,15 @@ namespace proef_proeven.Components.LevelCreator.Layers
                     if(grid[col, row] > -1)
                     {
                         //                      The vector2 in the position                          the cliprect of the tile
-                        batch.Draw(tiles, new Vector2(col * gridSize.Width, row * gridSize.Height), clipRects[grid[col, row]], Color.White);
+                        if (grid[col, row] < gridSize.totalTiles)
+                            batch.Draw(tiles, new Vector2(col * gridSize.Width, row * gridSize.Height), clipRects[grid[col, row]], Color.White);
                     }
                 }
             }
 
             if(ActiveLayer)
             {
-                batch.Draw(tiles, InputHelper.Instance.MousePos(), clipRects[currentClipRect], Color.White);
+                batch.Draw(tiles, new Vector2(snapcol * gridSize.Width, snaprow * gridSize.Height), clipRects[currentClipRect], Color.White);
             }
 
             base.Draw(batch);
@@ -181,5 +159,9 @@ namespace proef_proeven.Components.LevelCreator.Layers
             
             return cliprects.ToList<object>();
         }
+
+        public int snapcol { get; set; }
+
+        public int snaprow { get; set; }
     }
 }
