@@ -26,6 +26,7 @@ namespace proef_proeven.Screens
         Player player;
 
         List<object> GameObjects;
+        List<IDrawAble> drawAbleItems;
 
         ClickableObject backButton;
 
@@ -55,6 +56,7 @@ namespace proef_proeven.Screens
             GameObjects = new List<object>();
             player = new Player();
             objectives = new List<Objective>();
+            drawAbleItems = new List<IDrawAble>();
 
             loader = new LevelLoader(levelID);
             testing = false;
@@ -66,6 +68,7 @@ namespace proef_proeven.Screens
             GameObjects = new List<object>();
             player = new Player();
             objectives = new List<Objective>();
+            drawAbleItems = new List<IDrawAble>();
             levelID = -1;
             testing = true;
         }
@@ -79,6 +82,7 @@ namespace proef_proeven.Screens
                 backgroundGrid = new Grid();
                 backgroundGrid.LoadFromLevelInfo(loader.level);
 
+                drawAbleItems.Add(backgroundGrid);
                 GameObjects.Add(backgroundGrid);
 
                 List<ClickAbleInfo> click = loader.level.clickObjectsInfo;
@@ -125,6 +129,7 @@ namespace proef_proeven.Screens
 
                     objectives.Add(new Objective("Objective " + info.objectiveID));
 
+                    drawAbleItems.Add(clickObj);
                     GameObjects.Add(clickObj);
                 }
 
@@ -140,6 +145,7 @@ namespace proef_proeven.Screens
                     {
                         player.SetCustomBoundingbox(new Rectangle(info.x, info.y, info.width, info.height));
                     }
+                    drawAbleItems.Add(player);
                 }
 
                 GameObjects.Add(player);
@@ -157,10 +163,11 @@ namespace proef_proeven.Screens
                     Decoration decoration = new Decoration();
                     decoration.Position = info.position;
                     decoration.Image = content.Load<Texture2D>(info.ImagePath);
-
+                    drawAbleItems.Add(decoration);
                     GameObjects.Add(decoration);
                 }
 
+                drawAbleItems = drawAbleItems.OrderBy(o => o.DrawIndex()).ToList();
             }
             else
             {
@@ -296,6 +303,9 @@ namespace proef_proeven.Screens
 
                 if (player.CurMovement == Player.Movement.Dead)
                     Reset();
+
+                drawAbleItems = drawAbleItems.OrderBy(o => o.DrawIndex()).ToList();
+                //drawAbleItems.OrderBy(o => o.DrawIndex()).ToList();
             }
 
             base.Update(dt);
@@ -306,13 +316,9 @@ namespace proef_proeven.Screens
             if (background != null)
                 batch.Draw(background, Vector2.Zero, Color.White);
 
-
-            foreach (object o in GameObjects)
+            for (int i = 0; i < drawAbleItems.Count; i++)
             {
-                if (o is IDrawAble)
-                {
-                    (o as IDrawAble).Draw(batch);
-                }
+                drawAbleItems[i].Draw(batch);
             }
 
             float yMargin = 0;

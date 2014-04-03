@@ -80,5 +80,14 @@ namespace proef_proeven.Components.Game
                 }
             }
         }
+
+        /// <summary>
+        /// The grid should always be drawn first. this is the background
+        /// </summary>
+        /// <returns>Int32.MinValue</returns>
+        public int DrawIndex()
+        {
+            return Int32.MinValue;
+        }
     }
 }

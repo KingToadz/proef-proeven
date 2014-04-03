@@ -34,5 +34,10 @@ namespace proef_proeven.Components.Game
         {
             batch.Draw(img, Bounds, cliprec, Color.White);
         }
+
+        public int DrawIndex()
+        {
+            return Bounds.Y + Bounds.Height;
+        }
     }
 }

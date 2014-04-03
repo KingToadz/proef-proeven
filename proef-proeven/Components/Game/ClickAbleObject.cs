@@ -259,5 +259,10 @@ namespace proef_proeven.Components.Game
         {
             // Shouldn't be called because delta is zero
         }
+
+        public int DrawIndex()
+        {
+            return (int)position.Y + image.Height;
+        }
     }
 }

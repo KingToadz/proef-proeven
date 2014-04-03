@@ -11,6 +11,13 @@ namespace proef_proeven.Components.Game.Interfaces
     /// </summary>
     interface IDrawAble
     {
+
+        /// <summary>
+        /// The function that will return the index 
+        /// </summary>
+        /// <returns>An int</returns>
+        int DrawIndex();
+
         /// <summary>
         /// Draw's the objects here
         /// </summary>
