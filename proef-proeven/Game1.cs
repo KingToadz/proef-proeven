@@ -138,8 +138,8 @@ namespace proef_proeven
             ScreenManager.Instance.SetLoadingScreen(loading);
 
 
-            ScreenManager.Instance.SetScreen(new MenuScreen());
-            //ScreenManager.Instance.SetScreen(new LevelCreator(0));
+            //ScreenManager.Instance.SetScreen(new MenuScreen());
+            ScreenManager.Instance.SetScreen(new LevelCreator(0));
         }
 
         /// <summary>

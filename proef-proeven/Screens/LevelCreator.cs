@@ -41,13 +41,15 @@ namespace proef_proeven.Screens
             this.levelID = levelID;
 
             layers = new List<BaseLayer>();
-            layers.Add(new BackgroundLayer());
+            //layers.Add(new BackgroundLayer());
+            layers.Add(new GridLayer());
             layers.Add(new ClickableObjectLayer());
             layers.Add(new PlayerLayer());
             layers.Add(new MovementLayer());
             layers.Add(new WinTileLayer());
             layers.Add(new BoundingboxEditor());
             layers.Add(new DecorationLayer());
+            layers[0].ChangeActive(true);
         }
 
         public override void LoadContent(ContentManager content)
@@ -103,6 +105,10 @@ namespace proef_proeven.Screens
                 else if(o is Decoration)
                 {
                     lvl.decoration.Add((o as Decoration).Info);
+                }
+                else if(o is GridTileInfo)
+                {
+                    lvl.Grid.Add((o as GridTileInfo));
                 }
             }
 

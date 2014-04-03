@@ -1,4 +1,10 @@
-﻿[
-	"Width": 32,
-    "Height": 32,
-]
+{
+	"Width": 80,
+    "Height": 80,
+    "Columns": 9,
+    "Rows": 6,
+    
+    "tileColumns": 9,
+    "tileRows": 6,
+    "totalTiles": 54
+}
