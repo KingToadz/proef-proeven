@@ -72,28 +72,15 @@ namespace proef_proeven.Screens
 
         public override void LoadContent(ContentManager content)
         {
-            loader.Load();   
-
-            Texture2D tileSheet = content.Load<Texture2D>("tiles");
-
-            int tileWidth = 64;
-            int tileHeight = 64;
-            int cols = (Game1.Instance.ScreenRect.Width / tileWidth) + 1;
-            int rows = (Game1.Instance.ScreenRect.Height / tileHeight) + 1;
-
-            backgroundGrid = new Grid(cols, rows);
-
-            for (int row = 0; row < rows; row++)
-            {
-                for (int col = 0; col < cols; col++)
-                {
-                    backgroundGrid.AddTile(new Tile(tileSheet, new Rectangle(col * tileWidth, row * tileHeight, tileWidth, tileHeight), new Rectangle(0 * 16, 9 * 16, 16, 16)), row, col);
-                }
-            }
-            
+            loader.Load();              
 
             if (loader.LevelLoaded)
             {
+                backgroundGrid = new Grid();
+                backgroundGrid.LoadFromLevelInfo(loader.level);
+
+                GameObjects.Add(backgroundGrid);
+
                 List<ClickAbleInfo> click = loader.level.clickObjectsInfo;
 
                 try

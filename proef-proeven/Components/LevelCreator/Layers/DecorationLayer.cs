@@ -18,13 +18,16 @@ namespace proef_proeven.Components.LevelCreator.Layers
 
         List<Tuple<string, Texture2D>> decorationImages;
         int currentTile;
+        int snapcol = 0;
+        int snaprow = 0;
+        bool snapTile;
         
         public DecorationLayer()
         {
             tiles = new List<Decoration>();
             decorationImages = new List<Tuple<string, Texture2D>>();
             currentTile = 0;
-
+            snapTile = false;
             layerInfo = "Place decoration objects. They won't have any collision";
         }
 
@@ -73,14 +76,42 @@ namespace proef_proeven.Components.LevelCreator.Layers
         {
             if (InputHelper.Instance.IsKeyPressed(Keys.A) && currentTile > 0)
                 currentTile--;
-            else if (InputHelper.Instance.IsKeyPressed(Keys.D) && currentTile < tiles.Count - 1)
+            else if (InputHelper.Instance.IsKeyPressed(Keys.D) && currentTile < decorationImages.Count - 1)
                 currentTile++;
+            else if (InputHelper.Instance.IsKeyPressed(Keys.Q))
+                snapTile = !snapTile;
+
+            Vector2 mpos = InputHelper.Instance.MousePos();
+            if (snapTile)
+            {
+                // the while loops will place the tile at the right position
+                while ((int)mpos.X % 80 != 0)
+                {
+                    mpos.X--;
+                }
+
+                while ((int)mpos.Y % 80 != 0)
+                {
+                    mpos.Y--;
+                }
+
+                snapcol = (int)mpos.X / 80;
+                snaprow = (int)mpos.Y / 80;
+            }
 
             if(InputHelper.Instance.IsLeftMousePressed())
             {
                 Decoration deco = new Decoration(decorationImages[currentTile].Item1);
                 deco.Image = decorationImages[currentTile].Item2;
-                deco.Position = InputHelper.Instance.MousePos();
+
+                if(snapTile)
+                {
+                    deco.Position = new Vector2(snapcol * 80, snaprow * 80);
+                }
+                else
+                {
+                    deco.Position = mpos;
+                }
                 tiles.Add(deco);
             }
             else if(InputHelper.Instance.IsRightMousePressed())
@@ -101,7 +132,15 @@ namespace proef_proeven.Components.LevelCreator.Layers
         {
             if(ActiveLayer)
             {
-                batch.Draw(decorationImages[currentTile].Item2, InputHelper.Instance.MousePos(), Color.FromNonPremultiplied(255, 255, 255, 100));
+                if(snapTile)
+                {
+                    batch.Draw(decorationImages[currentTile].Item2, new Vector2(snapcol * 80, snaprow * 80), Color.FromNonPremultiplied(255, 255, 255, 100));
+                }
+                else
+                {
+                    batch.Draw(decorationImages[currentTile].Item2, InputHelper.Instance.MousePos(), Color.FromNonPremultiplied(255, 255, 255, 100));
+                }
+                
             }
 
             foreach(Decoration d in tiles)
