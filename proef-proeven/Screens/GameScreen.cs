@@ -62,7 +62,7 @@ namespace proef_proeven.Screens
             testing = false;
         }
 
-        public GameScreen(LevelFormat level)
+        public GameScreen(LevelFormat level, bool test = true)
         {
             loader = new LevelLoader(level);
             GameObjects = new List<object>();
@@ -70,7 +70,7 @@ namespace proef_proeven.Screens
             objectives = new List<Objective>();
             drawAbleItems = new List<IDrawAble>();
             levelID = -1;
-            testing = true;
+            testing = test;
         }
 
         public override void LoadContent(ContentManager content)

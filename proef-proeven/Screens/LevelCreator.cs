@@ -110,9 +110,9 @@ namespace proef_proeven.Screens
             return lvl;
         }
 
-        public void TestLevel()
+        public void TestLevel(bool showTestingText)
         {
-            ScreenManager.Instance.SetScreen(new GameScreen(GetLevelFormat()));
+            ScreenManager.Instance.SetScreenNoTransition(new GameScreen(GetLevelFormat(), showTestingText));
         }
 
         public List<object> AllLayerObjects()
@@ -139,10 +139,11 @@ namespace proef_proeven.Screens
             if (InputHelper.Instance.IsKeyPressed(Keys.Enter))
             {
                 SaveLevel();
+                ScreenshotLevel();
             }
 
             if (InputHelper.Instance.IsKeyPressed(Keys.Space) && !layers[curLayer].BlockLayerChange)
-                TestLevel();
+                TestLevel(true);
 
             if (InputHelper.Instance.IsKeyPressed(Keys.Up) && curLayer > 0 && !layers[curLayer].BlockLayerChange)
             {
@@ -179,6 +180,21 @@ namespace proef_proeven.Screens
             Game1.Instance.fontRenderer.DrawText(batch, new Vector2(5, 10 + Game1.Instance.fontRenderer.CharSize.Height), layers[curLayer].LayerInfo, Color.Black);
 
             base.Draw(batch);
+        }
+
+        public void ScreenshotLevel()
+        {
+            TestLevel(false);
+            // Need to wait until the level is loaded and the transition is done
+            // this will freeze the game for an small time
+            while(ScreenManager.Instance.IsLoading)
+            {
+                System.Threading.Thread.Sleep(10);
+            }
+
+            Game1.Instance.ScreenShot(levelID);
+            ScreenManager.Instance.PopScreen();
+            Console.WriteLine("Screenshot succes saved " + levelID + ".png");
         }
     }
 }

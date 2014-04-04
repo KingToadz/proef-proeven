@@ -56,6 +56,7 @@ using System.IO;
 using proef_proeven.Components;
 using proef_proeven.Components.Animations;
 using proef_proeven.Components.Util;
+using System.Runtime.InteropServices;
 #endregion
 
 namespace proef_proeven
@@ -138,8 +139,8 @@ namespace proef_proeven
             ScreenManager.Instance.SetLoadingScreen(loading);
 
 
-            //ScreenManager.Instance.SetScreen(new MenuScreen());
-            ScreenManager.Instance.SetScreen(new LevelCreator(0));
+            ScreenManager.Instance.SetScreen(new MenuScreen());
+            //ScreenManager.Instance.SetScreen(new LevelCreator(0));
         }
 
         /// <summary>
@@ -186,6 +187,80 @@ namespace proef_proeven
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        /// <summary>
+        /// Creates an screenshot of the game. It will call the draw method once and save that to an png
+        /// </summary>
+        /// <param name="levelID">The level id to save to</param>
+        public void ScreenShot(int levelID)
+        {
+
+            RenderTarget2D renderTarget = new RenderTarget2D(
+               GraphicsDevice,
+               GraphicsDevice.PresentationParameters.BackBufferWidth,
+               GraphicsDevice.PresentationParameters.BackBufferHeight);
+
+            GraphicsDevice.SetRenderTarget(renderTarget);
+
+            Draw(new GameTime());
+
+            GraphicsDevice.SetRenderTarget(null);
+
+            Stream stream = File.Create(System.Environment.CurrentDirectory + Constants.CONTENT_DIR + "level-preview\\" + levelID + ".png"); ;
+            if (stream != null)
+            {
+                SaveRenderTargetAsPng(stream, renderTarget.Width, renderTarget.Height, renderTarget);
+            }
+            stream.Dispose();
+        }
+
+        /// <summary>
+        /// Save an RenderTarget2D as an PNG. MonoGame hasn't implemented this yet.
+        /// I stole the code from https://github.com/mono/MonoGame/blob/29378026d803a8bbce61abd08b8dba2ebb6b2096/MonoGame.Framework/Graphics/Texture2D.OpenGL.cs#L559
+        /// </summary>
+        /// <param name="stream">The stream to save the file to</param>
+        /// <param name="width">The width of the image</param>
+        /// <param name="height">The height of the image</param>
+        /// <param name="target">The RenderTarget to save</param>
+        public void SaveRenderTargetAsPng(Stream stream, int width, int height, RenderTarget2D target)
+        {
+            byte[] data = null;
+            GCHandle? handle = null;
+            System.Drawing.Bitmap bitmap = null;
+            try
+            {
+                data = new byte[width * height * 4];
+                handle = GCHandle.Alloc(data, GCHandleType.Pinned);
+                target.GetData(data);
+
+                // internal structure is BGR while bitmap expects RGB
+                for (int i = 0; i < data.Length; i += 4)
+                {
+                    byte temp = data[i + 0];
+                    data[i + 0] = data[i + 2];
+                    data[i + 2] = temp;
+                }
+
+                bitmap = new System.Drawing.Bitmap(width, height, width * 4, System.Drawing.Imaging.PixelFormat.Format32bppArgb, handle.Value.AddrOfPinnedObject());
+
+                bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+            }
+            finally
+            {
+                if (bitmap != null)
+                {
+                    bitmap.Dispose();
+                }
+                if (handle.HasValue)
+                {
+                    handle.Value.Free();
+                }
+                if (data != null)
+                {
+                    data = null;
+                }
+            }
         }
     }
 }

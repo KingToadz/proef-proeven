@@ -48,19 +48,9 @@ namespace proef_proeven.Components.Level
         public void LoadContent(ContentManager content)
         {
             button = new Button();
-            //button.OnClick += button_OnClick;
-            button.Hitbox = new Rectangle((int)position.X, (int)position.Y, 256, 256);
+            button.Hitbox = new Rectangle((int)position.X, (int)position.Y + 50, 256, 256);
 
             previewImg = content.Load<Texture2D>(@"level-preview\" + level.ID);
-        }
-
-        void button_OnClick(object sender)
-        {
-            if (sender == button)
-            {
-                if (LevelManager.Instance.IsUnlocked(level.ID))
-                    ScreenManager.Instance.SetScreen(new GameScreen(level.ID));
-            }
         }
 
         public void Update(GameTime dt)
@@ -72,9 +62,9 @@ namespace proef_proeven.Components.Level
         {
             if (level.Unlocked)
             {
-                batch.Draw(previewImg, button.Hitbox, Color.White);
+                batch.Draw(previewImg, new Rectangle((int)position.X, (int)position.Y + 30, 256, 256), previewImg.Bounds, Color.White);
 
-                Game1.Instance.fontRenderer.DrawText(batch, position + new Vector2(5, 5), level.Name);
+                Game1.Instance.fontRenderer.DrawText(batch, position, level.Name);
 
                 if (level.Beaten)
                     Game1.Instance.fontRenderer.DrawText(batch, position + new Vector2(5, 240), "Best " + level.Tries);
