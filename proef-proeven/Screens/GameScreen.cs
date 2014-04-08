@@ -185,7 +185,6 @@ namespace proef_proeven.Screens
         {
             LevelFormat lvl = new LevelFormat();
             lvl.playerInfo = player.Info;
-            lvl.backgroundPath = "";
             lvl.clickObjectsInfo = new List<ClickAbleInfo>();
             
             foreach(object o in GameObjects)

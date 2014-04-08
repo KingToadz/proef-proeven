@@ -81,10 +81,6 @@ namespace proef_proeven.Screens
                 {
                     lvl.playerInfo = (o as Player).Info;
                 }
-                else if (o is Tuple<string, Texture2D>)
-                {
-                    lvl.backgroundPath = (o as Tuple<string, Texture2D>).Item1;
-                }
                 else if (o is ClickableObject)
                 {
                     lvl.clickObjectsInfo.Add((o as ClickableObject).Info);

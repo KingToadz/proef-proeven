@@ -55,7 +55,6 @@
     <Compile Include="Components\Game\Interfaces\IUpdateAble.cs" />
     <Compile Include="Components\InputHelper.cs" />
     <Compile Include="Components\LevelCreator\ClickableObjectManager.cs" />
-    <Compile Include="Components\LevelCreator\Layers\BackgroundLayer.cs" />
     <Compile Include="Components\LevelCreator\Layers\BaseLayer.cs" />
     <Compile Include="Components\LevelCreator\Layers\DecorationLayer.cs" />
     <Compile Include="Components\LevelCreator\Layers\GridLayer.cs" />
