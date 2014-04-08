@@ -19,17 +19,15 @@ namespace proef_proeven.Screens
 {
     class GameScreen : BaseScreen
     {
-        int levelID;
+        int levelID;        // The ID of the current level
 
-        Grid backgroundGrid;
-        Texture2D background;
-        Player player;
+        Grid backgroundGrid;// The grid that contains the background in tiles
+        Player player;      // The player object
 
-        List<object> GameObjects;
-        List<IDrawAble> drawAbleItems;
+        List<object> GameObjects;       // All the objects in this screen that needs to interact in some way
+        List<IDrawAble> drawAbleItems;  // All the items that needs to be drawn
 
-        ClickableObject backButton;
-
+        ClickableObject backButton;     // button to go back one screen
 
         /// <summary>
         /// Clickable objects will set an objective to true if it's clicked
@@ -76,7 +74,7 @@ namespace proef_proeven.Screens
         public override void LoadContent(ContentManager content)
         {
             loader.Load();              
-
+            // Is the level loading succesfull
             if (loader.LevelLoaded)
             {
                 backgroundGrid = new Grid();
@@ -87,21 +85,10 @@ namespace proef_proeven.Screens
 
                 List<ClickAbleInfo> click = loader.level.clickObjectsInfo;
 
-                try
-                {
-                    if (loader.level.backgroundPath != "")
-                        background = content.Load<Texture2D>(loader.level.backgroundPath);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    GameObjects.Add(backgroundGrid);
-                }
-
                 foreach (ClickAbleInfo info in click)
                 {
                     ClickableObject clickObj = new ClickableObject();
-
+                    // Check if the object has an custom bounds
                     if (info.useCustomBounds)
                     {
                         clickObj.SetCustomBounds(new Rectangle(info.X, info.Y, info.Width, info.Height));
@@ -111,6 +98,7 @@ namespace proef_proeven.Screens
                     clickObj.Position = info.position;
                     clickObj.moveToPosition = info.moveToPosition;
 
+                    // Check if the object has an animation
                     if (IOHelper.Instance.DoesFileExist(Constants.CONTENT_DIR + info.texturePath + ".ani"))
                     {
                         AnimationInfo aInfo = JsonConvert.DeserializeObject<AnimationInfo>(IOHelper.Instance.ReadFile(Constants.CONTENT_DIR + info.texturePath + ".ani"));
@@ -171,6 +159,7 @@ namespace proef_proeven.Screens
             }
             else
             {
+                // TODO: show error
                 player.Won = true;
             }
 
@@ -313,9 +302,6 @@ namespace proef_proeven.Screens
 
         public override void Draw(SpriteBatch batch)
         {
-            if (background != null)
-                batch.Draw(background, Vector2.Zero, Color.White);
-
             for (int i = 0; i < drawAbleItems.Count; i++)
             {
                 drawAbleItems[i].Draw(batch);

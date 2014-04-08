@@ -54,15 +54,10 @@ namespace proef_proeven.Components.Game
             }
         }
 
-        private Animation animation;
         /// <summary>
         /// The animation if it exists
         /// </summary>
-        public Animation Animation
-        {
-            get { return animation; }
-            set { animation = value; }
-        }
+        public Animation Animation;
 
         /// <summary>
         /// The start position of the object
@@ -205,8 +200,8 @@ namespace proef_proeven.Components.Game
         {
             Vector2 mousePos = InputHelper.Instance.MousePos();
 
-            if (animation != null)
-                animation.Update(dt);
+            if (Animation != null)
+                Animation.Update(dt);
 
             if(InputHelper.Instance.IsLeftMouseReleased())
             {
@@ -217,9 +212,9 @@ namespace proef_proeven.Components.Game
                         if (onClick != null)
                             onClick(this);
                 }
-                else if(animation != null)
+                else if(Animation != null)
                 {
-                    Rectangle b = new Rectangle((int)position.X, (int)position.Y, animation.FrameWidth, animation.FrameHeight);
+                    Rectangle b = new Rectangle((int)position.X, (int)position.Y, Animation.FrameWidth, Animation.FrameHeight);
                     if (b.Contains((int)mousePos.X, (int)mousePos.Y))
                         if (onClick != null)
                             onClick(this);
@@ -246,9 +241,9 @@ namespace proef_proeven.Components.Game
                     batch.Draw(image, hitbox, Color.White);
                 }
             }
-            else if(animation != null)
+            else if(Animation != null)
             {
-                animation.Draw(batch, position);
+                Animation.Draw(batch, position);
             }
 
             if (Game1.Instance.CreatorMode)

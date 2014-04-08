@@ -15,6 +15,9 @@ namespace proef_proeven.Transitions
         public bool Started { get; protected set; }
         public bool Done { get; protected set; }
 
+        /// <summary>
+        /// This will reset the transition.
+        /// </summary>
         public virtual void Reset()
         {
             timeLeft = startTime;
@@ -22,13 +25,20 @@ namespace proef_proeven.Transitions
             Started = false;
         }
 
+        /// <summary>
+        /// Start the transition
+        /// </summary>
         public void Start()
         {
             Started = true;
         }
 
-        public virtual void Update(GameTime time) {
-
+        /// <summary>
+        /// Update the transition
+        /// </summary>
+        /// <param name="time">The elapsed gametime</param>
+        public virtual void Update(GameTime time) 
+        {
             if (Started && !Done)
             {
                 timeLeft -= time.ElapsedGameTime;
@@ -40,6 +50,10 @@ namespace proef_proeven.Transitions
             }
         }
 
+        /// <summary>
+        /// Draw the transition
+        /// </summary>
+        /// <param name="batch">The active spritebatch</param>
         public virtual void Draw(SpriteBatch batch) { }
     }
 }

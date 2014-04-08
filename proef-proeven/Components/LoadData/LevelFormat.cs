@@ -11,11 +11,6 @@ namespace proef_proeven.Components.LoadData
     class LevelFormat
     {
         /// <summary>
-        /// The background path from the content dir. 
-        /// </summary>
-        public string backgroundPath { get; set; }
-
-        /// <summary>
         /// The player info for the human
         /// </summary>
         public PlayerInfo playerInfo { get; set; }

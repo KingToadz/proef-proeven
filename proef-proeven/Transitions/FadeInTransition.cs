@@ -27,6 +27,9 @@ namespace proef_proeven.Transitions
             deltaAlpha = alpha / (float)startTime.TotalMilliseconds;
         }
 
+        /// <summary>
+        /// This will reset the transition.
+        /// </summary>
         public override void Reset()
         {
             alpha = 255;
@@ -34,6 +37,10 @@ namespace proef_proeven.Transitions
             base.Reset();
         }
 
+        /// <summary>
+        /// Update the transition
+        /// </summary>
+        /// <param name="time">The elapsed gametime</param>
         public override void Update(GameTime time)
         {
             if (!Done && Started)
@@ -53,6 +60,10 @@ namespace proef_proeven.Transitions
             base.Update(time);
         }
 
+        /// <summary>
+        /// Draw the transition
+        /// </summary>
+        /// <param name="batch">The active spritebatch</param>
         public override void Draw(SpriteBatch batch)
         {
             batch.Draw(pixel, Game1.Instance.ScreenRect, Color.FromNonPremultiplied(255, 255, 255, (int)alpha));
