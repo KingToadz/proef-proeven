@@ -243,5 +243,10 @@ namespace proef_proeven.Components.Game
             position = StartPosition;
             ChangeMovement(StartMovement);
         }
+
+        public int DrawIndex()
+        {
+            return (int)position.Y + Boundingbox.Height;
+        }
     }
 }

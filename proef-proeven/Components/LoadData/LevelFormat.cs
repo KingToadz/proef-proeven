@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using proef_proeven.Components.Game;
+using proef_proeven.Components.LevelCreator.Layers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,11 @@ namespace proef_proeven.Components.LoadData
         public List<DecorationInfo> decoration { get; set; }
 
         /// <summary>
+        /// The list with all the tiles. The int represents the number of the clip rectangle
+        /// </summary>
+        public List<GridTileInfo> Grid { get; set; }
+
+        /// <summary>
         /// Constructor news the 2 lists
         /// </summary>
         public LevelFormat()
@@ -42,6 +48,7 @@ namespace proef_proeven.Components.LoadData
             clickObjectsInfo = new List<ClickAbleInfo>();
             moveTiles = new List<MovementTileInfo>();
             decoration = new List<DecorationInfo>();
+            Grid = new List<GridTileInfo>();
         }
 
     }

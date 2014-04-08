@@ -129,6 +129,7 @@ namespace proef_proeven.Components.Animations
 
         public void Draw(SpriteBatch batch, Vector2 position)
         {
+            //batch.Draw(spritesheet, position, frames[currentFrame], Color.White);
             batch.Draw(spritesheet, position, frames[currentFrame], Color.White);
         }
 

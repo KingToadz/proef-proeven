@@ -62,5 +62,10 @@ namespace proef_proeven.Components.Game
                 RectangleRender.Draw(batch, Bounds);
             }
         }
+
+        public int DrawIndex()
+        {
+            return Bounds.X + Bounds.Height;
+        }
     }
 }

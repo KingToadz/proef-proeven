@@ -4,23 +4,19 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using proef_proeven.Components;
 using proef_proeven.Components.Game;
-using proef_proeven.Components.Game.Interfaces;
 using proef_proeven.Components.Level;
 using proef_proeven.Components.LevelCreator;
 using proef_proeven.Components.LevelCreator.Layers;
 using proef_proeven.Components.LoadData;
-using proef_proeven.Components.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace proef_proeven.Screens
 {
-    class LevelCreator : BaseScreen
+    internal class LevelCreator : BaseScreen
     {
-
-        List<string> layerInfo = new List<string>(){
+        private List<string> layerInfo = new List<string>(){
             "Background. Use A or D to switch.",
             "Object layer. Use A or D to switch object. W and S for other state.",
             "Player layer. Use W A S D to change the start direction.",
@@ -30,29 +26,31 @@ namespace proef_proeven.Screens
             "new layer"
         };
 
-        int curLayer = 0;
+        private int curLayer = 0;
 
-        int levelID;
+        private int levelID;
 
-        List<BaseLayer> layers;
+        private List<BaseLayer> layers;
 
         public LevelCreator(int levelID)
         {
             this.levelID = levelID;
 
             layers = new List<BaseLayer>();
-            layers.Add(new BackgroundLayer());
+            //layers.Add(new BackgroundLayer());
+            layers.Add(new GridLayer());
             layers.Add(new ClickableObjectLayer());
             layers.Add(new PlayerLayer());
             layers.Add(new MovementLayer());
             layers.Add(new WinTileLayer());
-            layers.Add(new BoundingboxEditor());
             layers.Add(new DecorationLayer());
+            layers.Add(new BoundingboxEditor());
+            layers[0].ChangeActive(true);
         }
 
         public override void LoadContent(ContentManager content)
         {
-            foreach(BaseLayer bl in layers)
+            foreach (BaseLayer bl in layers)
             {
                 bl.LoadContent(content);
             }
@@ -60,7 +58,7 @@ namespace proef_proeven.Screens
             LevelLoader loader = new LevelLoader(levelID);
             loader.Load();
 
-            if(loader.LevelLoaded)
+            if (loader.LevelLoaded)
             {
                 foreach (BaseLayer bl in layers)
                 {
@@ -68,7 +66,6 @@ namespace proef_proeven.Screens
                 }
             }
 
-           
             base.LoadContent(content);
         }
 
@@ -100,29 +97,32 @@ namespace proef_proeven.Screens
                 {
                     lvl.moveTiles.Add((o as WinTile).Info);
                 }
-                else if(o is Decoration)
+                else if (o is Decoration)
                 {
                     lvl.decoration.Add((o as Decoration).Info);
+                }
+                else if (o is GridTileInfo)
+                {
+                    lvl.Grid.Add((o as GridTileInfo));
                 }
             }
 
             return lvl;
         }
 
-        public void TestLevel()
+        public void TestLevel(bool showTestingText)
         {
-            ScreenManager.Instance.SetScreen(new GameScreen(GetLevelFormat()));
+            ScreenManager.Instance.SetScreenNoTransition(new GameScreen(GetLevelFormat(), showTestingText));
         }
-        
+
         public List<object> AllLayerObjects()
         {
             List<object> all = new List<object>();
 
-            foreach(BaseLayer bl in layers)
+            foreach (BaseLayer bl in layers)
             {
                 all.AddRange(bl.getObjects());
             }
-
 
             return all;
         }
@@ -139,10 +139,11 @@ namespace proef_proeven.Screens
             if (InputHelper.Instance.IsKeyPressed(Keys.Enter))
             {
                 SaveLevel();
+                ScreenshotLevel();
             }
 
             if (InputHelper.Instance.IsKeyPressed(Keys.Space) && !layers[curLayer].BlockLayerChange)
-                TestLevel();
+                TestLevel(true);
 
             if (InputHelper.Instance.IsKeyPressed(Keys.Up) && curLayer > 0 && !layers[curLayer].BlockLayerChange)
             {
@@ -170,15 +171,30 @@ namespace proef_proeven.Screens
 
         public override void Draw(SpriteBatch batch)
         {
-            foreach(BaseLayer bl in layers)
+            foreach (BaseLayer bl in layers)
             {
                 bl.Draw(batch);
             }
-           
+
             Game1.Instance.fontRenderer.DrawText(batch, new Vector2(5, 5), layerInfo[curLayer], Color.Black);
             Game1.Instance.fontRenderer.DrawText(batch, new Vector2(5, 10 + Game1.Instance.fontRenderer.CharSize.Height), layers[curLayer].LayerInfo, Color.Black);
 
             base.Draw(batch);
+        }
+
+        public void ScreenshotLevel()
+        {
+            TestLevel(false);
+            // Need to wait until the level is loaded and the transition is done
+            // this will freeze the game for an small time
+            while(ScreenManager.Instance.IsLoading)
+            {
+                System.Threading.Thread.Sleep(10);
+            }
+
+            Game1.Instance.ScreenShot(levelID);
+            ScreenManager.Instance.PopScreen();
+            Console.WriteLine("Screenshot succes saved " + levelID + ".png");
         }
     }
 }

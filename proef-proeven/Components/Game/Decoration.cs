@@ -66,7 +66,12 @@ namespace proef_proeven.Components.Game
         public void Draw(SpriteBatch batch)
         {
             if (image != null)
-                batch.Draw(image, Bounds, Color.White);
+                batch.Draw(image, Position, image.Bounds, Color.White);
+        }
+
+        public int DrawIndex()
+        {
+            return Bounds.Y + Bounds.Height;
         }
     }
 }

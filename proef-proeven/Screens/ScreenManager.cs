@@ -47,6 +47,14 @@ namespace proef_proeven.Screens
 
         BaseTransition transition;
 
+        public bool IsLoading
+        {
+            get
+            {
+                return state != State.Running;
+            }
+        }
+
         private ScreenManager()
         {
             screenStack = new List<BaseScreen>();
@@ -73,6 +81,23 @@ namespace proef_proeven.Screens
                     this.transition = TransitionFactory.GetTransition(screen.transitionKind);
                     this.transition.Start();
                     this.state = State.Transitioning;
+                });
+            }
+        }
+
+        public void SetScreenNoTransition(BaseScreen screen)
+        {
+            screenStack.Add(screen);
+
+            if (!screen.isContentLoaded)
+            {
+                Task.Factory.StartNew(() =>
+                {
+                    this.state = State.Loading;
+                    screen.LoadContent(Game1.Instance.Content);
+                    //this.transition = TransitionFactory.GetTransition(screen.transitionKind);
+                    //this.transition.Start();
+                    this.state = State.Running;
                 });
             }
         }

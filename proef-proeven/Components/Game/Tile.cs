@@ -26,9 +26,18 @@ namespace proef_proeven.Components.Game
             this.cliprec = cliprect;
         }
 
+        /// <summary>
+        /// Draw this tile
+        /// </summary>
+        /// <param name="batch">The active spritebatch</param>
         public void Draw(SpriteBatch batch)
         {
             batch.Draw(img, Bounds, cliprec, Color.White);
+        }
+
+        public int DrawIndex()
+        {
+            return Bounds.Y + Bounds.Height;
         }
     }
 }

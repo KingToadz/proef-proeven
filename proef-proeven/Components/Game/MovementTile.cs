@@ -127,5 +127,10 @@ namespace proef_proeven.Components.Game
                 Game1.Instance.fontRenderer.DrawText(batch, new Vector2((Bounds.X + Bounds.Width / 2) - wSize.Width / 2, (Bounds.Y + Bounds.Height / 2) - wSize.Height), GetMovementChar());
             }
         }
+
+        public int DrawIndex()
+        {
+            return Bounds.Y + Bounds.Height;
+        }
     }
 }
