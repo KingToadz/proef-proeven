@@ -13,6 +13,9 @@ namespace proef_proeven.Screens
 {
     class ScreenManager
     {
+        /// <summary>
+        /// The states of the screen manager
+        /// </summary>
         enum State
         {
             Running,
@@ -43,10 +46,12 @@ namespace proef_proeven.Screens
 
         List<BaseScreen> screenStack;
         LoadingScreen loadingScreen;
-        Texture2D mouseTex;
 
         BaseTransition transition;
 
+        /// <summary>
+        /// Is there an screen loading
+        /// </summary>
         public bool IsLoading
         {
             get
@@ -58,16 +63,25 @@ namespace proef_proeven.Screens
         private ScreenManager()
         {
             screenStack = new List<BaseScreen>();
-            mouseTex = Game1.Instance.Content.Load<Texture2D>("mouse");
 
             transition = new FadeInTransition();
         }
 
+        /// <summary>
+        /// Set the loading screen.
+        /// This screen should have already loaded it's content
+        /// </summary>
+        /// <param name="loadingScreen">The loadingscreen of the game</param>
         public void SetLoadingScreen(LoadingScreen loadingScreen)
         {
             this.loadingScreen = loadingScreen;
         }
 
+        /// <summary>
+        /// Change the current screen. 
+        /// This will load the content of the screen if necessary
+        /// </summary>
+        /// <param name="screen">The screen to add to the stack</param>
         public void SetScreen(BaseScreen screen)
         {
             screenStack.Add(screen);
@@ -85,6 +99,12 @@ namespace proef_proeven.Screens
             }
         }
 
+        /// <summary>
+        /// Change the current screen. 
+        /// But don't show an transition
+        /// This will load the content of the screen if necessary
+        /// </summary>
+        /// <param name="screen">The screen to add to the stack</param>
         public void SetScreenNoTransition(BaseScreen screen)
         {
             screenStack.Add(screen);
@@ -95,19 +115,24 @@ namespace proef_proeven.Screens
                 {
                     this.state = State.Loading;
                     screen.LoadContent(Game1.Instance.Content);
-                    //this.transition = TransitionFactory.GetTransition(screen.transitionKind);
-                    //this.transition.Start();
                     this.state = State.Running;
                 });
             }
         }
 
+        /// <summary>
+        /// Remove the current screen and go back to the last one
+        /// </summary>
         public void PopScreen()
         {
             if(lastScreenIndex > 0)
                 screenStack.RemoveAt(lastScreenIndex);
         }
 
+        /// <summary>
+        /// Updates the screen or transition that needs to be updated 
+        /// </summary>
+        /// <param name="dt">GameTime from Game1 instance</param>
         public void Update(GameTime dt)
         {
             // No screens so why update..
@@ -136,6 +161,10 @@ namespace proef_proeven.Screens
             }
         }
 
+        /// <summary>
+        /// Draw the current screen or the loading screen if needed
+        /// </summary>
+        /// <param name="batch">An active spritebatch</param>
         public void Draw(SpriteBatch batch)
         {
             // No screens draw the loading screen?
@@ -145,16 +174,10 @@ namespace proef_proeven.Screens
                 return;
             }
 
-            // TODO: Add popup screen support
             if (screenStack[lastScreenIndex].isContentLoaded)
             {
 
                 screenStack[lastScreenIndex].Draw(batch);
-#if !DEBUG
-                Vector2 mousePos = InputHelper.Instance.MousePos();
-
-                batch.Draw(mouseTex, new Vector2(mousePos.X - mouseTex.Width / 2, mousePos.Y - mouseTex.Height / 2), Color.White);
-#endif
                 if(state == State.Transitioning)
                 {
                     transition.Draw(batch);

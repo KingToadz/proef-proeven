@@ -107,10 +107,6 @@ namespace proef_proeven
         /// </summary>
         protected override void Initialize()
         {
-#if !DEBUG
-            IsMouseVisible = false;
-#endif
-
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
             graphics.ApplyChanges();

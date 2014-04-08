@@ -20,8 +20,8 @@ namespace proef_proeven.Components.Game
         Movement currentMovement;
         Dictionary<Movement, Animation> animations;
 
-        private const int frameWidth  = 32;
-        private const int frameHeight = 32;
+        private const int frameWidth  = 54;
+        private const int frameHeight = 131;
 
         private const float xSpeed = 4;
         private const float ySpeed = 4;
@@ -150,12 +150,12 @@ namespace proef_proeven.Components.Game
             movementList.Add(Movement.Down, new Vector2(0, ySpeed));
 
             animations = new Dictionary<Movement, Animation>();
-            animations.Add(Movement.Down,   new Animation(content.Load<Texture2D>(@"player\player-down"),   frameWidth, frameHeight, 3, 1, 3, 6));
-            animations.Add(Movement.Left,   new Animation(content.Load<Texture2D>(@"player\player-left"),   frameWidth, frameHeight, 3, 1, 3, 6));
-            animations.Add(Movement.Right,  new Animation(content.Load<Texture2D>(@"player\player-right"),  frameWidth, frameHeight, 3, 1, 3, 6));
-            animations.Add(Movement.Up,     new Animation(content.Load<Texture2D>(@"player\player-up"),     frameWidth, frameHeight, 3, 1, 3, 6));
-            animations.Add(Movement.Dead,   new Animation(content.Load<Texture2D>(@"player\player-down"),   frameWidth, frameHeight, 3, 1, 3, 6));
-            animations.Add(Movement.Idle,   new Animation(content.Load<Texture2D>(@"player\player-down"),   frameWidth, frameHeight, 1, 1, 1, 6));
+            animations.Add(Movement.Down,   new Animation(content.Load<Texture2D>(@"player\walk_front"),   62, 126, 9, 1, 9, 6));
+            animations.Add(Movement.Left,   new Animation(content.Load<Texture2D>(@"player\walk_left"),   62, 129, 9, 1, 9, 6));
+            animations.Add(Movement.Right,  new Animation(content.Load<Texture2D>(@"player\walk_right"),  58, 128, 9, 1, 9, 6));
+            animations.Add(Movement.Up,     new Animation(content.Load<Texture2D>(@"player\walk_back"),     61, 129, 9, 1, 9, 6));
+            animations.Add(Movement.Dead, new Animation(content.Load<Texture2D>(@"player\walk_front"), frameWidth, frameHeight, 9, 1, 9, 6));
+            animations.Add(Movement.Idle, new Animation(content.Load<Texture2D>(@"player\walk_front"), frameWidth, frameHeight, 9, 1, 9, 6));
 
             Won = false;
             Tries = 1;
