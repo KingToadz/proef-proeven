@@ -40,6 +40,18 @@ namespace proef_proeven.Components.Level
             }
         }
 
+        public Rectangle Hitbox
+        {
+            get
+            {
+                return new Rectangle(
+                    (int)position.X, 
+                    (int)position.Y, 
+                    256, // use expected size because the image will be resized
+                    286);// use expected size because the image will be resized
+            }
+        }
+
         public LevelPreview(LevelData level)
         {
             this.level = level;
@@ -71,7 +83,7 @@ namespace proef_proeven.Components.Level
             }
             else
             {
-                batch.Draw(previewImg, button.Hitbox, Color.Black);
+                batch.Draw(previewImg, new Rectangle((int)position.X, (int)position.Y, 256, 286), Color.Black);
             }
         }
     }
