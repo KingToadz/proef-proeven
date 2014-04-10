@@ -17,9 +17,6 @@ namespace proef_proeven.Screens
 
         public LoadingScreen(ContentManager content)
         {
-            // Load some stuff
-            background = Game1.Instance.Content.Load<Texture2D>("mouse");
-
             center = Game1.Instance.ScreenCenter;
             Rectangle rect = Game1.Instance.fontRenderer.StringSize(loadingString);
             center.X -= rect.Width / 2;

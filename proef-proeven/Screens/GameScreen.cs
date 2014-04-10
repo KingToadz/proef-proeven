@@ -87,38 +87,79 @@ namespace proef_proeven.Screens
 
                 foreach (ClickAbleInfo info in click)
                 {
-                    ClickableObject clickObj = new ClickableObject();
-                    // Check if the object has an custom bounds
-                    if (info.useCustomBounds)
-                    {
-                        clickObj.SetCustomBounds(new Rectangle(info.X, info.Y, info.Width, info.Height));
-                    }
 
-                    clickObj.StartPosition = info.position;
-                    clickObj.Position = info.position;
-                    clickObj.moveToPosition = info.moveToPosition;
-
-                    // Check if the object has an animation
-                    if (IOHelper.Instance.DoesFileExist(Constants.CONTENT_DIR + info.texturePath + ".ani"))
+                    if (info.texturePath.Contains("plank"))
                     {
-                        AnimationInfo aInfo = JsonConvert.DeserializeObject<AnimationInfo>(IOHelper.Instance.ReadFile(Constants.CONTENT_DIR + info.texturePath + ".ani"));
-                        clickObj.Animation = new Animation(content.Load<Texture2D>(info.texturePath), aInfo.width, aInfo.height, aInfo.cols, aInfo.rows, aInfo.totalFrames, aInfo.fps);
+                        Plank clickObj = new Plank();
+                        // Check if the object has an custom bounds
+                        if (info.useCustomBounds)
+                        {
+                            clickObj.SetCustomBounds(new Rectangle(info.X, info.Y, info.Width, info.Height));
+                        }
+
+                        clickObj.StartPosition = info.position;
+                        clickObj.Position = info.position;
+                        clickObj.moveToPosition = info.moveToPosition;
+                        clickObj.TexturePath = info.texturePath;
+
+                        // Check if the object has an animation
+                        if (IOHelper.Instance.DoesFileExist(Constants.CONTENT_DIR + info.texturePath + ".ani"))
+                        {
+                            AnimationInfo aInfo = JsonConvert.DeserializeObject<AnimationInfo>(IOHelper.Instance.ReadFile(Constants.CONTENT_DIR + info.texturePath + ".ani"));
+                            clickObj.Animation = new Animation(content.Load<Texture2D>(info.texturePath), aInfo.width, aInfo.height, aInfo.cols, aInfo.rows, aInfo.totalFrames, aInfo.fps);
+                        }
+                        else
+                        {
+                            clickObj.Image = content.Load<Texture2D>(info.texturePath);
+                        }
+                        clickObj.ObjectiveID = info.objectiveID;
+
+                        if (info.useCustomBounds)
+                            clickObj.SetCustomBounds(new Rectangle(info.X, info.Y, info.Width, info.Height));
+
+                        clickObj.onClick += OnClickHandler;
+
+                        objectives.Add(new Objective("Objective " + info.objectiveID));
+
+                        drawAbleItems.Add(clickObj);
+                        GameObjects.Add(clickObj);
                     }
                     else
                     {
-                        clickObj.Image = content.Load<Texture2D>(info.texturePath);
+                        ClickableObject clickObj = new ClickableObject();
+                        // Check if the object has an custom bounds
+                        if (info.useCustomBounds)
+                        {
+                            clickObj.SetCustomBounds(new Rectangle(info.X, info.Y, info.Width, info.Height));
+                        }
+
+                        clickObj.StartPosition = info.position;
+                        clickObj.Position = info.position;
+                        clickObj.moveToPosition = info.moveToPosition;
+                        clickObj.TexturePath = info.texturePath;
+
+                        // Check if the object has an animation
+                        if (IOHelper.Instance.DoesFileExist(Constants.CONTENT_DIR + info.texturePath + ".ani"))
+                        {
+                            AnimationInfo aInfo = JsonConvert.DeserializeObject<AnimationInfo>(IOHelper.Instance.ReadFile(Constants.CONTENT_DIR + info.texturePath + ".ani"));
+                            clickObj.Animation = new Animation(content.Load<Texture2D>(info.texturePath), aInfo.width, aInfo.height, aInfo.cols, aInfo.rows, aInfo.totalFrames, aInfo.fps);
+                        }
+                        else
+                        {
+                            clickObj.Image = content.Load<Texture2D>(info.texturePath);
+                        }
+                        clickObj.ObjectiveID = info.objectiveID;
+
+                        if (info.useCustomBounds)
+                            clickObj.SetCustomBounds(new Rectangle(info.X, info.Y, info.Width, info.Height));
+
+                        clickObj.onClick += OnClickHandler;
+
+                        objectives.Add(new Objective("Objective " + info.objectiveID));
+
+                        drawAbleItems.Add(clickObj);
+                        GameObjects.Add(clickObj);
                     }
-                    clickObj.ObjectiveID = info.objectiveID;
-
-                    if (info.useCustomBounds)
-                        clickObj.SetCustomBounds(new Rectangle(info.X, info.Y, info.Width, info.Height));
-
-                    clickObj.onClick += OnClickHandler;
-
-                    objectives.Add(new Objective("Objective " + info.objectiveID));
-
-                    drawAbleItems.Add(clickObj);
-                    GameObjects.Add(clickObj);
                 }
 
                 {// create scope for info
@@ -243,6 +284,15 @@ namespace proef_proeven.Screens
                     s.NextPos();
                 }
             }
+            else if(sender is Plank)
+            {
+                Plank s = sender as Plank;
+
+                if (!objectives[s.ObjectiveID].Done)
+                {
+                    s.NextPos();
+                }
+            }
         }
 
         public void SetObjective(int id, bool newState)
@@ -292,8 +342,8 @@ namespace proef_proeven.Screens
                 if (player.CurMovement == Player.Movement.Dead)
                     Reset();
 
+                // sort the items that need to be drawn with LINQ 
                 drawAbleItems = drawAbleItems.OrderBy(o => o.DrawIndex()).ToList();
-                //drawAbleItems.OrderBy(o => o.DrawIndex()).ToList();
             }
 
             base.Update(dt);

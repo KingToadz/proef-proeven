@@ -12,8 +12,6 @@ namespace proef_proeven.Screens
 {
     class MenuScreen : BaseScreen
     {
-        Texture2D bg;
-
         Button start;
         Button help;
 
@@ -25,7 +23,6 @@ namespace proef_proeven.Screens
 
         public override void LoadContent(ContentManager content)
         {
-            bg = content.Load<Texture2D>("menu");
             start.LoadImage(@"buttons\start");
             start.OnClick += button_OnClick;
             start.Position = Game1.Instance.ScreenCenter;
@@ -38,18 +35,19 @@ namespace proef_proeven.Screens
             base.LoadContent(content);
         }
 
+        /// <summary>
+        /// Onclick handler for all the buttons on this screen
+        /// </summary>
+        /// <param name="sender"></param>
         void button_OnClick(object sender)
         {
             if (sender == start)
             {
-                // MSG
-                Console.WriteLine("Test clicked");
-
                 ScreenManager.Instance.SetScreen(new LevelSelectScreen());
             }
             else if(sender == help)
             {
-                Console.WriteLine("Help clicked");
+                throw new NotImplementedException();
             }
         }
 

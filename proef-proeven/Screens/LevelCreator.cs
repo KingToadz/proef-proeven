@@ -181,12 +181,17 @@ namespace proef_proeven.Screens
         public void ScreenshotLevel()
         {
             TestLevel(false);
+
+            System.Threading.Thread.Sleep(100);
+
             // Need to wait until the level is loaded and the transition is done
             // this will freeze the game for an small time
-            while(ScreenManager.Instance.IsLoading)
+            while (ScreenManager.Instance.IsLoading)
             {
                 System.Threading.Thread.Sleep(10);
             }
+
+            System.Threading.Thread.Sleep(10);
 
             Game1.Instance.ScreenShot(levelID);
             ScreenManager.Instance.PopScreen();

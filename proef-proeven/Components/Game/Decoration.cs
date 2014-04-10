@@ -71,7 +71,7 @@ namespace proef_proeven.Components.Game
 
         public int DrawIndex()
         {
-            return Bounds.Y + Bounds.Height;
+            return Bounds.Y + Bounds.Height / 3;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace proef_proeven.Components.Game
 {
     class Player : IUpdateAble, IDrawAble, ICollidAble, IResetAble
     {
-        public enum Movement {Left, Right, Up, Down, Idle, Dead }
+        public enum Movement {Left, Right, Up, Down, Idle, Dead, Current }
 
         Movement currentMovement;
         Dictionary<Movement, Animation> animations;
@@ -136,6 +136,8 @@ namespace proef_proeven.Components.Game
             }
         }
 
+        private const int FPS = 12;
+
         public void LoadContent(ContentManager content)
         {
             currentMovement = Movement.Idle;
@@ -150,12 +152,12 @@ namespace proef_proeven.Components.Game
             movementList.Add(Movement.Down, new Vector2(0, ySpeed));
 
             animations = new Dictionary<Movement, Animation>();
-            animations.Add(Movement.Down,   new Animation(content.Load<Texture2D>(@"player\walk_front"),   62, 126, 9, 1, 9, 6));
-            animations.Add(Movement.Left,   new Animation(content.Load<Texture2D>(@"player\walk_left"),   62, 129, 9, 1, 9, 6));
-            animations.Add(Movement.Right,  new Animation(content.Load<Texture2D>(@"player\walk_right"),  58, 128, 9, 1, 9, 6));
-            animations.Add(Movement.Up,     new Animation(content.Load<Texture2D>(@"player\walk_back"),     61, 129, 9, 1, 9, 6));
-            animations.Add(Movement.Dead, new Animation(content.Load<Texture2D>(@"player\walk_front"), frameWidth, frameHeight, 9, 1, 9, 6));
-            animations.Add(Movement.Idle, new Animation(content.Load<Texture2D>(@"player\walk_front"), frameWidth, frameHeight, 9, 1, 9, 6));
+            animations.Add(Movement.Down,   new Animation(content.Load<Texture2D>(@"player\player_down"),   66, 133, 8, 1, 8, FPS));
+            animations.Add(Movement.Left,   new Animation(content.Load<Texture2D>(@"player\player_left"),   62, 132, 8, 1, 8, FPS));
+            animations.Add(Movement.Right,  new Animation(content.Load<Texture2D>(@"player\player_right"),  65, 136, 8, 1, 8, FPS));
+            animations.Add(Movement.Up,     new Animation(content.Load<Texture2D>(@"player\player_up"),     66, 130, 8, 1, 8, FPS));
+            animations.Add(Movement.Dead, new Animation(content.Load<Texture2D>(@"player\player_down"), 66, 133, 8, 1, 8, FPS));
+            animations.Add(Movement.Idle, new Animation(content.Load<Texture2D>(@"player\player_down"), 66, 133, 8, 1, 8, FPS));
 
             Won = false;
             Tries = 1;
@@ -228,6 +230,9 @@ namespace proef_proeven.Components.Game
             }
             else
             {
+                if (collider.CurMovement == Movement.Current)
+                    return;
+
                 ChangeMovement(collider.CurMovement);
 
                 if(currentMovement == Movement.Dead)
@@ -246,7 +251,7 @@ namespace proef_proeven.Components.Game
 
         public int DrawIndex()
         {
-            return (int)position.Y + Boundingbox.Height;
+            return (int)position.Y + frameHeight;
         }
     }
 }

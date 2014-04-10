@@ -1,17 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using proef_proeven.Components.Animations;
 using proef_proeven.Components.Game.Interfaces;
 using proef_proeven.Components.LoadData;
 using proef_proeven.Components.Util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace proef_proeven.Components.Game
 {
-    class ClickableObject : IUpdateAble, IDrawAble, ICollidAble, IResetAble
+    class Plank : IUpdateAble, IDrawAble, ICollidAble, IResetAble
     {
         private Rectangle startHitbox;
         private Rectangle hitbox;
@@ -20,14 +20,14 @@ namespace proef_proeven.Components.Game
         /// </summary>
         public Rectangle Hitbox
         {
-            get 
-            { 
-                return hitbox; 
+            get
+            {
+                return hitbox;
             }
 
-            protected set 
-            { 
-                hitbox = value; 
+            protected set
+            {
+                hitbox = value;
             }
         }
 
@@ -108,15 +108,15 @@ namespace proef_proeven.Components.Game
             get { return hitbox; }
         }
 
+        private Vector2 delta;
         public Vector2 Delta
         {
-            get { return Vector2.Zero; }
+            get { return delta; }
         }
 
-        private Player.Movement curMovement = Player.Movement.Dead;
         public Player.Movement CurMovement
         {
-            get { return curMovement; }
+            get { return Player.Movement.Current; }
         }
 
         /// <summary>
@@ -128,6 +128,8 @@ namespace proef_proeven.Components.Game
         public event OnClick onClick;
 
         private bool useCustomBounds;
+
+        private ClickableObject hidingObject = null;
 
         /// <summary>
         /// Start information of the player.
@@ -151,16 +153,29 @@ namespace proef_proeven.Components.Game
             }
         }
 
-        public ClickableObject()
+        public Plank()
         {
             hitbox = new Rectangle();
             moveToPosition = new List<Vector2>();
+            onClick += Plank_onClick;
         }
 
-        public ClickableObject(Rectangle bounds)
+        public Plank(Rectangle bounds)
         {
             SetCustomBounds(bounds);
             moveToPosition = new List<Vector2>();
+            onClick += Plank_onClick;
+        }
+
+        private void Plank_onClick(object sender)
+        {
+            delta = Vector2.One * 5;
+
+            if (hidingObject != null)
+            {
+                hidingObject.ChangeMovement(Player.Movement.Dead);
+                hidingObject = null;
+            }
         }
 
         public void SetCustomBounds(Rectangle bounds)
@@ -172,14 +187,9 @@ namespace proef_proeven.Components.Game
             useCustomBounds = true;
         }
 
-        public void ChangeMovement(Player.Movement mov)
-        {
-            curMovement = mov;
-        }
-
         public void NextPos()
         {
-            if(currentPosinList + 1 < moveToPosition.Count)
+            if (currentPosinList + 1 < moveToPosition.Count)
             {
                 currentPosinList++;
                 Position = moveToPosition[currentPosinList];
@@ -194,7 +204,6 @@ namespace proef_proeven.Components.Game
             // use the public one to set the boundingbox
             Position = StartPosition;
             currentPosinList = -1;
-            curMovement = Player.Movement.Dead;
         }
 
         /// <summary>
@@ -206,10 +215,14 @@ namespace proef_proeven.Components.Game
         {
             Vector2 mousePos = InputHelper.Instance.MousePos();
 
+            delta.X--;
+            if (delta.X < 0)
+                delta = Vector2.Zero;
+
             if (Animation != null)
                 Animation.Update(dt);
 
-            if(InputHelper.Instance.IsLeftMouseReleased())
+            if (InputHelper.Instance.IsLeftMouseReleased())
             {
                 if (image != null)
                 {
@@ -218,7 +231,7 @@ namespace proef_proeven.Components.Game
                         if (onClick != null)
                             onClick(this);
                 }
-                else if(Animation != null)
+                else if (Animation != null)
                 {
                     Rectangle b = new Rectangle((int)position.X, (int)position.Y, Animation.FrameWidth, Animation.FrameHeight);
                     if (b.Contains((int)mousePos.X, (int)mousePos.Y))
@@ -247,7 +260,7 @@ namespace proef_proeven.Components.Game
                     batch.Draw(image, hitbox, Color.White);
                 }
             }
-            else if(Animation != null)
+            else if (Animation != null)
             {
                 Animation.Draw(batch, position);
             }
@@ -258,12 +271,25 @@ namespace proef_proeven.Components.Game
 
         public void Collide(ICollidAble collider)
         {
-            // Shouldn't be called because delta is zero
+            if (collider is ClickableObject)
+            {
+                ClickableObject obj = collider as ClickableObject;
+
+                if (obj.Info.texturePath.Contains("puddle") || obj.Info.texturePath.Contains("oil"))
+                {
+                    obj.ChangeMovement(Player.Movement.Current);
+                    hidingObject = obj;
+                } 
+
+            }
         }
 
         public int DrawIndex()
         {
-            return (int)position.Y + image.Height;
+            if (hidingObject != null)
+                return hidingObject.DrawIndex() + 1;
+
+            return (int)position.Y + image.Height + 30;
         }
     }
 }
