@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using proef_proeven.Components.Util;
 
 namespace proef_proeven.Components.Level
 {
@@ -76,14 +77,18 @@ namespace proef_proeven.Components.Level
             {
                 batch.Draw(previewImg, new Rectangle((int)position.X, (int)position.Y + 30, 256, 256), previewImg.Bounds, Color.White);
 
-                Game1.Instance.fontRenderer.DrawText(batch, position, level.Name);
+                Game1.Instance.fontRenderer.DrawText(batch, position + new Vector2(Game1.Instance.fontRenderer.StringSize(level.Name).Width, 0), level.Name);
 
                 if (level.Beaten)
                     Game1.Instance.fontRenderer.DrawText(batch, position + new Vector2(5, 240), "Best " + level.Tries);
             }
             else
             {
-                batch.Draw(previewImg, new Rectangle((int)position.X, (int)position.Y, 256, 286), Color.Black);
+                batch.Draw(previewImg, new Rectangle((int)position.X, (int)position.Y + 30, 256, 256), previewImg.Bounds, Color.White);
+                RectangleRender.DrawFilled(batch, new Rectangle((int)position.X, (int)position.Y + 30, 256, 256), Color.Black);
+
+                Game1.Instance.fontRenderer.DrawText(batch, position + new Vector2(Game1.Instance.fontRenderer.StringSize(level.Name).Width, 0), level.Name);
+
             }
         }
     }

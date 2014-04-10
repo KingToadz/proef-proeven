@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using proef_proeven.Components.Animations;
+using Newtonsoft.Json;
 
 namespace proef_proeven.Components.LevelCreator
 {
@@ -77,8 +79,19 @@ namespace proef_proeven.Components.LevelCreator
                 clickObj.StartPosition = info.position;
                 clickObj.Position = info.position;
                 clickObj.moveToPosition = info.moveToPosition;
+                clickObj.TexturePath = info.texturePath;
+
+                // Check if the object has an animation
+                if (IOHelper.Instance.DoesFileExist(Constants.CONTENT_DIR + info.texturePath + ".ani"))
+                {
+                    AnimationInfo aInfo = JsonConvert.DeserializeObject<AnimationInfo>(IOHelper.Instance.ReadFile(Constants.CONTENT_DIR + info.texturePath + ".ani"));
+                    clickObj.Animation = new Animation(Game1.Instance.Content.Load<Texture2D>(info.texturePath), aInfo.width, aInfo.height, aInfo.cols, aInfo.rows, aInfo.totalFrames, aInfo.fps);
+                }
+
                 clickObj.ObjectiveID = info.objectiveID;
-                
+
+                if (info.useCustomBounds)
+                    clickObj.SetCustomBounds(new Rectangle(info.X, info.Y, info.Width, info.Height));
                 clickables.Add(clickObj);
                 clickablesCount++;
             }
@@ -86,7 +99,7 @@ namespace proef_proeven.Components.LevelCreator
             base.LoadLevel(level);
         }
 
-        public override void Update(Microsoft.Xna.Framework.GameTime time)
+        public override void Update(GameTime time)
         {
             if (InputHelper.Instance.IsKeyPressed(Keys.A) && curObject > 0 && !placing)
             { curObject--; }
@@ -110,13 +123,23 @@ namespace proef_proeven.Components.LevelCreator
                 if (placing)
                 {
                     ClickableObject obj = new ClickableObject();
-                    obj.Image = textures[curObject].Item2;
                     obj.StartPosition = obj.Position = startPos;
                     obj.TexturePath = textures[curObject].Item1;
                     obj.moveToPosition = moveToPositions;
                     obj.ObjectiveID = clickablesCount;
                     if (!ClickableObjectManager.Instance.NoBoxesLoaded && !ClickableObjectManager.Instance.GetBoundingbox(textures[curObject].Item1).IsEmpty)
                         obj.SetCustomBounds(ClickableObjectManager.Instance.GetBoundingbox(textures[curObject].Item1));
+
+                    if (IOHelper.Instance.DoesFileExist(Constants.CONTENT_DIR + obj.TexturePath + ".ani"))
+                    {
+                        AnimationInfo aInfo = JsonConvert.DeserializeObject<AnimationInfo>(IOHelper.Instance.ReadFile(Constants.CONTENT_DIR + obj.TexturePath + ".ani"));
+                        obj.Animation = new Animation(Game1.Instance.Content.Load<Texture2D>(obj.TexturePath), aInfo.width, aInfo.height, aInfo.cols, aInfo.rows, aInfo.totalFrames, aInfo.fps);
+                    }
+                    else
+                    {
+                        obj.Image = textures[curObject].Item2;
+                    }
+
                     clickables.Add(obj);
                     clickablesCount++;
                     moveToPositions = new List<Vector2>();

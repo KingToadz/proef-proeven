@@ -175,7 +175,7 @@ namespace proef_proeven.Components.Level
         /// <returns>If the id can be used</returns>
         private bool CheckID(int id)
         {
-            return id >= 0 && id < levelData.Count;
+            return id >= 0 && id <= levelData.Count;
         }
 
         /// <summary>

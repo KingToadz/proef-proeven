@@ -44,6 +44,11 @@ namespace proef_proeven.Components.Util
             batch.Draw(Pixel, new Rectangle(rect.X, rect.Y + rect.Height, rect.Width, 1), lineColor);
         }
 
+        public static void DrawFilled(SpriteBatch batch, Rectangle rect, Color rectColor)
+        {
+            batch.Draw(Pixel, rect, rectColor);
+        }
+
         public void Draw(SpriteBatch batch)
         {
             if (!rectangle.IsEmpty){

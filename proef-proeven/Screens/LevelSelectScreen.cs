@@ -40,7 +40,7 @@ namespace proef_proeven.Screens
             prev.OnClick += Buttons_OnClick;
 
             LevelManager.Instance.LoadData();
-            LevelManager.Instance.UnlockLevel(0);
+            LevelManager.Instance.UnlockLevel(1);
 
             
 
@@ -51,8 +51,6 @@ namespace proef_proeven.Screens
 
             // load preview buttons
             previews = new List<LevelPreview>();
-
-            int id = 0;
 
             if (LevelManager.Instance.LevelCount % 8 == 0)
             {
@@ -65,6 +63,7 @@ namespace proef_proeven.Screens
                 totalPages++;
             }
 
+            int id = 0;
             for (int page = 0; page < totalPages; page++)
             {
                 for (int row = 0; row < 2; row++)
@@ -74,12 +73,13 @@ namespace proef_proeven.Screens
                         if (id >= LevelManager.Instance.LevelCount)
                             continue;
 
-                        LevelPreview preview = new LevelPreview(LevelManager.Instance.GetLevel(id++));
+                        LevelPreview preview = new LevelPreview(LevelManager.Instance.GetLevel(id));
                         preview.LoadContent(content);
                         preview.button.OnClick += button_OnClick;
                         preview.Position = new Vector2(page * Game1.Instance.ScreenRect.Width + (75 + (col * (preview.Hitbox.Width + 25))), 10 + (row * (preview.Hitbox.Height + 50)));
                         preview.button.Tag = preview.LevelID;
                         previews.Add(preview);
+                        id++;
                     }
                 }
             }

@@ -159,6 +159,10 @@ namespace proef_proeven.Screens
                     state = State.Running;
                 }
             }
+            else
+            {
+                loadingScreen.Update(dt);
+            }
         }
 
         /// <summary>

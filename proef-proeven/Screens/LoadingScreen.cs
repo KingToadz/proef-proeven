@@ -15,6 +15,8 @@ namespace proef_proeven.Screens
 
         string loadingString = "Loading...";
 
+        GameScreen loadingLevel;
+
         public LoadingScreen(ContentManager content)
         {
             center = Game1.Instance.ScreenCenter;
@@ -22,13 +24,21 @@ namespace proef_proeven.Screens
             center.X -= rect.Width / 2;
             center.Y -= rect.Height / 2;
 
+            loadingLevel = new GameScreen(0);
+            loadingLevel.LoadContent(content);
+
             isContentLoaded = true;
+        }
+
+        public override void Update(GameTime dt)
+        {
+            loadingLevel.Update(dt);
+            base.Update(dt);
         }
 
         public override void Draw(SpriteBatch batch)
         {
-            if(background != null)
-                batch.Draw(background, Game1.Instance.ScreenRect, Color.White);
+            loadingLevel.Draw(batch);
 
             Game1.Instance.fontRenderer.DrawText(batch, center, loadingString);
 

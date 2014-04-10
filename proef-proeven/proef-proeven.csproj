@@ -43,6 +43,7 @@
     <Compile Include="Components\Fonts\FontProcessor.cs" />
     <Compile Include="Components\Fonts\FontRenderer.cs" />
     <Compile Include="Components\Game\BaseTile.cs" />
+    <Compile Include="Components\Game\Car.cs" />
     <Compile Include="Components\Game\Decoration.cs" />
     <Compile Include="Components\Game\Interfaces\ICollidAble.cs" />
     <Compile Include="Components\Game\Interfaces\IDrawAble.cs" />
@@ -120,22 +121,31 @@
       <Link>SDL.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\buttons\back.png">
+    <Content Include="Content\buttons\button.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\buttons\button.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Content\buttons\help2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\buttons\help.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\buttons\menu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\buttons\next.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\buttons\pause.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\buttons\prev.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\buttons\reset.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\buttons\start.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\fonts\segoe32_0.png">
@@ -333,16 +343,10 @@
     <Content Include="Content\level-editor\moveable\player-down.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\level-editor\moveable\prop_auto.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\level-editor\moveable\prop_banaan.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\level-editor\moveable\prop_car.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\level-editor\moveable\prop_car_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\level-editor\moveable\prop_hole.png">
@@ -364,6 +368,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\level-editor\moveable\prop_trash.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\level-editor\moveable\car_blue.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\level-editor\moveable\car_red.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\level-editor\moveable\start.png">
@@ -425,9 +435,6 @@
     </Content>
     <Content Include="Content\level-preview\9.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\buttons\start.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\player\player_down.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

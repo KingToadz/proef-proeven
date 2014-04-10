@@ -26,10 +26,10 @@ namespace proef_proeven.Screens
             start.LoadImage(@"buttons\start");
             start.OnClick += button_OnClick;
             start.Position = Game1.Instance.ScreenCenter;
-            start.Position -= new Vector2(start.Hitbox.Width / 2, 200);
+            start.Position -= new Vector2(start.Hitbox.Width / 2, start.Hitbox.Height / 2);
 
             help.LoadImage(@"buttons\help");
-            help.OnClick += button_OnClick;
+            //help.OnClick += button_OnClick;
             help.Position = start.Position + new Vector2(0, 100);
 
             base.LoadContent(content);
@@ -54,7 +54,7 @@ namespace proef_proeven.Screens
         public override void Update(GameTime dt)
         {
             start.Update(dt);
-            help.Update(dt);
+            //help.Update(dt);
 
             base.Update(dt);
         }
@@ -62,7 +62,7 @@ namespace proef_proeven.Screens
         public override void Draw(SpriteBatch batch)
         {
             start.Draw(batch);
-            help.Draw(batch);
+            //help.Draw(batch);
 
             base.Draw(batch);
         }

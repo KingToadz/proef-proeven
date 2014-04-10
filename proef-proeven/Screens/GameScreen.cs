@@ -28,6 +28,8 @@ namespace proef_proeven.Screens
         List<IDrawAble> drawAbleItems;  // All the items that needs to be drawn
 
         ClickableObject backButton;     // button to go back one screen
+        Button pause; // pause button
+        Button pauseBack; // back button for when screen is paused
 
         /// <summary>
         /// Clickable objects will set an objective to true if it's clicked
@@ -43,6 +45,11 @@ namespace proef_proeven.Screens
         /// Bool to check if this is an test called from the levelcreator
         /// </summary>
         bool testing;
+
+        /// <summary>
+        /// Bool to check if the screen is paused
+        /// </summary>
+        bool paused;
 
         /// <summary>
         /// ctor
@@ -88,7 +95,51 @@ namespace proef_proeven.Screens
                 foreach (ClickAbleInfo info in click)
                 {
 
-                    if (info.texturePath.Contains("plank"))
+                    if (info.texturePath.Contains("car"))
+                    {
+                        Car clickObj = new Car();
+                        // Check if the object has an custom bounds
+                        if (info.useCustomBounds)
+                        {
+                            clickObj.SetCustomBounds(new Rectangle(info.X, info.Y, info.Width, info.Height));
+                        }
+
+                        if (info.texturePath.Contains("blue"))
+                        {
+                            clickObj.Position = info.position - new Vector2(400, 0);
+                            clickObj.StartPosition = clickObj.Position;
+                        }
+                        else
+                        {
+                            clickObj.StartPosition = info.position;
+                            clickObj.Position = info.position;
+                        }
+                        clickObj.moveToPosition = info.moveToPosition;
+                        clickObj.TexturePath = info.texturePath;
+
+                        // Check if the object has an animation
+                        if (IOHelper.Instance.DoesFileExist(Constants.CONTENT_DIR + info.texturePath + ".ani"))
+                        {
+                            AnimationInfo aInfo = JsonConvert.DeserializeObject<AnimationInfo>(IOHelper.Instance.ReadFile(Constants.CONTENT_DIR + info.texturePath + ".ani"));
+                            clickObj.Animation = new Animation(content.Load<Texture2D>(info.texturePath), aInfo.width, aInfo.height, aInfo.cols, aInfo.rows, aInfo.totalFrames, aInfo.fps);
+                        }
+                        else
+                        {
+                            clickObj.Image = content.Load<Texture2D>(info.texturePath);
+                        }
+                        clickObj.ObjectiveID = info.objectiveID;
+
+                        if (info.useCustomBounds)
+                            clickObj.SetCustomBounds(new Rectangle(info.X, info.Y, info.Width, info.Height));
+
+                        clickObj.onClick += OnClickHandler;
+
+                        objectives.Add(new Objective("Objective " + info.objectiveID));
+
+                        drawAbleItems.Add(clickObj);
+                        GameObjects.Add(clickObj);
+                    }
+                    else if(info.texturePath.Contains("plank"))
                     {
                         Plank clickObj = new Plank();
                         // Check if the object has an custom bounds
@@ -204,22 +255,36 @@ namespace proef_proeven.Screens
                 player.Won = true;
             }
 
+            pause = new Button();
+            pause.LoadImage(@"buttons\pause");
+            pause.Position = new Vector2(Game1.Instance.ScreenRect.Width - pause.Hitbox.Width - 10, 10);
+            pause.OnClick += Pause_OnClick;
+
+            pauseBack = new Button();
+            pauseBack.LoadImage(@"buttons\menu");
+            pauseBack.Position = new Vector2(Game1.Instance.ScreenRect.Width / 2 - pauseBack.Hitbox.Width / 2, Game1.Instance.ScreenRect.Height / 2 - pauseBack.Hitbox.Height / 2);
+            pauseBack.OnClick += Pause_OnClick;
+
             backButton = new ClickableObject();
-            if(testing)
-            {
-                backButton.TexturePath = @"buttons\reset";
-                backButton.Image = content.Load<Texture2D>(backButton.TexturePath);
-            }
-            else
-            { 
-                backButton.TexturePath = @"buttons\back";
-                backButton.Image = content.Load<Texture2D>(backButton.TexturePath);
-            }
+
+            backButton.TexturePath = @"buttons\reset";
+            backButton.Image = content.Load<Texture2D>(backButton.TexturePath);
+            
             backButton.onClick += OnClickHandler;
             backButton.ObjectiveID = -1;
             backButton.Position = new Vector2(Game1.Instance.ScreenRect.Width - backButton.Image.Width - 20, Game1.Instance.ScreenRect.Height - backButton.Image.Height - 20);
 
             base.LoadContent(content);
+        }
+
+        private void Pause_OnClick(object sender)
+        {
+            paused = !paused;
+
+            if (sender == pauseBack)
+            {
+                ScreenManager.Instance.PopScreen();
+            }
         }
 
         public void SaveLevel()
@@ -270,6 +335,7 @@ namespace proef_proeven.Screens
                     {
                         LevelManager.Instance.WinLevel(levelID, player.Tries);
                         LevelManager.Instance.UnlockLevel(levelID + 1);
+                        LevelManager.Instance.SaveData();
                         ScreenManager.Instance.PopScreen();
                     }
                     else
@@ -305,6 +371,13 @@ namespace proef_proeven.Screens
             if (player.Won)
             {
                 backButton.Update(dt);
+                return;
+            }
+            else if(paused)
+            {
+                // Game staat op pauze
+                pauseBack.Update(dt);
+
             }
             else
             {
@@ -346,6 +419,8 @@ namespace proef_proeven.Screens
                 drawAbleItems = drawAbleItems.OrderBy(o => o.DrawIndex()).ToList();
             }
 
+            pause.Update(dt);
+
             base.Update(dt);
         }
 
@@ -368,6 +443,14 @@ namespace proef_proeven.Screens
             {
                 Game1.Instance.fontRenderer.DrawText(batch, new Vector2(5, Game1.Instance.ScreenRect.Height - 40), "Testing... Press backspace to go back to editor", Color.Black);
             }
+
+            if (paused)
+            {
+                RectangleRender.DrawFilled(batch, Game1.Instance.ScreenRect, Color.FromNonPremultiplied(0, 0, 0, 175));
+                pauseBack.Draw(batch);
+            }
+
+            pause.Draw(batch);
 
             base.Draw(batch);
         }
